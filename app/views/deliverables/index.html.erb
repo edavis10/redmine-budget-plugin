@@ -1,1 +1,47 @@
-<h1>Deliverables</h1>
+<div id="budget-summary">
+<h2>Budget</h1>
+
+<p>
+  Project Budget: TODO
+</p>
+<p>
+  Budget Spent: TODO
+</p>
+<p>
+  Budget Remaining: TODO
+</p>
+<p>
+  Progress: TODO
+</p>
+<p>
+  Budget Score: TODO
+</p>
+<p>
+  Overruns: TODO
+</p>
+<p>
+  Next Due Date: TODO
+</p>
+<p>
+  Completion: TODO
+</p>
+<p>
+  Profit: TODO
+</p>
+</div>
+
+<div id="new-deliverable" style="display:none;">
+  TODO
+</div>
+
+<div id="budget-list">
+
+</div>
+
+<% content_for :sidebar do %>
+    <%= render :partial => 'deliverables/sidebar' %>
+<% end %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag "budget.css", :plugin => "budget_plugin", :media => "screen" %>
+<% end %>
