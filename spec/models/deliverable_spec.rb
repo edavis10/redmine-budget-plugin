@@ -5,3 +5,9 @@ describe Deliverable do
     Deliverable.new.should be_valid
   end
 end
+
+describe Deliverable, 'associations' do
+  it "should have a project association" do
+    Deliverable.reflect_on_association(:project).should_not be( nil )
+  end
+end
