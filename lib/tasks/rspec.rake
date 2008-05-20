@@ -1,5 +1,4 @@
 # Modifided from the RSpec on Rails plugins
-RAILS_ROOT = File.expand_path(File.dirname(__FILE__) + '/../../../')
 PLUGIN_ROOT = File.expand_path(File.dirname(__FILE__) + '/../../')
 
 
@@ -11,7 +10,7 @@ $LOAD_PATH.unshift(rspec_base) if File.exist?(rspec_base)
 require 'spec/rake/spectask'
 require 'spec/translator'
 
-spec_prereq = File.exist?(File.join(RAILS_ROOT, 'config', 'database.yml')) ? "db:test:prepare" : :noop
+spec_prereq = File.exist?(File.join(File.expand_path(File.dirname(__FILE__) + '/../../../'), 'config', 'database.yml')) ? "db:test:prepare" : :noop
 task :noop do
 end
 
