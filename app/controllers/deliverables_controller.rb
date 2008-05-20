@@ -4,7 +4,7 @@ class DeliverablesController < ApplicationController
   before_filter :find_project, :authorize, :get_settings
 
   def index
-    @deliverables = Deliverable.find(:all)
+    @deliverables = Deliverable.find_all_by_project_id(@project.id)
   end
   
   private
