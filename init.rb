@@ -8,7 +8,7 @@ Redmine::Plugin.register :budget_plugin do
   description 'This is a budget plugin to track deliverables and budgets on a project'
   version '0.0.0'
   
-  settings:default => {
+  settings :default => {
     'budget_nonbillable_overhead' => '',
     'budget_materials' => '',
     'budget_profit' => ''

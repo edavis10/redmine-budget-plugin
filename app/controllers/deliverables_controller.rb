@@ -13,6 +13,6 @@ class DeliverablesController < ApplicationController
   end
   
   def get_settings
-#    @settings = Setting.plugin_budget_plugin
+    @settings = Setting.plugin_budget_plugin
   end
 end
