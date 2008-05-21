@@ -1,0 +1,27 @@
+<% form_tag({}) do -%>	
+<table class="list deliverables">
+    <thead><tr>
+      <%# TODO: Other sorts %>
+      <%= sort_header_tag("#{Deliverable.table_name}.id", :caption => '#', :default_order => 'desc') %>
+      <%= content_tag('th', "Score") %>
+      <%= sort_header_tag("#{Deliverable.table_name}.subject", :caption => 'Subject') %>
+      <%= sort_header_tag("#{Deliverable.table_name}.cost", :caption => 'Budget') %>
+      <%= content_tag('th', "Spent") %>
+      <%= sort_header_tag("#{Deliverable.table_name}.due_date", :caption => 'Due') %>
+      <%= content_tag('th', "Progress") %>
+    </tr></thead>
+    <tbody>
+      <% deliverables.each do |deliverable| -%>
+      <tr id="deliverable-<%= deliverable.id %>" class="deliverable <%= cycle('odd', 'even') %>">
+        <%= content_tag(:td, deliverable.id) %>
+        <%= content_tag(:td, deliverable.score) %>
+        <%= content_tag(:td, deliverable.subject) %>
+        <%= content_tag(:td, number_to_currency(deliverable.cost)) %>
+        <%= content_tag(:td, number_to_currency(deliverable.spent)) %>
+        <%= content_tag(:td, format_date(deliverable.due_date)) %>
+        <%= content_tag(:td, progress_bar(deliverable.progress, :width => '80px')) %>
+    </tr>
+    <% end -%>
+  </tbody>
+</table>
+<% end -%>

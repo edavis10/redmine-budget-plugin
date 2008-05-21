@@ -35,8 +35,13 @@
 </div>
 
 <div id="budget-list">
-
+<% if @deliverables.empty? %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% else %>
+  <%= render :partial => 'list', :locals => { :deliverables => @deliverables} %>
+  <p class="pagination"><%# TODO: pagination_links_full @issue_pages, @issue_count %></p>
 </div>
+<% end %>
 
 <% content_for :sidebar do %>
     <%= render :partial => 'deliverables/sidebar' %>

@@ -1,2 +1,8 @@
 #budget-summary { background-color:#507AAA;padding:10px; }
 #budget-list {  }
+
+table.list.deliverables { margin-top: 10px; }
+tr.deliverable { text-align: center; white-space: nowrap; }
+tr.deliverable td.subject, tr.deliverable td.category { white-space: normal; }
+tr.deliverable td.subject { text-align: left; }
+tr.deliverable td.done_ratio table.progress { margin-left:auto; margin-right: auto;}
