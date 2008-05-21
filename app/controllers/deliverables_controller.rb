@@ -18,9 +18,16 @@ class DeliverablesController < ApplicationController
                                      :limit => limit,
                                      :offset => @deliverable_pages.current.offset)
 
+    @deliverable = Deliverable.new
+    
     respond_to do |format|
       format.html { render :action => 'index', :layout => !request.xhr? }
     end
+  end
+  
+  def preview
+    @text = params[:deliverable][:description]
+    render :partial => 'common/preview'
   end
   
   private

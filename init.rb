@@ -17,7 +17,7 @@ Redmine::Plugin.register :budget_plugin do
   
   project_module :budget_module do
     permission :view_budget, { :deliverables => [:index]}
-    permission :manage_budget, { :deliverables => [:new, :edit, :create, :update, :destroy]}
+    permission :manage_budget, { :deliverables => [:new, :edit, :create, :update, :destroy, :preview]}
   end
   
   menu :project_menu, :budget, :controller => "deliverables", :action => 'index'

@@ -1,0 +1,42 @@
+<h2>New Deliverable</h2>
+
+<% labelled_tabular_form_for :deliverable, @deliverable, 
+                             :html => {:multipart => true, :id => 'deliverable-form'} do |f| %>
+    <%= error_messages_for 'deliverable' %>
+    <div class="box">
+      <div class="splitcontentleft">
+        <p><%= f.text_field :subject, :size => 80, :required => true %></p>
+        <p><%= f.text_area :description, :required => true,
+          :cols => 60,
+          :rows => (@deliverable.description.blank? ? 10 : [[10, @deliverable.description.length / 50].max, 100].min),
+          :accesskey => accesskey(:edit),
+        :class => 'wiki-edit' %></p>
+        <p><%= f.text_field :due_date, :size => 10 %><%= calendar_for('deliverable_due_date') %></p>
+      </div>
+
+      <div class="splitcontentright">
+        <p>TODO: Fixed cost</p>
+        <p><%= f.text_field :cost, :size => 5 %></p>
+        <p>TODO: Total hours</p>
+        <p><%= f.text_field :overhead, :size => 5 %></p>
+        <p><%= f.text_field :materials, :size => 5 %></p>
+        <p><%= f.text_field :profit, :size => 5 %></p>
+        
+      </div>
+
+      <div style="clear:both;"> </div>
+
+    </div>
+    <%= submit_tag l(:button_create) %>
+    <%= link_to_remote l(:label_preview), 
+                       { :url => { :controller => 'deliverables', :action => 'preview', :id => @project },
+                         :method => 'post',
+                         :update => 'preview',
+                         :with => "Form.serialize('deliverable-form')",
+                         :complete => "Element.scrollTo('preview')"
+                       }, :accesskey => accesskey(:preview) %>
+<% end %>
+
+<%= wikitoolbar_for 'deliverable_description' %>
+
+<div id="preview" class="wiki"></div>
