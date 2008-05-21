@@ -17,6 +17,7 @@
       </div>
 
       <div class="splitcontentright">
+        <%# TODO: Need to update subtotals with observers %>
         <p>TODO: Fixed cost</p>
         <p><%= f.text_field :cost_per_hour, :size => 7 %></p>
         <%= observe_field('deliverable_cost_per_hour', :function => "updateBudget('deliverable_budget');") %>
