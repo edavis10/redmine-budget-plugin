@@ -5,7 +5,7 @@ class CreateDeliverables < ActiveRecord::Migration
       t.column :due_date, :date
       t.column :description, :text
       t.column :type, :string
-      t.column :cost, :decimal
+      t.column :cost, :decimal, :precision => 15, :scale => 2
       t.column :project_manager_signoff, :boolean, :default => false
       t.column :client_signoff, :boolean, :default => false
     end
