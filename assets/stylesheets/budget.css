@@ -7,5 +7,5 @@ tr.deliverable td.subject, tr.deliverable td.category { white-space: normal; }
 tr.deliverable td.subject { text-align: left; }
 tr.deliverable td.done_ratio table.progress { margin-left:auto; margin-right: auto;}
 
-#deliverable-form .splitcontentleft { width: 72% }
-#deliverable-form .splitcontentright { width: 27% }
+#deliverable-form .splitcontentleft { width: 62% }
+#deliverable-form .splitcontentright { width: 37% }

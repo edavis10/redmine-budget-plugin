@@ -5,7 +5,7 @@
     <%= error_messages_for 'deliverable' %>
     <div class="box">
       <div class="splitcontentleft">
-        <p><%= f.text_field :subject, :size => 80, :required => true %></p>
+        <p><%= f.text_field :subject, :size => 65, :required => true %></p>
         <p><%= f.text_area :description, :required => true,
           :cols => 60,
           :rows => (@deliverable.description.blank? ? 10 : [[10, @deliverable.description.length / 50].max, 100].min),
@@ -17,12 +17,13 @@
 
       <div class="splitcontentright">
         <p>TODO: Fixed cost</p>
-        <p><%= f.text_field :cost, :size => 5 %></p>
+        <p><%= f.text_field :cost, :size => 7 %></p>
         <p>TODO: Total hours</p>
-        <p><%= f.text_field :overhead, :size => 5 %></p>
-        <p><%= f.text_field :materials, :size => 5 %></p>
-        <p><%= f.text_field :profit, :size => 5 %></p>
-        
+        <p><%= f.text_field :overhead, :size => 7 %></p>
+        <p><%= f.text_field :materials, :size => 7 %></p>
+        <p><%= f.text_field :profit, :size => 7 %></p>
+        <%# TODO %>
+        <p>Total Budget:</p>
       </div>
 
       <div style="clear:both;"> </div>
@@ -38,6 +39,10 @@
                        }, :accesskey => accesskey(:preview) %>
 <% end %>
 
-<%= wikitoolbar_for 'deliverable_description' %>
+<%# Same as `wikitoolbar_for 'deliverable_description'` but without the help link %>
+<%= javascript_include_tag('jstoolbar/jstoolbar') %>
+<%= javascript_include_tag("jstoolbar/lang/jstoolbar-#{current_language}") %>
+<%= javascript_tag("var toolbar = new jsToolBar($('deliverable_description'));toolbar.draw();") %>
+
 
 <div id="preview" class="wiki"></div>
