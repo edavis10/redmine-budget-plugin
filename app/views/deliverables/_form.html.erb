@@ -19,16 +19,19 @@
       <div class="splitcontentright">
         <%# TODO: Need to update subtotals with observers %>
         <p>TODO: Fixed cost</p>
+
         <p><%= f.text_field :cost_per_hour, :size => 7 %></p>
-        <%= observe_field('deliverable_cost_per_hour', :function => "updateBudget('deliverable_budget');") %>
-        <p><%= f.text_field :total_hours, :size => 7 %></p>
-        <%= observe_field('deliverable_total_hours', :function => "updateBudget('deliverable_budget');") %>
-        <p><%= f.text_field :overhead, :size => 7 %></p>
-        <%= observe_field('deliverable_overhead', :function => "updateBudget('deliverable_budget');") %>
-        <p><%= f.text_field :materials, :size => 7 %></p>
-        <%= observe_field('deliverable_materials', :function => "updateBudget('deliverable_budget');") %>
-        <p><%= f.text_field :profit, :size => 7 %></p>
-        <%= observe_field('deliverable_profit', :function => "updateBudget('deliverable_budget');") %>
+        <%= observe_field('deliverable_cost_per_hour', :function => "updateBaseSubtotal(); updateBudget('deliverable_budget');") %>
+
+        <p>
+          <%= f.text_field :total_hours, :size => 7 %>
+          <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'deliverable_base_subtotal') %>
+        </p>
+        <%= observe_field('deliverable_total_hours', :function => "updateBaseSubtotal(); updateBudget('deliverable_budget');") %>
+
+        <%= field_with_budget_observer_and_totals(f, :overhead) %>
+        <%= field_with_budget_observer_and_totals(f, :materials) %>
+        <%= field_with_budget_observer_and_totals(f, :profit) %>
 
         <p><%= f.text_field :budget, :size => 7, :disabled => true %></p>
       </div>
@@ -99,6 +102,36 @@ function calcBudget() {
 function updateBudget(field) {
     if ($(field)) {
         $(field).value = calcBudget();
+    }
+}
+
+function updateSubtotal(field) {
+    var perHour = toAmount($('deliverable_cost_per_hour').value);
+    var hours = toAmount($('deliverable_total_hours').value);
+    
+    var variableCost = perHour * hours;
+
+    if ($(field).value.match('%')) {
+        var subtotal =  (toAmount($(field).value) / 100) * variableCost;
+    } else {
+        var subtotal =  toAmount($(field).value);
+    }
+
+    if ($(field + '_subtotal')) {
+        $(field + '_subtotal').innerHTML = subtotal;
+    }
+
+    calcBudget('deliverable_budget');
+}
+
+function updateBaseSubtotal() {
+    var perHour = toAmount($('deliverable_cost_per_hour').value);
+    var hours = toAmount($('deliverable_total_hours').value);
+    
+    var variableCost = perHour * hours;
+
+    if ($('deliverable_base_subtotal')) {
+        $('deliverable_base_subtotal').innerHTML = variableCost;
     }
 }
 </script>

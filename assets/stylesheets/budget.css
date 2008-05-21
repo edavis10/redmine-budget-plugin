@@ -9,3 +9,5 @@ tr.deliverable td.done_ratio table.progress { margin-left:auto; margin-right: au
 
 #deliverable-form .splitcontentleft { width: 62% }
 #deliverable-form .splitcontentright { width: 37% }
+
+span.budget-calculation { color:#999999; font-weight:bold;}
