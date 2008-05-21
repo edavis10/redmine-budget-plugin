@@ -57,29 +57,38 @@
 
 <% content_for :header_tags do %>
 <script type="text/javascript">
-// TODO: Check for empty, NaN, strip $'s.
+
+function toAmount(value) {
+    var amount = value.replace(/[^1234567890.]/ig,'');
+    if (amount) {
+        return parseFloat(amount);
+    } else {
+        return 0;
+    }
+}
+
 function calcBudget() {
-    var perHour = parseFloat($('deliverable_cost_per_hour').value);
-    var hours = parseFloat($('deliverable_total_hours').value);
+    var perHour = toAmount($('deliverable_cost_per_hour').value);
+    var hours = toAmount($('deliverable_total_hours').value);
     
     var variableCost = perHour * hours;
 
     if ($('deliverable_overhead').value.match('%')) {
-        var overhead =  (parseFloat($('deliverable_overhead').value) / 100) * variableCost;
+        var overhead =  (toAmount($('deliverable_overhead').value) / 100) * variableCost;
     } else {
-        var overhead =  parseFloat($('deliverable_overhead').value);
+        var overhead =  toAmount($('deliverable_overhead').value);
     }
 
     if ($('deliverable_materials').value.match('%')) {
-        var materials =  (parseFloat($('deliverable_materials').value) / 100) * variableCost;
+        var materials =  (toAmount($('deliverable_materials').value) / 100) * variableCost;
     } else {
-        var materials =  parseFloat($('deliverable_materials').value);
+        var materials =  toAmount($('deliverable_materials').value);
     }
 
     if ($('deliverable_profit').value.match('%')) {
-        var profit =  (parseFloat($('deliverable_profit').value) / 100) * variableCost;
+        var profit =  (toAmount($('deliverable_profit').value) / 100) * variableCost;
     } else {
-        var profit =  parseFloat($('deliverable_profit').value);
+        var profit =  toAmount($('deliverable_profit').value);
     }
 
     return variableCost + overhead + materials + profit;
