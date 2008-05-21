@@ -89,36 +89,44 @@ Object.extend(BudgetModule.prototype, {
     },
 
     updateAmounts: function() {
-        var perHour = Budget.toAmount($('deliverable_cost_per_hour').value);
-        var hours = Budget.toAmount($('deliverable_total_hours').value);
+        if ($('deliverable_type').checked) {
+            // Fixed cost
+            var cost = Budget.toAmount($('deliverable_fixed_cost').value);
+            Budget.updateAmount($('fixedCost'), cost);
+        } else {
+            // Variable cost
+            var perHour = Budget.toAmount($('deliverable_cost_per_hour').value);
+            var hours = Budget.toAmount($('deliverable_total_hours').value);
         
-        var variableCost = perHour * hours;
+            var cost = perHour * hours;
+            Budget.updateAmount($('variableCost'), cost);
+        }
+
 
         if ($('deliverable_overhead').value.match('%')) {
-            var overhead_subtotal =  (Budget.toAmount($('deliverable_overhead').value) / 100) * variableCost;
+            var overhead_subtotal =  (Budget.toAmount($('deliverable_overhead').value) / 100) * cost;
         } else {
             var overhead_subtotal =  Budget.toAmount($('deliverable_overhead').value);
         }
 
         if ($('deliverable_materials').value.match('%')) {
-            var materials_subtotal =  (Budget.toAmount($('deliverable_materials').value) / 100) * variableCost;
+            var materials_subtotal =  (Budget.toAmount($('deliverable_materials').value) / 100) * cost;
         } else {
             var materials_subtotal =  Budget.toAmount($('deliverable_materials').value);
         }
 
         if ($('deliverable_profit').value.match('%')) {
-            var profit_subtotal =  (Budget.toAmount($('deliverable_profit').value) / 100) * variableCost;
+            var profit_subtotal =  (Budget.toAmount($('deliverable_profit').value) / 100) * cost;
         } else {
             var profit_subtotal =  Budget.toAmount($('deliverable_profit').value);
         }
 
         // Amounts
-        Budget.updateAmount($('variableCost'), variableCost);
         Budget.updateAmount($('overhead_subtotal'), overhead_subtotal);
         Budget.updateAmount($('materials_subtotal'), materials_subtotal);
         Budget.updateAmount($('profit_subtotal'), profit_subtotal);        
 
-        var total = variableCost + overhead_subtotal + materials_subtotal + profit_subtotal;
+        var total = cost + overhead_subtotal + materials_subtotal + profit_subtotal;
         $('deliverable_budget').value = total;
         $('total-budget-calculation').innerHTML = Budget.number_to_currency(total);
     },
