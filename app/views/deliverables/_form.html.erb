@@ -13,7 +13,9 @@
           :accesskey => accesskey(:edit),
         :class => 'wiki-edit' %></p>
         <p><%= f.text_field :due_date, :size => 10 %><%= calendar_for('deliverable_due_date') %></p>
-        <%# TODO: Sign off PM and Client %>
+
+        <p><%= f.check_box(:project_manager_signoff) %></p>
+        <p><%= f.check_box(:client_signoff) %></p>
       </div>
 
       <div class="splitcontentright">
