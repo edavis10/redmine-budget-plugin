@@ -1,6 +1,7 @@
 class Deliverable < ActiveRecord::Base
   unloadable
-
+  validates_presence_of :subject
+  
   belongs_to :project
 
   attr_accessor :overhead

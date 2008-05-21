@@ -40,7 +40,7 @@ class DeliverablesController < ApplicationController
         format.html { redirect_to :action => 'index' }
         format.js { render :action => 'create.js.rjs'}
       else
-        # TODO: Failed save
+        format.js { render :action => 'create_error.js.rjs'}
       end
     end
 

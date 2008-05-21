@@ -10,6 +10,7 @@ page.select('#errorExplanation').each do |value|
 end
 
 page << "Form.reset($('deliverable-form'))"
+page << "Budget.updateAmounts()"
 
 # Add a fading out flash
 page.insert_html :before, 'new-deliverable', content_tag(:div, @flash, :class => "flash notice", :id => 'rjs-flash')
