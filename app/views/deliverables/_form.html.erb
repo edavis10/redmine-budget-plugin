@@ -21,15 +21,22 @@
           <label for="deliverable_type">Fixed Cost</label>
           <%= check_box(:deliverable, :type, {}, FixedDeliverable.name, HourlyDeliverable.name) %>
         </p>
+        <%= observe_field('deliverable_type', :function => "new Budget.changeType();") %>
 
-        <p><%= f.text_field :cost_per_hour, :size => 7 %></p>
+        <p class="budget-hourly"><%= f.text_field :cost_per_hour, :size => 7 %></p>
         <%= observe_field('deliverable_cost_per_hour', :function => "new Budget.updateAmounts();") %>
 
-        <p>
+        <p class="budget-hourly">
           <%= f.text_field :total_hours, :size => 7 %>
           <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'variableCost') %>
         </p>
         <%= observe_field('deliverable_total_hours', :function => "new Budget.updateAmounts();") %>
+
+        <p class="budget-fixed" style="display:none;">
+          <%= f.text_field :fixed_cost, :size => 7 %>
+          <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'fixedCost') %>
+        </p>
+        <%= observe_field('deliverable_fixed_cost', :function => "new Budget.updateAmounts();") %>
 
         <%= field_with_budget_observer_and_totals(f, :overhead) %>
         <%= field_with_budget_observer_and_totals(f, :materials) %>
@@ -120,6 +127,20 @@ Object.extend(BudgetModule.prototype, {
         if (element) {
             element.innerHTML = Budget.number_to_currency(value);
         }
+    },
+
+    changeType: function() {
+        if ($('deliverable_type').checked) {
+            // Fixed
+            $$('.budget-hourly').each(function(ele) { ele.hide(); });
+            $$('.budget-fixed').each(function(ele) { ele.show(); });
+        } else {
+            // Variable
+            $$('.budget-hourly').each(function(ele) { ele.show(); });
+            $$('.budget-fixed').each(function(ele) { ele.hide(); });
+        }
+
+        Budget.updateAmounts();
     },
 
     // Rails-like number_to_currency currency formatting 
