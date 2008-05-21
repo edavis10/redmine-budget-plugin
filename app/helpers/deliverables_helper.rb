@@ -7,6 +7,6 @@ module DeliverablesHelper
                             :class => "budget-calculation",
                             :id => 'deliverable_' + field.to_s + '_subtotal'
                             )
-                ) + observe_field('deliverable_' + field.to_s, :function => "updateSubtotal('deliverable_#{field.to_s}'); updateBudget('deliverable_budget');")
+                ) + observe_field('deliverable_' + field.to_s, :function => "new Budget().updateSubtotal('deliverable_#{field.to_s}'); new Budget().updateBudget('deliverable_budget');")
   end
 end
