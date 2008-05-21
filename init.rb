@@ -1,6 +1,7 @@
 require 'redmine'
 
 # Patches to the Redmine core.  Will not work in development mode
+require_dependency 'issue_patch'
 require_dependency 'query_patch'
 
 RAILS_DEFAULT_LOGGER.info 'Starting Budget plugin for RedMine'
