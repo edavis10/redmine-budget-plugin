@@ -1,5 +1,8 @@
 require 'redmine'
 
+# Patches to the Redmine core.  Will not work in development mode
+require_dependency 'query_patch'
+
 RAILS_DEFAULT_LOGGER.info 'Starting Budget plugin for RedMine'
 
 Redmine::Plugin.register :budget_plugin do
@@ -22,3 +25,5 @@ Redmine::Plugin.register :budget_plugin do
   
   menu :project_menu, :budget, :controller => "deliverables", :action => 'index'
 end
+
+
