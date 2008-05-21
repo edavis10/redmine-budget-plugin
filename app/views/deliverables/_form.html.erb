@@ -21,13 +21,13 @@
         <p>TODO: Fixed cost</p>
 
         <p><%= f.text_field :cost_per_hour, :size => 7 %></p>
-        <%= observe_field('deliverable_cost_per_hour', :function => "new Budget().updateBaseSubtotal(); new Budget().updateBudget('deliverable_budget');") %>
+        <%= observe_field('deliverable_cost_per_hour', :function => "new Budget.updateAmounts();") %>
 
         <p>
           <%= f.text_field :total_hours, :size => 7 %>
-          <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'deliverable_base_subtotal') %>
+          <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'variableCost') %>
         </p>
-        <%= observe_field('deliverable_total_hours', :function => "new Budget().updateBaseSubtotal(); new Budget().updateBudget('deliverable_budget');") %>
+        <%= observe_field('deliverable_total_hours', :function => "new Budget.updateAmounts();") %>
 
         <%= field_with_budget_observer_and_totals(f, :overhead) %>
         <%= field_with_budget_observer_and_totals(f, :materials) %>
@@ -62,10 +62,9 @@
 <% content_for :header_tags do %>
 <script type="text/javascript">
 
-var Budget = Class.create();
+var BudgetModule = Class.create();
 
-Budget.prototype = {
-
+Object.extend(BudgetModule.prototype, {
     initialize: function () {},
 
     toAmount: function(value) {
@@ -79,66 +78,105 @@ Budget.prototype = {
 
 
     calcBudget: function() {
-        var perHour = this.toAmount($('deliverable_cost_per_hour').value);
-        var hours = this.toAmount($('deliverable_total_hours').value);
+        var perHour = Budget.toAmount($('deliverable_cost_per_hour').value);
+        var hours = Budget.toAmount($('deliverable_total_hours').value);
         
         var variableCost = perHour * hours;
 
         if ($('deliverable_overhead').value.match('%')) {
-            var overhead =  (this.toAmount($('deliverable_overhead').value) / 100) * variableCost;
+            var overhead =  (Budget.toAmount($('deliverable_overhead').value) / 100) * variableCost;
         } else {
-            var overhead =  this.toAmount($('deliverable_overhead').value);
+            var overhead =  Budget.toAmount($('deliverable_overhead').value);
         }
 
         if ($('deliverable_materials').value.match('%')) {
-            var materials =  (this.toAmount($('deliverable_materials').value) / 100) * variableCost;
+            var materials =  (Budget.toAmount($('deliverable_materials').value) / 100) * variableCost;
         } else {
-            var materials =  this.toAmount($('deliverable_materials').value);
+            var materials =  Budget.toAmount($('deliverable_materials').value);
         }
 
         if ($('deliverable_profit').value.match('%')) {
-            var profit =  (this.toAmount($('deliverable_profit').value) / 100) * variableCost;
+            var profit =  (Budget.toAmount($('deliverable_profit').value) / 100) * variableCost;
         } else {
-            var profit =  this.toAmount($('deliverable_profit').value);
+            var profit =  Budget.toAmount($('deliverable_profit').value);
         }
 
         return variableCost + overhead + materials + profit;
 
     },
 
+    updateAmounts: function() {
+        var perHour = Budget.toAmount($('deliverable_cost_per_hour').value);
+        var hours = Budget.toAmount($('deliverable_total_hours').value);
+        
+        var variableCost = perHour * hours;
+
+        if ($('deliverable_overhead').value.match('%')) {
+            var overhead_subtotal =  (Budget.toAmount($('deliverable_overhead').value) / 100) * variableCost;
+        } else {
+            var overhead_subtotal =  Budget.toAmount($('deliverable_overhead').value);
+        }
+
+        if ($('deliverable_materials').value.match('%')) {
+            var materials_subtotal =  (Budget.toAmount($('deliverable_materials').value) / 100) * variableCost;
+        } else {
+            var materials_subtotal =  Budget.toAmount($('deliverable_materials').value);
+        }
+
+        if ($('deliverable_profit').value.match('%')) {
+            var profit_subtotal =  (Budget.toAmount($('deliverable_profit').value) / 100) * variableCost;
+        } else {
+            var profit_subtotal =  Budget.toAmount($('deliverable_profit').value);
+        }
+
+        // Amounts
+        Budget.updateAmount($('variableCost'), variableCost);
+        Budget.updateAmount($('overhead_subtotal'), overhead_subtotal);
+        Budget.updateAmount($('materials_subtotal'), materials_subtotal);
+        Budget.updateAmount($('profit_subtotal'), profit_subtotal);        
+
+        $('deliverable_budget').value = variableCost + overhead_subtotal + materials_subtotal + profit_subtotal;
+    },
+
+    updateAmount: function(element, value) {
+        if (element) {
+            element.innerHTML = Budget.number_to_currency(value);
+        }
+    },
+
     updateBudget: function(field) {
         if ($(field)) {
-            $(field).value = this.calcBudget();
+            $(field).value = Budget.calcBudget();
         }
     },
 
     updateSubtotal: function(field) {
-        var perHour = this.toAmount($('deliverable_cost_per_hour').value);
-        var hours = this.toAmount($('deliverable_total_hours').value);
+        var perHour = Budget.toAmount($('deliverable_cost_per_hour').value);
+        var hours = Budget.toAmount($('deliverable_total_hours').value);
         
         var variableCost = perHour * hours;
 
         if ($(field).value.match('%')) {
-            var subtotal =  (this.toAmount($(field).value) / 100) * variableCost;
+            var subtotal =  (Budget.toAmount($(field).value) / 100) * variableCost;
         } else {
-            var subtotal =  this.toAmount($(field).value);
+            var subtotal =  Budget.toAmount($(field).value);
         }
 
         if ($(field + '_subtotal')) {
-            $(field + '_subtotal').innerHTML = this.number_to_currency(subtotal);
+            $(field + '_subtotal').innerHTML = Budget.number_to_currency(subtotal);
         }
 
-        this.calcBudget('deliverable_budget');
+        Budget.calcBudget('deliverable_budget');
     },
 
     updateBaseSubtotal: function() {
-        var perHour = this.toAmount($('deliverable_cost_per_hour').value);
-        var hours = this.toAmount($('deliverable_total_hours').value);
+        var perHour = Budget.toAmount($('deliverable_cost_per_hour').value);
+        var hours = Budget.toAmount($('deliverable_total_hours').value);
         
         var variableCost = perHour * hours;
         
         if ($('deliverable_base_subtotal')) {
-            $('deliverable_base_subtotal').innerHTML = this.number_to_currency(variableCost);
+            $('deliverable_base_subtotal').innerHTML = Budget.number_to_currency(variableCost);
         }
     },
 
@@ -153,7 +191,7 @@ Budget.prototype = {
             var delimiter = options["delimiter"] || ",";
             
             var parts = parseFloat(number).toFixed(precision).split('.');
-            return unit + this.number_with_delimiter(parts[0], delimiter) + separator + parts[1].toString();
+            return unit + Budget.number_with_delimiter(parts[0], delimiter) + separator + parts[1].toString();
         } catch(e) {
             return number
         }
@@ -171,8 +209,9 @@ Budget.prototype = {
             return number
         }
     }
-}
+});
 
+Budget = new BudgetModule();
 
 
 </script>

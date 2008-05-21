@@ -5,8 +5,8 @@ module DeliverablesHelper
                 content_tag(:span,
                             0,
                             :class => "budget-calculation",
-                            :id => 'deliverable_' + field.to_s + '_subtotal'
+                            :id => field.to_s + '_subtotal'
                             )
-                ) + observe_field('deliverable_' + field.to_s, :function => "new Budget().updateSubtotal('deliverable_#{field.to_s}'); new Budget().updateBudget('deliverable_budget');")
+                ) + observe_field('deliverable_' + field.to_s, :function => "new Budget.updateAmounts();")
   end
 end
