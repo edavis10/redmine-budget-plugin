@@ -33,7 +33,10 @@
         <%= field_with_budget_observer_and_totals(f, :materials) %>
         <%= field_with_budget_observer_and_totals(f, :profit) %>
 
-        <p><%= f.text_field :budget, :size => 7, :disabled => true %></p>
+        <%= content_tag(:p,"Total Budget:" + content_tag(:span, 0, :id => 'total-budget-calculation', :class => "budget-calculation"),
+                        :class => "total-budget") %>
+
+        <p><%= f.hidden_field :budget %></p>
       </div>
 
       <div style="clear:both;"> </div>
@@ -106,7 +109,9 @@ Object.extend(BudgetModule.prototype, {
         Budget.updateAmount($('materials_subtotal'), materials_subtotal);
         Budget.updateAmount($('profit_subtotal'), profit_subtotal);        
 
-        $('deliverable_budget').value = variableCost + overhead_subtotal + materials_subtotal + profit_subtotal;
+        var total = variableCost + overhead_subtotal + materials_subtotal + profit_subtotal;
+        $('deliverable_budget').value = total;
+        $('total-budget-calculation').innerHTML = Budget.number_to_currency(total);
     },
 
     updateAmount: function(element, value) {

@@ -13,3 +13,5 @@ tr.deliverable td.done_ratio table.progress { margin-left:auto; margin-right: au
 #deliverable-form .splitcontentright input { float:left }
 
 span.budget-calculation { color:#999999; font-weight:bold; display:block; text-align:right; width: 100%;}
+p.total-budget { font-weight: bold; }
+p.total-budget #total-budget-calculation {  }
