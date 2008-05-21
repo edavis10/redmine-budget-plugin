@@ -14,6 +14,10 @@ describe Deliverable, 'associations' do
   it "should have a project association" do
     Deliverable.reflect_on_association(:project).should_not be( nil )
   end
+  
+  it "should have an issues association" do
+    Deliverable.reflect_on_association(:issues).should_not be( nil )    
+  end
 end
 
 describe Deliverable, '.overhead' do

@@ -3,6 +3,7 @@ class Deliverable < ActiveRecord::Base
   validates_presence_of :subject
   
   belongs_to :project
+  has_many :issues
 
   # TODO: mocked
   def score
