@@ -5,7 +5,7 @@
       <%= sort_header_tag("#{Deliverable.table_name}.id", :caption => '#', :default_order => 'desc') %>
       <%= content_tag('th', "Score") %>
       <%= sort_header_tag("#{Deliverable.table_name}.subject", :caption => 'Subject') %>
-      <%= sort_header_tag("#{Deliverable.table_name}.cost", :caption => 'Budget') %>
+      <%= sort_header_tag("#{Deliverable.table_name}.budget", :caption => 'Budget') %>
       <%= content_tag('th', "Spent") %>
       <%= sort_header_tag("#{Deliverable.table_name}.due_date", :caption => 'Due') %>
       <%= content_tag('th', "Progress") %>

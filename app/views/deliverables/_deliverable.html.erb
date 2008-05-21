@@ -2,7 +2,7 @@
         <%= content_tag(:td, deliverable.id) %>
         <%= content_tag(:td, deliverable.score) %>
         <%= content_tag(:td, deliverable.subject) %>
-        <%= content_tag(:td, number_to_currency(deliverable.cost)) %>
+        <%= content_tag(:td, number_to_currency(deliverable.budget)) %>
         <%= content_tag(:td, number_to_currency(deliverable.spent)) %>
         <%= content_tag(:td, format_date(deliverable.due_date)) %>
         <%= content_tag(:td, progress_bar(deliverable.progress, :width => '80px')) %>
