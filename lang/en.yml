@@ -1,4 +1,6 @@
-field_cost: Cost per hour
+field_cost_per_hour: Cost per hour
+field_total_hours: Total hours
 field_overhead: Overhead
 field_materials: Material costs
 field_profit: Profit
+field_budget: Total Budget
