@@ -30,6 +30,22 @@ class DeliverablesController < ApplicationController
     render :partial => 'common/preview'
   end
   
+  def create
+    @deliverable = Deliverable.new(params[:deliverable])
+    @deliverable.project = @project
+
+    respond_to do |format|
+      if @deliverable.save
+        @flash = l(:notice_successful_create)
+        format.html { redirect_to :action => 'index' }
+        format.js { render :action => 'create.js.rjs'}
+      else
+        # TODO: Failed save
+      end
+    end
+
+  end
+  
   private
   def find_project
     @project = Project.find(params[:id])

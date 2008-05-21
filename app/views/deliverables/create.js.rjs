@@ -1,0 +1,19 @@
+# If there is no deliverable list, refresh the page
+page << "if ($('deliverable-list') == null) {document.location.reload()}"
+
+# Add deliverable to list
+page.insert_html :top, 'deliverable-list', :partial => 'deliverable', :locals => {:deliverable => @deliverable}
+
+# Remove errors if found
+page.select('#errorExplanation').each do |value|
+  page.remove value
+end
+
+page << "Form.reset($('deliverable-form'))"
+
+# Add a fading out flash
+page.insert_html :before, 'new-deliverable', content_tag(:div, @flash, :class => "flash notice", :id => 'rjs-flash')
+page.delay(3) do
+  page.visual_effect :fade, 'rjs-flash'
+end
+

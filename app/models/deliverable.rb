@@ -1,4 +1,6 @@
 class Deliverable < ActiveRecord::Base
+  unloadable
+
   belongs_to :project
 
   attr_accessor :overhead

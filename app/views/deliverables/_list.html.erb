@@ -1,5 +1,5 @@
 <% form_tag({}) do -%>	
-<table class="list deliverables">
+<table id="deliverable-list" class="list deliverables">
     <thead><tr>
       <%# TODO: Other sorts %>
       <%= sort_header_tag("#{Deliverable.table_name}.id", :caption => '#', :default_order => 'desc') %>
@@ -12,15 +12,7 @@
     </tr></thead>
     <tbody>
       <% deliverables.each do |deliverable| -%>
-      <tr id="deliverable-<%= deliverable.id %>" class="deliverable <%= cycle('odd', 'even') %>">
-        <%= content_tag(:td, deliverable.id) %>
-        <%= content_tag(:td, deliverable.score) %>
-        <%= content_tag(:td, deliverable.subject) %>
-        <%= content_tag(:td, number_to_currency(deliverable.cost)) %>
-        <%= content_tag(:td, number_to_currency(deliverable.spent)) %>
-        <%= content_tag(:td, format_date(deliverable.due_date)) %>
-        <%= content_tag(:td, progress_bar(deliverable.progress, :width => '80px')) %>
-    </tr>
+        <%= render :partial => 'deliverable', :locals => { :deliverable => deliverable} %>
     <% end -%>
   </tbody>
 </table>
