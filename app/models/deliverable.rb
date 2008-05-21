@@ -6,6 +6,8 @@ class Deliverable < ActiveRecord::Base
   attr_accessor :overhead
   attr_accessor :materials
   attr_accessor :profit
+  attr_accessor :cost_per_hour
+  attr_accessor :total_hours
   
   # TODO: mocked
   def score

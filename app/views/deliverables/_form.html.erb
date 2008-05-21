@@ -18,17 +18,23 @@
 
       <div class="splitcontentright">
         <p>TODO: Fixed cost</p>
-        <p>TODO: Cost per hour</p>
-        <p>TODO: Total hours</p>
+        <p><%= f.text_field :cost_per_hour, :size => 7 %></p>
+        <%= observe_field('deliverable_cost_per_hour', :function => "updateBudget('deliverable_budget');") %>
+        <p><%= f.text_field :total_hours, :size => 7 %></p>
+        <%= observe_field('deliverable_total_hours', :function => "updateBudget('deliverable_budget');") %>
         <p><%= f.text_field :overhead, :size => 7 %></p>
+        <%= observe_field('deliverable_overhead', :function => "updateBudget('deliverable_budget');") %>
         <p><%= f.text_field :materials, :size => 7 %></p>
+        <%= observe_field('deliverable_materials', :function => "updateBudget('deliverable_budget');") %>
         <p><%= f.text_field :profit, :size => 7 %></p>
-        <%# TODO %>
-        <p>Total Budget:</p>
-        <p><%= f.text_field :budget, :size => 7 %></p>
+        <%= observe_field('deliverable_profit', :function => "updateBudget('deliverable_budget');") %>
+
+        <p><%= f.text_field :budget, :size => 7, :disabled => true %></p>
       </div>
 
       <div style="clear:both;"> </div>
+
+      
 
     </div>
     <%= submit_tag l(:button_create) %>
@@ -48,3 +54,42 @@
 
 
 <div id="preview" class="wiki"></div>
+
+<% content_for :header_tags do %>
+<script type="text/javascript">
+// TODO: Check for empty, NaN, strip $'s.
+function calcBudget() {
+    var perHour = parseFloat($('deliverable_cost_per_hour').value);
+    var hours = parseFloat($('deliverable_total_hours').value);
+    
+    var variableCost = perHour * hours;
+
+    if ($('deliverable_overhead').value.match('%')) {
+        var overhead =  (parseFloat($('deliverable_overhead').value) / 100) * variableCost;
+    } else {
+        var overhead =  parseFloat($('deliverable_overhead').value);
+    }
+
+    if ($('deliverable_materials').value.match('%')) {
+        var materials =  (parseFloat($('deliverable_materials').value) / 100) * variableCost;
+    } else {
+        var materials =  parseFloat($('deliverable_materials').value);
+    }
+
+    if ($('deliverable_profit').value.match('%')) {
+        var profit =  (parseFloat($('deliverable_profit').value) / 100) * variableCost;
+    } else {
+        var profit =  parseFloat($('deliverable_profit').value);
+    }
+
+    return variableCost + overhead + materials + profit;
+
+}
+
+function updateBudget(field) {
+    if ($(field)) {
+        $(field).value = calcBudget();
+    }
+}
+</script>
+<% end %>
