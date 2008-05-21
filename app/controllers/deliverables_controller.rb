@@ -31,9 +31,15 @@ class DeliverablesController < ApplicationController
   end
   
   def create
-    @deliverable = Deliverable.new(params[:deliverable])
+    if params[:deliverable][:type] == FixedDeliverable.name
+      @deliverable = FixedDeliverable.new(params[:deliverable])
+    elsif params[:deliverable][:type] == HourlyDeliverable.name
+      @deliverable = HourlyDeliverable.new(params[:deliverable])
+    else
+      @deliverable = Deliverable.new(params[:deliverable])
+    end
+    
     @deliverable.project = @project
-
     respond_to do |format|
       if @deliverable.save
         @flash = l(:notice_successful_create)
