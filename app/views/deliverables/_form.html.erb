@@ -76,35 +76,6 @@ Object.extend(BudgetModule.prototype, {
         }
     },
 
-
-    calcBudget: function() {
-        var perHour = Budget.toAmount($('deliverable_cost_per_hour').value);
-        var hours = Budget.toAmount($('deliverable_total_hours').value);
-        
-        var variableCost = perHour * hours;
-
-        if ($('deliverable_overhead').value.match('%')) {
-            var overhead =  (Budget.toAmount($('deliverable_overhead').value) / 100) * variableCost;
-        } else {
-            var overhead =  Budget.toAmount($('deliverable_overhead').value);
-        }
-
-        if ($('deliverable_materials').value.match('%')) {
-            var materials =  (Budget.toAmount($('deliverable_materials').value) / 100) * variableCost;
-        } else {
-            var materials =  Budget.toAmount($('deliverable_materials').value);
-        }
-
-        if ($('deliverable_profit').value.match('%')) {
-            var profit =  (Budget.toAmount($('deliverable_profit').value) / 100) * variableCost;
-        } else {
-            var profit =  Budget.toAmount($('deliverable_profit').value);
-        }
-
-        return variableCost + overhead + materials + profit;
-
-    },
-
     updateAmounts: function() {
         var perHour = Budget.toAmount($('deliverable_cost_per_hour').value);
         var hours = Budget.toAmount($('deliverable_total_hours').value);
@@ -141,42 +112,6 @@ Object.extend(BudgetModule.prototype, {
     updateAmount: function(element, value) {
         if (element) {
             element.innerHTML = Budget.number_to_currency(value);
-        }
-    },
-
-    updateBudget: function(field) {
-        if ($(field)) {
-            $(field).value = Budget.calcBudget();
-        }
-    },
-
-    updateSubtotal: function(field) {
-        var perHour = Budget.toAmount($('deliverable_cost_per_hour').value);
-        var hours = Budget.toAmount($('deliverable_total_hours').value);
-        
-        var variableCost = perHour * hours;
-
-        if ($(field).value.match('%')) {
-            var subtotal =  (Budget.toAmount($(field).value) / 100) * variableCost;
-        } else {
-            var subtotal =  Budget.toAmount($(field).value);
-        }
-
-        if ($(field + '_subtotal')) {
-            $(field + '_subtotal').innerHTML = Budget.number_to_currency(subtotal);
-        }
-
-        Budget.calcBudget('deliverable_budget');
-    },
-
-    updateBaseSubtotal: function() {
-        var perHour = Budget.toAmount($('deliverable_cost_per_hour').value);
-        var hours = Budget.toAmount($('deliverable_total_hours').value);
-        
-        var variableCost = perHour * hours;
-        
-        if ($('deliverable_base_subtotal')) {
-            $('deliverable_base_subtotal').innerHTML = Budget.number_to_currency(variableCost);
         }
     },
 
