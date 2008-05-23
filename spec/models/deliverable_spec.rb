@@ -149,7 +149,14 @@ describe Deliverable, '.progress' do
     @deliverable.progress.should eql(66)
   end
 
-  it 'should return 100 if there are no assigned issues'
+  it 'should return 100 if there are no assigned issues' do
+    @deliverable = Deliverable.new({ :subject => 'test' })
+    @deliverable.should_receive(:issues).and_return([])
+    
+    @deliverable.progress.should eql(100)
+  end
+  
+  
   it 'should not change when hours are clocked'
   it 'should change if issues are assigned'
   it 'should change if issues are unassigned'

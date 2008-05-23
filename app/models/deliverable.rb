@@ -17,7 +17,7 @@ class Deliverable < ActiveRecord::Base
   
   # TODO LATER: Shouldn't require the default_done_ratio patch
   def progress
-    return 100 unless self.issues.count > 0
+    return 100 unless self.issues.size > 0
     
     total =  self.issues.collect(&:estimated_hours).inject {|sum, n| sum + n}
     balance = 0.0
