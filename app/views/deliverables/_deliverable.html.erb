@@ -5,5 +5,5 @@
         <%= content_tag(:td, number_to_currency(deliverable.budget)) %>
         <%= content_tag(:td, number_to_currency(deliverable.spent)) %>
         <%= content_tag(:td, format_date(deliverable.due_date)) %>
-        <%= content_tag(:td, progress_bar(deliverable.progress, :width => '80px')) %>
+        <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%')) %>
     </tr>

@@ -141,13 +141,15 @@ describe Deliverable, '.progress' do
     @issue4.should_receive(:status).and_return(@status_complete)
     @issue4.should_receive(:estimated_hours).twice.and_return(1.0)
     @issues = [@issue1, @issue2, @issue3, @issue4]
+    @issues.stub!(:count).and_return(4)
     
     @deliverable = Deliverable.new({ :subject => 'test' })
-    @deliverable.should_receive(:issues).twice.and_return(@issues)
+    @deliverable.should_receive(:issues).exactly(3).times.and_return(@issues)
     
     @deliverable.progress.should eql(66)
   end
 
+  it 'should return 100 if there are no assigned issues'
   it 'should not change when hours are clocked'
   it 'should change if issues are assigned'
   it 'should change if issues are unassigned'
