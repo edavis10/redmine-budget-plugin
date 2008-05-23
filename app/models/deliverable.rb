@@ -7,7 +7,7 @@ class Deliverable < ActiveRecord::Base
 
   # TODO: mocked
   def score
-    0
+    return self.progress - self.budget_ratio
   end
   
   # TODO: mocked
@@ -27,6 +27,10 @@ class Deliverable < ActiveRecord::Base
     end
 
     return (balance / total).round
+  end
+  
+  def budget_ratio
+    return ((self.spent / self.budget) * 100).round
   end
   
   #

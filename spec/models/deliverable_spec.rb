@@ -110,8 +110,24 @@ describe Deliverable, '.profit' do
   end  
 end
 
+describe Deliverable, '.budget_ratio' do
+  it 'should be the whole number of the budget spent' do
+    @deliverable = Deliverable.new({ :subject => 'test' })
+    @deliverable.should_receive(:budget).and_return(3000.00)
+    @deliverable.should_receive(:spent).and_return(1000.00)
+    
+    @deliverable.budget_ratio.should eql(33)
+  end
+end
+
 describe Deliverable, '.score' do
-  it 'should'
+  it 'should be calculated by the progress and the budget usage' do
+    @deliverable = Deliverable.new({ :subject => 'test' })
+    @deliverable.should_receive(:progress).and_return(75)
+    @deliverable.should_receive(:budget_ratio).and_return(33)
+    
+    @deliverable.score.should eql(42)
+  end
 end
 
 describe Deliverable, '.progress' do
@@ -156,10 +172,12 @@ describe Deliverable, '.progress' do
     @deliverable.progress.should eql(100)
   end
   
-  
   it 'should not change when hours are clocked'
+
   it 'should change if issues are assigned'
+
   it 'should change if issues are unassigned'
+
   it 'should change when a status changes'
 end
 
