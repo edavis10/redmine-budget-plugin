@@ -22,7 +22,7 @@ module IssuePatch
       # Options defined
       if args[1].is_a?(Hash)
         # include used?
-        if args[1].has_key?(:include)
+        if args[1].has_key?(:include) && !args[1][:include].nil?
           # Add our include
           args[1][:include] << :deliverable
         else
