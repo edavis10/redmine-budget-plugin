@@ -15,9 +15,16 @@ class Deliverable < ActiveRecord::Base
     0
   end
   
-  # TODO: mocked
+  # TODO LATER: Shouldn't require the default_done_ratio patch
   def progress
-    0
+    total =  self.issues.sum(&:estimated_hours)
+    balance = 0.0
+    
+    self.issues.each do |issue|
+      balance += issue.status.default_done_ratio * issue.estimated_hours
+    end
+
+    return (balance / total).round
   end
   
   #

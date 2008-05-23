@@ -109,3 +109,50 @@ describe Deliverable, '.profit' do
     end
   end  
 end
+
+describe Deliverable, '.score' do
+  it 'should'
+end
+
+describe Deliverable, '.progress' do
+  before(:each) do
+    @status_in_progress = mock_model(IssueStatus)
+    @status_in_progress.stub!(:default_done_ratio).and_return(50)
+    @status_new = mock_model(IssueStatus)
+    @status_new.stub!(:default_done_ratio).and_return(0)
+    @status_pending = mock_model(IssueStatus)
+    @status_pending.stub!(:default_done_ratio).and_return(80)
+    @status_complete = mock_model(IssueStatus)
+    @status_complete.stub!(:default_done_ratio).and_return(100)
+
+  end
+  
+  it 'should be calculated by the weighted average of the estimated hours of issues' do
+    @issue1 = mock_model(Issue)
+    @issue1.should_receive(:status).and_return(@status_in_progress)
+    @issue1.should_receive(:estimated_hours).twice.and_return(3.0)
+    @issue2 = mock_model(Issue)
+    @issue2.should_receive(:status).and_return(@status_new)
+    @issue2.should_receive(:estimated_hours).twice.and_return(2.0)
+    @issue3 = mock_model(Issue)
+    @issue3.should_receive(:status).and_return(@status_pending)
+    @issue3.should_receive(:estimated_hours).twice.and_return(10.0)
+    @issue4 = mock_model(Issue)
+    @issue4.should_receive(:status).and_return(@status_complete)
+    @issue4.should_receive(:estimated_hours).twice.and_return(1.0)
+    @issues = [@issue1, @issue2, @issue3, @issue4]
+    
+    @deliverable = Deliverable.new({ :subject => 'test' })
+    @deliverable.should_receive(:issues).twice.and_return(@issues)
+    
+    @deliverable.progress.should eql(66)
+  end
+
+  it 'should not change when hours are clocked'
+  it 'should change if issues are assigned'
+  it 'should change if issues are unassigned'
+  it 'should change when a status changes'
+end
+
+describe Deliverable, '.spent' do
+end
