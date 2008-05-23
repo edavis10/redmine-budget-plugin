@@ -5,7 +5,6 @@ class Deliverable < ActiveRecord::Base
   belongs_to :project
   has_many :issues
 
-  # TODO: mocked
   def score
     return self.progress - self.budget_ratio
   end
