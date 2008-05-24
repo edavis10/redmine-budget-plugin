@@ -2,28 +2,28 @@
 <h2>Budget</h1>
 
 <p>
-  Project Budget: TODO
+  Project Budget: <%= h number_to_currency(@budget.budget, :precision => 0) %>
 </p>
 <p>
-  Budget Spent: TODO
+  Budget Spent: <%= h number_to_currency(@budget.spent, :precision => 0) %>
 </p>
 <p>
-  Budget Remaining: TODO
+  Budget Remaining: <%= h number_to_currency(@budget.left, :precision => 0) %>
 </p>
 <p>
-  Progress: TODO
+  Progress: <%= h @budget.progress %>
 </p>
 <p>
-  Budget Score: TODO
+  Budget Score: <%= h @budget.score %>
 </p>
 <p>
-  Overruns: TODO
+  Overruns: <%= h number_to_currency(@budget.overruns, :precision => 0) %>
 </p>
 <p>
-  Next Due Date: TODO
+  Next Due Date: <%= h distance_of_time_in_words_to_now(@budget.next_due_date) %>
 </p>
 <p>
-  Completion: TODO
+  Completion: <%= h distance_of_time_in_words_to_now(@budget.final_due_date) %>
 </p>
 <p>
   Profit: TODO

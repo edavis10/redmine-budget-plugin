@@ -19,7 +19,9 @@ class DeliverablesController < ApplicationController
                                      :offset => @deliverable_pages.current.offset)
 
     @deliverable = Deliverable.new
-    
+
+    @budget = Budget.new(@project.id)
+
     respond_to do |format|
       format.html { render :action => 'index', :layout => !request.xhr? }
     end
