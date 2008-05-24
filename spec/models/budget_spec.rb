@@ -27,7 +27,7 @@ describe Budget,'.deliverables' do
     @deliverable2 = mock_model(Deliverable, :project_id => @project)
     @other_project_deliverable = mock_model(Deliverable, :project_id => 1)
     
-    @project.stub!(:deliverables).and_return([@deliverable2, @deliverable1])
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable2, @deliverable1])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)
@@ -38,7 +38,7 @@ describe Budget,'.deliverables' do
     @project = mock_model(Project)
     @other_project_deliverable = mock_model(Deliverable, :project_id => 1)
     
-    @project.stub!(:deliverables).and_return([])
+    Deliverable.stub!(:find_all_by_project_id).and_return([])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)
@@ -56,7 +56,7 @@ describe Budget, '.next_due_date' do
     @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => @tomorrow)
 
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)
@@ -65,7 +65,7 @@ describe Budget, '.next_due_date' do
   
   it 'should return nil if there are no deliverables' do
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([])
+    Deliverable.stub!(:find_all_by_project_id).and_return([])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)
@@ -81,7 +81,7 @@ describe Budget, '.next_due_date' do
     @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => nil)
 
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)
@@ -97,7 +97,7 @@ describe Budget, '.next_due_date' do
     @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => '')
 
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)
@@ -115,7 +115,7 @@ describe Budget, '.final_due_date' do
     @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => @tomorrow)
 
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)
@@ -124,7 +124,7 @@ describe Budget, '.final_due_date' do
   
   it 'should return nil if there are no deliverables' do
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([])
+    Deliverable.stub!(:find_all_by_project_id).and_return([])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)
@@ -140,7 +140,7 @@ describe Budget, '.final_due_date' do
     @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => nil)
 
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)
@@ -156,7 +156,7 @@ describe Budget, '.final_due_date' do
     @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => '')
 
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)
@@ -171,7 +171,7 @@ describe Budget, '.progress' do
     @deliverable2 = mock_model(Deliverable, :project_id => @project, :budget => 3000.00, :progress => 75)
 
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)  
@@ -180,7 +180,7 @@ describe Budget, '.progress' do
   
   it 'should return 100 if there are no deliverables' do
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([])
+    Deliverable.stub!(:find_all_by_project_id).and_return([])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)  
@@ -194,7 +194,7 @@ describe Budget,'.budget' do
     @deliverable2 = mock_model(Deliverable, :project_id => @project, :budget => 3000.00)
 
     @project = mock_model(Project)
-    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
     Project.stub!(:find).with(@project.id).and_return(@project)
     
     @budget = Budget.new(@project.id)  

@@ -30,7 +30,7 @@ class Budget
   end
   
   def deliverables
-    return self.project.deliverables
+    return Deliverable.find_all_by_project_id(@project.id)
   end
   
   def budget

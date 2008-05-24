@@ -17,6 +17,7 @@ describe DeliverablesController,"#index when logged in" do
     Deliverable.stub!(:find).and_return([])
     
     Project.should_receive(:find).with(@project.to_param).and_return(@project)
+    Project.should_receive(:find).with(@project.id).and_return(@project)
     controller.stub!(:authorize).and_return(true)
   end
   
