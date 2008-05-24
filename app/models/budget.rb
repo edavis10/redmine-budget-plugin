@@ -50,6 +50,14 @@ class Budget
     return self.budget - self.spent
   end
   
+  def overruns
+    if self.left > 0
+      return 0
+    else
+      return self.left * -1
+    end
+  end
+  
   def progress
     return 100 unless self.deliverables.size > 0
     
@@ -62,7 +70,6 @@ class Budget
     return (balance / self.budget).round
   end
   
-  # TODO
   def score
     return self.progress - self.budget_ratio
   end

@@ -241,3 +241,25 @@ describe Budget, '.left' do
     @budget.left.should eql(1500.0)
   end
 end
+
+describe Budget, '.overruns' do
+  it 'should be 0 if there is still unspent budget' do
+    @project = mock_model(Project)
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)  
+    @budget.should_receive(:left).and_return(1500.0)
+
+    @budget.overruns.should eql(0)
+  end
+
+  it 'should be calculated by the total budget and total spent of the deliverables' do
+    @project = mock_model(Project)
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)  
+    @budget.should_receive(:left).twice.and_return(-1500.0)
+
+    @budget.overruns.should eql(1500.0)
+  end
+end
