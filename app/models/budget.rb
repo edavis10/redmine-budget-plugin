@@ -33,20 +33,38 @@ class Budget
     return self.project.deliverables
   end
   
+  def budget
+    return self.deliverables.collect(&:budget).inject { |sum, n| sum + n}
+  end
+  
+  def budget_ratio
+    return ((self.spent / self.budget) * 100).round
+  end
+  
   # TODO
   def spent
+    0
   end
   
-  # TODO
   def left
+    return self.budget - self.spent
   end
   
-  # TODO
   def progress
+    return 100 unless self.deliverables.size > 0
+    
+    balance = 0.0
+    
+    self.deliverables.each do |deliverable|
+      balance += deliverable.budget * deliverable.progress
+    end
+    
+    return (balance / self.budget).round
   end
   
   # TODO
   def score
+    return self.progress - self.budget_ratio
   end
   
   # TODO
