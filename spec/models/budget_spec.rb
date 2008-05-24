@@ -105,3 +105,62 @@ describe Budget, '.next_due_date' do
     
   end
 end
+
+describe Budget, '.final_due_date' do
+  it 'should get the latest due date from the projects Deliverables' do
+    @tomorrow = Date.today + 1.days
+    @next_week = Date.today + 7.days
+    
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due_date => @next_week)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => @tomorrow)
+
+    @project = mock_model(Project)
+    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)
+    @budget.final_due_date.should eql(@next_week)
+  end
+  
+  it 'should return nil if there are no deliverables' do
+    @project = mock_model(Project)
+    @project.stub!(:deliverables).and_return([])
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)
+    @budget.final_due_date.should be_nil
+    
+  end
+  
+  it 'should not count dates that are nil' do
+    @tomorrow = Date.today + 1.days
+    @next_week = Date.today + 7.days
+    
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due_date => @next_week)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => nil)
+
+    @project = mock_model(Project)
+    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)
+    @budget.final_due_date.should eql(@next_week)
+    
+  end
+
+  it 'should not count dates that are empty' do
+    @tomorrow = Date.today + 1.days
+    @next_week = Date.today + 7.days
+    
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due_date => @next_week)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => '')
+
+    @project = mock_model(Project)
+    @project.stub!(:deliverables).and_return([@deliverable1, @deliverable2])
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)
+    @budget.final_due_date.should eql(@next_week)
+    
+  end
+end

@@ -20,6 +20,15 @@ class Budget
     return dates.sort[0]
   end
   
+  def final_due_date
+    del = self.deliverables
+    return nil unless del.size > 0
+
+    dates = del.collect(&:due_date).delete_if { |d| d.blank?}
+    
+    return dates.sort[-1]    
+  end
+  
   def deliverables
     return self.project.deliverables
   end
@@ -38,10 +47,6 @@ class Budget
   
   # TODO
   def score
-  end
-  
-  # TODO
-  def final_due_date
   end
   
   # TODO
