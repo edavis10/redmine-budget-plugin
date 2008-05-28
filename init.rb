@@ -23,7 +23,7 @@ Redmine::Plugin.register :budget_plugin do
 
   
   project_module :budget_module do
-    permission :view_budget, { :deliverables => [:index]}
+    permission :view_budget, { :deliverables => [:index, :issues]}
     permission :manage_budget, { :deliverables => [:new, :edit, :create, :update, :destroy, :preview]}
   end
   

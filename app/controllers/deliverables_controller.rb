@@ -53,6 +53,16 @@ class DeliverablesController < ApplicationController
     end
 
   end
+
+  # Create a query in the session and redirects to the issue list with that query
+  def issues
+    @query = Query.new(:name => "_")
+    @query.project = @project
+    @query.add_filter("deliverable_id", '=', [params[:deliverable_id]])
+    session[:query] = {:project_id => @query.project_id, :filters => @query.filters}
+
+    redirect_to :controller => 'issues', :action => 'index', :project_id => @project.id
+  end
   
   private
   def find_project

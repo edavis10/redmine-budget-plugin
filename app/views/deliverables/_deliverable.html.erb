@@ -29,5 +29,8 @@
               :colspan => 4) %>
 
       <%= content_tag(
-        :td, "TODO", :colspan => 4) %>      
+        :td, 
+              content_tag(:p,link_to("Assigned Issues", :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id)),
+              content_tag(:p,"Edit TODO"),
+      :colspan => 4) %>
     </tr>
