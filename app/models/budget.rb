@@ -34,7 +34,7 @@ class Budget
   end
   
   def budget
-    return self.deliverables.collect(&:budget).inject { |sum, n| sum + n}
+    return self.deliverables.collect(&:budget).inject { |sum, n| sum + n} || 0.0
   end
   
   def budget_ratio
@@ -42,7 +42,7 @@ class Budget
   end
   
   def spent
-    self.deliverables.collect(&:spent).inject { |sum, n| sum + n }
+    self.deliverables.collect(&:spent).inject { |sum, n| sum + n } || 0.0
   end
   
   def left

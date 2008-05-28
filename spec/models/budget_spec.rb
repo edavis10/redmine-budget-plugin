@@ -200,6 +200,17 @@ describe Budget,'.budget' do
     @budget = Budget.new(@project.id)  
     @budget.budget.should eql(5000.0)
   end
+
+  it 'should be 0 if there are no deliverables' do
+    Deliverable.stub!(:find_all_by_project_id).and_return([])
+    
+    @project = mock_model(Project)
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)
+
+    @budget.budget.should eql(0.0)    
+  end
 end
 
 describe Budget,'.budget_ratio' do
@@ -276,5 +287,16 @@ describe Budget, '.spent' do
     @budget = Budget.new(@project.id)
 
     @budget.spent.should eql(1500.0)
+  end
+  
+  it 'should be 0 if there are no deliverables' do
+    Deliverable.stub!(:find_all_by_project_id).and_return([])
+    
+    @project = mock_model(Project)
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)
+
+    @budget.spent.should eql(0.0)    
   end
 end
