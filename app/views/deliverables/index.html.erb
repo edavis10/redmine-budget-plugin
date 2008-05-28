@@ -20,10 +20,10 @@
   Overruns: <%= h number_to_currency(@budget.overruns, :precision => 0) %>
 </p>
 <p>
-  Next Due Date: <%= h distance_of_time_in_words_to_now(@budget.next_due_date) %>
+  Next Due Date: <%= h distance_of_time_in_words_to_now(@budget.next_due_date) if @budget.next_due_date %>
 </p>
 <p>
-  Completion: <%= h distance_of_time_in_words_to_now(@budget.final_due_date) %>
+  Completion: <%= h distance_of_time_in_words_to_now(@budget.final_due_date) if @budget.final_due_date %>
 </p>
 <p>
   Profit: TODO

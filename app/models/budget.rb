@@ -38,7 +38,12 @@ class Budget
   end
   
   def budget_ratio
-    return ((self.spent / self.budget) * 100).round
+    budget = self.budget # cache result
+    if budget > 0.0
+      return ((self.spent / budget) * 100).round 
+    else
+      self.progress
+    end
   end
   
   def spent
@@ -50,7 +55,7 @@ class Budget
   end
   
   def overruns
-    if self.left > 0
+    if self.left >= 0
       return 0
     else
       return self.left * -1

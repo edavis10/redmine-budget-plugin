@@ -224,6 +224,17 @@ describe Budget,'.budget_ratio' do
     @budget.should_receive(:spent).and_return(2000.00)
     @budget.budget_ratio.should eql(40)
   end
+  
+  it 'should return progress if the budget is < 0' do
+    @project = mock_model(Project)
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)  
+    @budget.should_receive(:budget).and_return(0.0)
+    @budget.should_receive(:progress).and_return(50)
+    @budget.budget_ratio.should eql(50)
+  end
+
 end
 
 
