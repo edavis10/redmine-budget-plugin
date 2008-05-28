@@ -32,4 +32,9 @@ class BudgetIssueHook
     
     return help.content_tag(:p, "<label>#{GLoc.l(:field_deliverable)}: " + select + "</label>")
   end
+  
+  def self.issue_bulk_edit_save(context = { })
+    context[:issue].deliverable = Deliverable.find(context[:params][:deliverable_id]) unless context[:params][:deliverable_id].blank?
+    return ''
+  end
 end
