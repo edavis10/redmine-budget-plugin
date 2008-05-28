@@ -9,4 +9,10 @@ module DeliverablesHelper
                             )
                 ) + observe_field('deliverable_' + field.to_s, :function => "new Budget.updateAmounts();")
   end
+  
+  def paragraph_with_data(label, data)
+    content_tag(:p,
+                content_tag(:span, label) +
+                h(data))
+  end
 end

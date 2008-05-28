@@ -75,4 +75,25 @@ class Deliverable < ActiveRecord::Base
       write_attribute(:profit, v.gsub(/[$, ]/,''))
     end
   end
+  
+  def budget_remaining
+    return self.budget - self.spent
+  end
+  
+  def hours_used
+    0
+  end
+  
+  def left
+    return self.budget - self.spent
+  end
+  
+  def overruns
+    if self.left >= 0
+      return 0
+    else
+      return self.left * -1
+    end
+  end
+
 end

@@ -9,6 +9,7 @@
       <%= content_tag('th', "Spent") %>
       <%= sort_header_tag("#{Deliverable.table_name}.due_date", :caption => 'Due') %>
       <%= content_tag('th', "Progress") %>
+      <%= content_tag('th', "Actions") %>
     </tr></thead>
     <tbody>
       <% deliverables.each do |deliverable| -%>

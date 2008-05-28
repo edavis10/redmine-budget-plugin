@@ -16,5 +16,11 @@ class HourlyDeliverable < Deliverable
     
     return total
   end
+  
+  def hours_used
+    return 0 unless self.issues.size > 0
+    return self.issues.collect(&:time_entries).flatten.collect(&:hours).sum
+
+  end
 end
 
