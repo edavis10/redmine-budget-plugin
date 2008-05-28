@@ -54,6 +54,26 @@ class DeliverablesController < ApplicationController
 
   end
 
+  def edit
+    @deliverable = Deliverable.find_by_id_and_project_id(params[:deliverable_id], params[:id])
+  end
+
+  def update
+    # TODO: Handle type change
+    @deliverable = Deliverable.find(params[:deliverable_id])
+    
+    respond_to do |format|
+      if @deliverable.update_attributes(params[:deliverable])
+        @flash = l(:notice_successful_create)
+        format.html { redirect_to :action => 'index', :id => @project.id }
+      else
+        format.html { render :action => 'edit', :id => @project.id}
+      end
+    end
+
+    
+  end
+  
   # Create a query in the session and redirects to the issue list with that query
   def issues
     @query = Query.new(:name => "_")

@@ -30,7 +30,8 @@
 
       <%= content_tag(
         :td, 
-              content_tag(:p,link_to("Assigned Issues", :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id)),
-              content_tag(:p,"Edit TODO"),
+              content_tag(:p,link_to("Assigned Issues", :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id)) +
+              content_tag(:p,link_to("Edit", :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id)) +
+              content_tag(:p,link_to("Delete", :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id)),
       :colspan => 4) %>
     </tr>

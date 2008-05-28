@@ -1,8 +1,3 @@
-<h2>New Deliverable</h2>
-
-<% remote_form_for :deliverable, @deliverable, :url => {:controller => 'deliverables', :action => 'create', :id => @project },
-                           :method => :post, :builder => TabularFormBuilder, :lang => current_language,
-                           :html => {:multipart => true, :id => 'deliverable-form', :class => 'tabular'} do |f| %>
     <%= error_messages_for 'deliverable' %>
     <div class="box">
       <div class="splitcontentleft">
@@ -48,14 +43,15 @@
                         :class => "total-budget") %>
 
         <p><%= f.hidden_field :budget %></p>
+        
       </div>
-
+      <script type="text/javascript">new Budget.updateAmounts();</script>
       <div style="clear:both;"> </div>
 
       
 
     </div>
-    <%= submit_tag l(:button_create) %>
+    <%= mode == :create ? submit_tag(l(:button_create)) : submit_tag(l(:button_update)) %>
     <%= link_to_remote l(:label_preview), 
                        { :url => { :controller => 'deliverables', :action => 'preview', :id => @project },
                          :method => 'post',
@@ -63,7 +59,6 @@
                          :with => "Form.serialize('deliverable-form')",
                          :complete => "Element.scrollTo('preview')"
                        }, :accesskey => accesskey(:preview) %>
-<% end %>
 
 <%# Same as `wikitoolbar_for 'deliverable_description'` but without the help link %>
 <%= javascript_include_tag('jstoolbar/jstoolbar') %>
