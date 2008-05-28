@@ -5,4 +5,8 @@ class FixedDeliverable < Deliverable
   def score
     0
   end
+  
+  def spent
+    (self.progress.to_f / 100 ) * self.budget
+  end
 end

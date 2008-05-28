@@ -212,4 +212,9 @@ describe Deliverable, '.progress' do
 end
 
 describe Deliverable, '.spent' do
+  it 'should always return 0 (abstract class)' do
+    @deliverable = Deliverable.new({ :subject => 'test' })
+    
+    @deliverable.spent.should eql(0)
+  end
 end

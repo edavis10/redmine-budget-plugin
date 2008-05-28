@@ -11,7 +11,7 @@ class Deliverable < ActiveRecord::Base
   
   # TODO: mocked
   def spent
-    0
+    0 
   end
   
   # TODO LATER: Shouldn't require the default_done_ratio patch
