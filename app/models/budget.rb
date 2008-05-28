@@ -41,9 +41,8 @@ class Budget
     return ((self.spent / self.budget) * 100).round
   end
   
-  # TODO
   def spent
-    0
+    self.deliverables.collect(&:spent).inject { |sum, n| sum + n }
   end
   
   def left

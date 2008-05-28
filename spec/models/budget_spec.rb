@@ -263,3 +263,18 @@ describe Budget, '.overruns' do
     @budget.overruns.should eql(1500.0)
   end
 end
+
+describe Budget, '.spent' do
+  it 'should be calculated by the total spent of the deliverables' do
+    @deliverable1 = mock_model(HourlyDeliverable, :project_id => @project, :spent => 1000.00)
+    @deliverable2 = mock_model(HourlyDeliverable, :project_id => @project, :spent => 500.00)
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
+    
+    @project = mock_model(Project)
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)
+
+    @budget.spent.should eql(1500.0)
+  end
+end
