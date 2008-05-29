@@ -10,8 +10,6 @@
         <%= content_tag(:td, link_to_function("Details", "$('deliverable-details-#{deliverable.id}').toggle();")) %>
     </tr>
     <tr id="deliverable-details-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
-      <%# TODO: link to issues %>
-      <%# TODO: link to edit %>
       <%= content_tag(
         :td,
               "<dl>" +
@@ -23,7 +21,6 @@
               paragraph_with_data("Progress: ", deliverable.progress) +
               paragraph_with_data("Score ", deliverable.score) +
               paragraph_with_data("Overruns ", number_to_currency(deliverable.overruns)) +
-              paragraph_with_data("TODO: Overall project %", nil) +
               paragraph_with_data("Profit: ", number_to_currency(deliverable.profit)) +
               "</dl>",
               :colspan => 4) %>
