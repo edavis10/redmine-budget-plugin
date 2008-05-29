@@ -74,6 +74,16 @@ class DeliverablesController < ApplicationController
     
   end
   
+  def destroy
+    @deliverable = Deliverable.find_by_id_and_project_id(params[:deliverable_id], @project.id)
+    
+    render_404 and return unless @deliverable
+    render_403 and return unless @deliverable.editable_by?(User.current)
+    @deliverable.destroy
+    flash[:notice] = l(:notice_successful_delete)
+    redirect_to :action => 'index', :id => @project.id
+  end
+  
   # Create a query in the session and redirects to the issue list with that query
   def issues
     @query = Query.new(:name => "_")

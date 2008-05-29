@@ -96,4 +96,10 @@ class Deliverable < ActiveRecord::Base
     end
   end
 
+  
+  # Returns true if the deliverable can be edited by user, otherwise false
+  def editable_by?(user)
+    (user == user && user.allowed_to?(:manage_budget, project))
+  end
+
 end
