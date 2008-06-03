@@ -3,8 +3,8 @@
         <%= content_tag(:td, deliverable.id) %>
         <%= content_tag(:td, h(deliverable.score.to_i), :class => 'score') %>
         <%= content_tag(:td, h(deliverable.subject), :class => 'subject') %>
-        <%= content_tag(:td, number_to_currency(deliverable.budget), :class => 'budget') %>
-        <%= content_tag(:td, number_to_currency(deliverable.spent), :class => 'spent') %>
+        <%= content_tag(:td, number_to_currency(deliverable.budget, :precision => 0), :class => 'budget') %>
+        <%= content_tag(:td, number_to_currency(deliverable.spent, :precision => 0), :class => 'spent') %>
         <%= content_tag(:td, format_date(deliverable.due_date), :class => 'due_date') %>
         <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%', :class => 'dont_ratio')) %>
         <%= content_tag(:td, link_to_function("Details", "$('deliverable-details-#{deliverable.id}').toggle();"), :class => 'actions') %>
@@ -13,15 +13,15 @@
       <%= content_tag(
         :td,
               "<dl>" +
-              paragraph_with_data("Deliverable Budget: ", number_to_currency(deliverable.budget)) +
-              paragraph_with_data("Budget Spent: ", number_to_currency(deliverable.spent)) +
-              paragraph_with_data("Budget Remaining: ", number_to_currency(deliverable.budget_remaining)) +
+              paragraph_with_data("Deliverable Budget: ", number_to_currency(deliverable.budget, :precision => 0)) +
+              paragraph_with_data("Budget Spent: ", number_to_currency(deliverable.spent, :precision => 0)) +
+              paragraph_with_data("Budget Remaining: ", number_to_currency(deliverable.budget_remaining, :precision => 0)) +
               paragraph_with_data("Hours Used: ", deliverable.hours_used) +
               paragraph_with_data("Hours Estimated: ", deliverable.total_hours) +
               paragraph_with_data("Progress: ", deliverable.progress) +
               paragraph_with_data("Score ", deliverable.score) +
-              paragraph_with_data("Overruns ", number_to_currency(deliverable.overruns)) +
-              paragraph_with_data("Profit: ", number_to_currency(deliverable.profit)) +
+              paragraph_with_data("Overruns ", number_to_currency(deliverable.overruns, :precision => 0)) +
+              paragraph_with_data("Profit: ", number_to_currency(deliverable.profit, :precision => 0)) +
               "</dl>",
               :colspan => 4) %>
 
