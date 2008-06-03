@@ -26,7 +26,7 @@
   Completion: <%= h distance_of_time_in_words_to_now(@budget.final_due_date) if @budget.final_due_date %>
 </p>
 <p>
-  Profit: TODO
+  Profit: <%= h number_to_currency(@budget.profit, :precision => 0) %>
 </p>
 </div>
 

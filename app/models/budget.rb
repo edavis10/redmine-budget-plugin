@@ -78,7 +78,18 @@ class Budget
     return self.progress - self.budget_ratio
   end
   
-  # TODO
   def profit
+    return 0.0 unless self.deliverables.size > 0
+    
+    profit = 0.0
+    # Fixed profit
+    profit += self.deliverables.collect(&:profit).delete_if { |d| d.blank?}.inject { |sum, n| sum + n } || 0.0
+
+    # Percentage Rate
+    self.deliverables.delete_if { |d| d.profit_percent.blank?}.each do |deliverable|
+      profit += deliverable.budget * (deliverable.profit_percent.to_f / 100 )
+    end
+    
+    return profit
   end
 end
