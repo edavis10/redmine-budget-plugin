@@ -1,14 +1,13 @@
 <% form_tag({}) do -%>	
 <table id="deliverable-list" class="list deliverables">
     <thead><tr>
-      <%# TODO: Other sorts %>
       <%= sort_header_tag("#{Deliverable.table_name}.id", :caption => '#', :default_order => 'desc') %>
-      <%= content_tag('th', "Score") %>
+      <%= sort_header_tag("score", :caption => 'Score', :default_order => 'desc') %>
       <%= sort_header_tag("#{Deliverable.table_name}.subject", :caption => 'Subject') %>
       <%= sort_header_tag("#{Deliverable.table_name}.budget", :caption => 'Budget') %>
-      <%= content_tag('th', "Spent") %>
+      <%= sort_header_tag("spent", :caption => 'Spent') %>
       <%= sort_header_tag("#{Deliverable.table_name}.due_date", :caption => 'Due') %>
-      <%= content_tag('th', "Progress") %>
+      <%= sort_header_tag("progress", :caption => 'Progress') %>
       <%= content_tag('th', "Actions") %>
     </tr></thead>
     <tbody>

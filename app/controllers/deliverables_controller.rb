@@ -9,15 +9,12 @@ class DeliverablesController < ApplicationController
   def index
     sort_init "#{Deliverable.table_name}.id", "desc"
     sort_update
-    limit = per_page_option
-    @deliverable_count = Deliverable.count(:conditions => { :project_id => @project.id })
-    @deliverable_pages = Paginator.new self, @deliverable_count, limit, params['page']
-    @deliverables = Deliverable.find(:all,
-                                     :order => sort_clause,
-                                     :conditions => { :project_id => @project.id },
-                                     :limit => limit,
-                                     :offset => @deliverable_pages.current.offset)
 
+    # TODO: pagination
+    @deliverables = Deliverable.find(:all, { :conditions => { :project_id => @project.id} }.merge(sort_stuff))
+
+    @deliverables = sort_if_needed @deliverables
+    
     @deliverable = Deliverable.new
 
     @budget = Budget.new(@project.id)
@@ -114,4 +111,33 @@ class DeliverablesController < ApplicationController
   def get_settings
     @settings = Setting.plugin_budget_plugin
   end
+
+  # Sorting limits
+  def sort_stuff
+    if %w(score spent progress).include?(session[@sort_name][:key])
+      return { }
+    else
+      return { :limit => per_page_option, :order => sort_clause }
+    end
+  end
+  
+  # Sort +deliverables+ manually using the virtual fields
+  def sort_if_needed(deliverables)
+    if %w(score spent progress).include?(session[@sort_name][:key])
+      case session[@sort_name][:key]
+      when "score":
+          sorted = deliverables.sort {|a,b| a.score <=> b.score}
+      when "spent":
+          sorted = deliverables.sort {|a,b| a.spent <=> b.spent}
+      when "progress":
+          sorted = deliverables.sort {|a,b| a.progress <=> b.progress}
+      end
+
+      return sorted if session[@sort_name][:order] == 'asc'
+      return sorted.reverse! if session[@sort_name][:order] == 'desc'
+    else
+      return deliverables
+    end
+  end
+  
 end
