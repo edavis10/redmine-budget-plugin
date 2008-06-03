@@ -1,4 +1,3 @@
-<% form_tag({}) do -%>	
 <table id="deliverable-list" class="list deliverables">
     <thead><tr>
       <%= sort_header_tag("#{Deliverable.table_name}.id", :caption => '#', :default_order => 'desc') %>
@@ -16,4 +15,4 @@
     <% end -%>
   </tbody>
 </table>
-<% end -%>
+

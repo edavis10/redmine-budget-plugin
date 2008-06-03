@@ -30,10 +30,12 @@
               <%= content_tag(:p,link_to("Edit", :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id)) -%>
               <%= content_tag(:p,link_to("Delete", { :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure))) -%>
               <div>
-                <%= form_tag(:action => 'bulk_assign_issues', :id => @project.id, :deliverable_id => deliverable.id) %>
+                <% form_for :deliverable, deliverable, :url => { :action => "bulk_assign_issues",  :id => @project.id, :deliverable_id => deliverable.id} do |f| %>
+
                 <label for="version_id">Assign issues on Version to Deliverable</label>
                 <%= select("version", "id", @project.versions.sort.collect {|v| [v.name, v.id ] }, { :include_blank => true }) %>
-                <%= submit_tag(l(:button_change)) %></form>
+                <%= submit_tag(l(:button_change)) %>
+                <% end %>
               </div>
     </td>
     </tr>
