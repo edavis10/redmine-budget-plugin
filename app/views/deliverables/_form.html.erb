@@ -34,7 +34,6 @@
           <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'fixedCost') %>
         </p>
         <%= observe_field('deliverable_fixed_cost', :function => "new Budget.updateAmounts();") %>
-        <script type="text/javascript">new Budget.changeType();</script>
 
         <%= field_with_budget_observer_and_totals(f, :overhead) %>
         <%= field_with_budget_observer_and_totals(f, :materials) %>
@@ -46,6 +45,7 @@
         <p><%= f.hidden_field :budget %></p>
         
       </div>
+      <script type="text/javascript">new Budget.changeType();</script>
       <script type="text/javascript">new Budget.updateAmounts();</script>
       <div style="clear:both;"> </div>
 
