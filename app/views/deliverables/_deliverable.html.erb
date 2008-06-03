@@ -29,11 +29,11 @@
               <%= content_tag(:p,link_to("Assigned Issues", :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id)) -%>
               <%= content_tag(:p,link_to("Edit", :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id)) -%>
               <%= content_tag(:p,link_to("Delete", { :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure))) -%>
-              <p>
+              <div>
                 <%= form_tag(:action => 'bulk_assign_issues', :id => @project.id, :deliverable_id => deliverable.id) %>
+                <label for="version_id">Assign issues on Version to Deliverable</label>
                 <%= select("version", "id", @project.versions.sort.collect {|v| [v.name, v.id ] }, { :include_blank => true }) %>
                 <%= submit_tag(l(:button_change)) %></form>
-                <%  %>
-              </p>
+              </div>
     </td>
     </tr>

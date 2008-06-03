@@ -13,6 +13,7 @@ tr.deliverable td.done_ratio table.progress { margin-left:auto; margin-right: au
 
 tr.deliverable-details p { text-align:left; }
 tr.deliverable-details span { font-weight:bold; }
+tr.deliverable-details div { text-align:left; }
 
 #deliverable-form .splitcontentleft { width: 62% }
 #deliverable-form .splitcontentright { width: 37% }
