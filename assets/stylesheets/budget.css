@@ -1,4 +1,4 @@
-#budget-summary { background-color:#507AAA;padding:10px; }
+#budget-summary { background-image:url('../images/header.png');padding: 20px 10px 10px 10px; border: 2px solid #DDDDDD }
 #budget-list {  }
 
 table.list.deliverables { margin-top: 10px; }
