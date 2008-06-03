@@ -5,6 +5,10 @@ table.list.deliverables { margin-top: 10px; }
 tr.deliverable { text-align: center; white-space: nowrap; }
 tr.deliverable td.subject, tr.deliverable td.category { white-space: normal; }
 tr.deliverable td.subject { text-align: left; }
+tr.deliverable td.score { text-align: right; padding-right: 10px;}
+tr.deliverable td.budget { text-align: right; }
+tr.deliverable td.spent { text-align: right; }
+tr.deliverable td.due_date { text-align: center; }
 tr.deliverable td.done_ratio table.progress { margin-left:auto; margin-right: auto;}
 
 tr.deliverable-details p { text-align:left; }

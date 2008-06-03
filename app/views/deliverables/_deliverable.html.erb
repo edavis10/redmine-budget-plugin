@@ -1,13 +1,13 @@
 <% css = cycle('odd','even') %>
       <tr id="deliverable-<%= deliverable.id %>" class="deliverable <%= css %>">
         <%= content_tag(:td, deliverable.id) %>
-        <%= content_tag(:td, deliverable.score) %>
-        <%= content_tag(:td, deliverable.subject) %>
-        <%= content_tag(:td, number_to_currency(deliverable.budget)) %>
-        <%= content_tag(:td, number_to_currency(deliverable.spent)) %>
-        <%= content_tag(:td, format_date(deliverable.due_date)) %>
-        <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%')) %>
-        <%= content_tag(:td, link_to_function("Details", "$('deliverable-details-#{deliverable.id}').toggle();")) %>
+        <%= content_tag(:td, h(deliverable.score.to_i), :class => 'score') %>
+        <%= content_tag(:td, h(deliverable.subject), :class => 'subject') %>
+        <%= content_tag(:td, number_to_currency(deliverable.budget), :class => 'budget') %>
+        <%= content_tag(:td, number_to_currency(deliverable.spent), :class => 'spent') %>
+        <%= content_tag(:td, format_date(deliverable.due_date), :class => 'due_date') %>
+        <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%', :class => 'dont_ratio')) %>
+        <%= content_tag(:td, link_to_function("Details", "$('deliverable-details-#{deliverable.id}').toggle();"), :class => 'actions') %>
     </tr>
     <tr id="deliverable-details-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
       <%= content_tag(
