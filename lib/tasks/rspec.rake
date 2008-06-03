@@ -40,6 +40,12 @@ namespace :spec do
     t.spec_files = FileList['spec/**/*_spec.rb']
   end
 
+  desc "Print Specdoc for all specs as HTML (excluding plugin specs)"
+  Spec::Rake::SpecTask.new(:htmldoc) do |t|
+    t.spec_opts = ["--format", "html", "--dry-run"]
+    t.spec_files = FileList['spec/**/*_spec.rb']
+  end
+
   [:models, :controllers, :views, :helpers, :lib].each do |sub|
     desc "Run the specs under spec/#{sub}"
     Spec::Rake::SpecTask.new(sub => spec_prereq) do |t|
