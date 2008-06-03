@@ -5,6 +5,17 @@ class Deliverable < ActiveRecord::Base
   belongs_to :project
   has_many :issues
 
+  def assign_issues_by_version(version_id)
+    version = Version.find_by_id(version_id)
+    return 0 if version.nil? || version.fixed_issues.blank?
+    
+    version.fixed_issues.each do |issue|
+      issue.update_attribute(:deliverable_id, self.id)
+    end
+    
+    return version.fixed_issues.size
+  end
+  
   def score
     return self.progress - self.budget_ratio
   end

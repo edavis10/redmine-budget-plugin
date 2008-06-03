@@ -94,6 +94,18 @@ class DeliverablesController < ApplicationController
     redirect_to :controller => 'issues', :action => 'index', :project_id => @project.id
   end
   
+  def bulk_assign_issues
+    @deliverable = Deliverable.find_by_id_and_project_id(params[:deliverable_id], @project.id)
+    
+    render_404 and return unless @deliverable
+    render_403 and return unless @deliverable.editable_by?(User.current)
+    
+    number_updated = @deliverable.assign_issues_by_version(params[:version][:id])
+    
+    flash[:notice] = l(:message_updated_issues, number_updated)
+    redirect_to :action => 'index', :id => @project.id
+  end
+  
   private
   def find_project
     @project = Project.find(params[:id])
