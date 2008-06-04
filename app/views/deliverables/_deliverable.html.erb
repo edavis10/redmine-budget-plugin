@@ -12,7 +12,12 @@
     <tr id="deliverable-details-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
       <td colspan="4">
         <dl>
+          <%= paragraph_with_data("Deliverable: ", h(deliverable.subject)) -%>
+
+          <%= content_tag(:p, content_tag(:span,"Description: ") + textilizable(deliverable.description)) -%>
+
           <%= paragraph_with_data("Deliverable Budget: ", number_to_currency(deliverable.budget, :precision => 0)) -%>
+          <%= paragraph_with_data("Due Date", format_date(deliverable.due)) -%>
           <%= paragraph_with_data("Budget Spent: ", number_to_currency(deliverable.spent, :precision => 0)) if allowed_management? -%>
           <%= paragraph_with_data("Budget Remaining: ", number_to_currency(deliverable.budget_remaining, :precision => 0)) if allowed_management? -%>
           <%= paragraph_with_data("Hours Used: ", deliverable.hours_used) if allowed_management? -%>
