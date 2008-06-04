@@ -10,8 +10,15 @@ class DeliverablesController < ApplicationController
     sort_init "#{Deliverable.table_name}.id", "desc"
     sort_update
 
-    # TODO: pagination
-    @deliverables = Deliverable.find(:all, { :conditions => { :project_id => @project.id} }.merge(sort_stuff))
+    @deliverable_count = Deliverable.count(:conditions => { :project_id => @project.id})
+    @deliverable_pages = Paginator.new self, @deliverable_count, per_page_option, params['page']
+    @deliverables = Deliverable.find(:all, 
+                                     { 
+                                       :conditions => { :project_id => @project.id},
+                                       :limit => per_page_option,
+                                       :offset => @deliverable_pages.current.offset
+                                     }.merge(sort_order)
+                                     )
 
     @deliverables = sort_if_needed @deliverables
     
@@ -112,12 +119,12 @@ class DeliverablesController < ApplicationController
     @settings = Setting.plugin_budget_plugin
   end
 
-  # Sorting limits
-  def sort_stuff
+  # Sorting orders
+  def sort_order
     if %w(score spent progress).include?(session[@sort_name][:key])
-      return { }
+      return {  }
     else
-      return { :limit => per_page_option, :order => sort_clause }
+      return { :order => sort_clause }
     end
   end
   
