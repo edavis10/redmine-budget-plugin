@@ -1,10 +1,10 @@
 <% css = cycle('odd','even') %>
       <tr id="deliverable-<%= deliverable.id %>" class="deliverable <%= css %>">
         <%= content_tag(:td, deliverable.id) %>
-        <%= content_tag(:td, h(deliverable.score.to_i), :class => 'score') %>
+        <%= content_tag(:td, h(deliverable.score.to_i), :class => 'score') if allowed_management? %>
         <%= content_tag(:td, h(deliverable.subject), :class => 'subject') %>
         <%= content_tag(:td, number_to_currency(deliverable.budget, :precision => 0), :class => 'budget') %>
-        <%= content_tag(:td, number_to_currency(deliverable.spent, :precision => 0), :class => 'spent') %>
+        <%= content_tag(:td, number_to_currency(deliverable.spent, :precision => 0), :class => 'spent') if allowed_management? %>
         <%= content_tag(:td, format_date(deliverable.due), :class => 'due_date') %>
         <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%', :class => 'dont_ratio')) %>
         <%= content_tag(:td, link_to_function("Details", "$('deliverable-details-#{deliverable.id}').toggle();"), :class => 'actions') %>
@@ -27,8 +27,9 @@
 
               <td colspan="4">
               <%= content_tag(:p,link_to("Assigned Issues", :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id)) -%>
-              <%= content_tag(:p,link_to("Edit", :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id)) -%>
-              <%= content_tag(:p,link_to("Delete", { :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure))) -%>
+              <%= content_tag(:p,link_to("Edit", :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id)) if allowed_management? -%>
+              <%= content_tag(:p,link_to("Delete", { :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure))) if allowed_management? %>
+              <% if allowed_management? %>
               <div>
                 <% form_for :deliverable, deliverable, :url => { :action => "bulk_assign_issues",  :id => @project.id, :deliverable_id => deliverable.id} do |f| %>
 
@@ -37,5 +38,6 @@
                 <%= submit_tag(l(:button_change)) %>
                 <% end %>
               </div>
+              <% end %>
     </td>
     </tr>

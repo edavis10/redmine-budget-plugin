@@ -1,10 +1,10 @@
 <table id="deliverable-list" class="list deliverables">
     <thead><tr>
       <%= sort_header_tag("#{Deliverable.table_name}.id", :caption => '#', :default_order => 'desc') %>
-      <%= sort_header_tag("score", :caption => 'Score', :default_order => 'desc') %>
+      <%= sort_header_tag("score", :caption => 'Score', :default_order => 'desc') if allowed_management? %>
       <%= sort_header_tag("#{Deliverable.table_name}.subject", :caption => 'Subject') %>
       <%= sort_header_tag("#{Deliverable.table_name}.budget", :caption => 'Budget') %>
-      <%= sort_header_tag("spent", :caption => 'Spent') %>
+      <%= sort_header_tag("spent", :caption => 'Spent') if allowed_management? %>
       <%= sort_header_tag("#{Deliverable.table_name}.due", :caption => 'Due') %>
       <%= sort_header_tag("progress", :caption => 'Progress') %>
       <%= content_tag('th', "Actions") %>

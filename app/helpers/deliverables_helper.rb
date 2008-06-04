@@ -15,4 +15,8 @@ module DeliverablesHelper
                 content_tag(:span, label) +
                 h(data))
   end
+  
+  def allowed_management?
+    return User.current.allowed_to?(:manage_budget, @project)
+  end
 end
