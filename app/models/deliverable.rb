@@ -15,6 +15,16 @@ class Deliverable < ActiveRecord::Base
     
     return version.fixed_issues.size
   end
+
+  def change_type(to)
+    if [FixedDeliverable.name, HourlyDeliverable.name].include?(to)
+      self.type = to
+      self.save!
+      return Deliverable.find(self.id)
+    else
+      return self
+    end
+  end
   
   def score
     return self.progress - self.budget_ratio

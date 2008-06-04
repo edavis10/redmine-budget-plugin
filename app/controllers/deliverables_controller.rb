@@ -63,8 +63,11 @@ class DeliverablesController < ApplicationController
   end
 
   def update
-    # TODO: Handle type change
     @deliverable = Deliverable.find(params[:deliverable_id])
+    
+    if params[:deliverable][:type] != @deliverable.class
+      @deliverable = @deliverable.change_type(params[:deliverable][:type])
+    end
     
     respond_to do |format|
       if @deliverable.update_attributes(params[:deliverable])
