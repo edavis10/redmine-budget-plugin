@@ -20,7 +20,6 @@ class Deliverable < ActiveRecord::Base
     return self.progress - self.budget_ratio
   end
   
-  # TODO: mocked
   def spent
     0 
   end

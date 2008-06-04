@@ -7,6 +7,7 @@ class BudgetIssueHook
 
   class Helper
     include Singleton
+    include ERB::Util
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::FormHelper
     include ActionView::Helpers::FormTagHelper
@@ -14,8 +15,7 @@ class BudgetIssueHook
   end
   
   def self.issue_show(context = { })
-    # TODO: Escape
-    data = "<td><b>Deliverable :</b></td><td>#{context[:issue].deliverable.subject unless context[:issue].deliverable.nil?}</td>"
+    data = "<td><b>Deliverable :</b></td><td>#{help.html_escape context[:issue].deliverable.subject unless context[:issue].deliverable.nil?}</td>"
     return "<tr>#{data}<td></td></tr>"
   end
   
