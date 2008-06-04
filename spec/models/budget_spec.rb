@@ -52,8 +52,8 @@ describe Budget, '.next_due_date' do
     @tomorrow = Date.today + 1.days
     @next_week = Date.today + 7.days
     
-    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due_date => @next_week)
-    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => @tomorrow)
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due => @next_week)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due => @tomorrow)
 
     @project = mock_model(Project)
     Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
@@ -77,8 +77,8 @@ describe Budget, '.next_due_date' do
     @tomorrow = Date.today + 1.days
     @next_week = Date.today + 7.days
     
-    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due_date => @next_week)
-    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => nil)
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due => @next_week)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due => nil)
 
     @project = mock_model(Project)
     Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
@@ -93,8 +93,8 @@ describe Budget, '.next_due_date' do
     @tomorrow = Date.today + 1.days
     @next_week = Date.today + 7.days
     
-    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due_date => @next_week)
-    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => '')
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due => @next_week)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due => '')
 
     @project = mock_model(Project)
     Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
@@ -111,8 +111,8 @@ describe Budget, '.final_due_date' do
     @tomorrow = Date.today + 1.days
     @next_week = Date.today + 7.days
     
-    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due_date => @next_week)
-    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => @tomorrow)
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due => @next_week)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due => @tomorrow)
 
     @project = mock_model(Project)
     Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
@@ -136,8 +136,8 @@ describe Budget, '.final_due_date' do
     @tomorrow = Date.today + 1.days
     @next_week = Date.today + 7.days
     
-    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due_date => @next_week)
-    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => nil)
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due => @next_week)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due => nil)
 
     @project = mock_model(Project)
     Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
@@ -152,8 +152,8 @@ describe Budget, '.final_due_date' do
     @tomorrow = Date.today + 1.days
     @next_week = Date.today + 7.days
     
-    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due_date => @next_week)
-    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due_date => '')
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :due => @next_week)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :due => '')
 
     @project = mock_model(Project)
     Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])

@@ -15,7 +15,7 @@ class Budget
     del = self.deliverables
     return nil unless del.size > 0
 
-    dates = del.collect(&:due_date).delete_if { |d| d.blank?}
+    dates = del.collect(&:due).delete_if { |d| d.blank?}
     
     return dates.sort[0]
   end
@@ -24,7 +24,7 @@ class Budget
     del = self.deliverables
     return nil unless del.size > 0
 
-    dates = del.collect(&:due_date).delete_if { |d| d.blank?}
+    dates = del.collect(&:due).delete_if { |d| d.blank?}
     
     return dates.sort[-1]    
   end
