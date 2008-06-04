@@ -18,3 +18,5 @@ page.delay(3) do
   page.visual_effect :fade, 'rjs-flash'
 end
 
+# Clear preview
+page.replace_html 'preview', ''
