@@ -15,3 +15,10 @@ describe FixedDeliverable, '.spent' do
     @deliverable.spent.should eql(2500.0)
   end
 end
+
+describe FixedDeliverable, '.profit as a %' do
+  it 'should return the % of the fixed bid amount' do    
+    @deliverable = FixedDeliverable.new({ :subject => 'test', :profit_percent => 50, :fixed_cost => 1000.0 })
+    @deliverable.profit.should eql(500.0)
+  end
+end

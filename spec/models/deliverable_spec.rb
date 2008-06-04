@@ -113,7 +113,7 @@ end
 describe Deliverable, '.budget_ratio' do
   it 'should be the whole number of the budget spent' do
     @deliverable = Deliverable.new({ :subject => 'test' })
-    @deliverable.should_receive(:budget).and_return(3000.00)
+    @deliverable.should_receive(:budget).exactly(3).times.and_return(3000.00)
     @deliverable.should_receive(:spent).and_return(1000.00)
     
     @deliverable.budget_ratio.should eql(33)

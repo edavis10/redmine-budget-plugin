@@ -64,6 +64,7 @@ class Budget
   
   def progress
     return 100 unless self.deliverables.size > 0
+    return 100 if self.budget == 0.0
     
     balance = 0.0
     

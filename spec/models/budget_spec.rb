@@ -186,6 +186,18 @@ describe Budget, '.progress' do
     @budget = Budget.new(@project.id)  
     @budget.progress.should eql(100)
   end
+
+  it 'should return 100 if there is no budget' do
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :budget => 0.00, :progress => 50)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :budget => 0.00, :progress => 75)
+
+    @project = mock_model(Project)
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)  
+    @budget.progress.should eql(100)
+  end
 end
 
 describe Budget,'.budget' do

@@ -42,6 +42,7 @@ class Deliverable < ActiveRecord::Base
   end
   
   def budget_ratio
+    return 0.0 if self.budget.nil? || self.budget == 0.0
     return ((self.spent / self.budget) * 100).round
   end
   

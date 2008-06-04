@@ -26,3 +26,10 @@ describe HourlyDeliverable, '.spent' do
     @deliverable.spent.should eql(60.0)
   end
 end
+
+describe HourlyDeliverable, '.profit as a %' do
+  it 'should return the % of the hours mutipled by the cost per hour amount' do    
+    @deliverable = HourlyDeliverable.new({ :subject => 'test', :profit_percent => 50, :cost_per_hour => 100.0, :total_hours => 10 })
+    @deliverable.profit.should eql(500.0)
+  end
+end

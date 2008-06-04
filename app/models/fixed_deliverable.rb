@@ -9,4 +9,12 @@ class FixedDeliverable < Deliverable
   def spent
     (self.progress.to_f / 100 ) * self.budget
   end
+  
+  def profit
+    if read_attribute(:profit_percent).nil?
+      return super
+    else
+      return (read_attribute(:profit_percent).to_f / 100.0) * read_attribute(:fixed_cost)
+    end
+  end
 end
