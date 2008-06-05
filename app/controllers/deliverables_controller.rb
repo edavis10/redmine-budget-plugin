@@ -46,6 +46,7 @@ class DeliverablesController < ApplicationController
     end
     
     @deliverable.project = @project
+    @budget = Budget.new(@project.id)
     respond_to do |format|
       if @deliverable.save
         @flash = l(:notice_successful_create)

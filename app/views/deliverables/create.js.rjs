@@ -4,6 +4,10 @@ page << "if ($('deliverable-list') == null) {document.location.reload()}"
 # Add deliverable to list
 page.insert_html :top, 'deliverable-list', :partial => 'deliverable', :locals => {:deliverable => @deliverable}
 
+# Update budget
+page.replace_html 'budget-summary', :partial => 'budget', :object => @budget
+page.visual_effect :highlight, 'budget-summary'
+
 # Remove errors if found
 page.select('#errorExplanation').each do |value|
   page.remove value

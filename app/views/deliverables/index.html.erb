@@ -1,52 +1,5 @@
 <div id="budget-summary">
-<h2>Budget</h1>
-
-<% if allowed_management? %>
-<p>
-  Project Budget: <%= h number_to_currency(@budget.budget, :precision => 0) %>
-</p>
-<% end %>
-
-<% if allowed_management? %>
-<p>
-  Budget Spent: <%= h number_to_currency(@budget.spent, :precision => 0) %>
-</p>
-<% end %>
-
-<% if allowed_management? %>
-<p>
-  Budget Remaining: <%= h number_to_currency(@budget.left, :precision => 0) %>
-</p>
-<% end %>
-
-<p>
-  Progress: <%= h @budget.progress %>
-</p>
-
-<% if allowed_management? %>
-<p>
-  Budget Score: <%= h @budget.score %>
-</p>
-<% end %>
-
-<% if allowed_management? %>
-<p>
-  Overruns: <%= h number_to_currency(@budget.overruns, :precision => 0) %>
-</p>
-<% end %>
-
-<p>
-  Next Due Date: <%= h distance_of_time_in_words_to_now(@budget.next_due_date) if @budget.next_due_date %>
-</p>
-<p>
-  Completion: <%= h distance_of_time_in_words_to_now(@budget.final_due_date) if @budget.final_due_date %>
-</p>
-
-<% if allowed_management? %>
-<p>
-  Profit: <%= h number_to_currency(@budget.profit, :precision => 0) %>
-</p>
-<% end %>
+  <%= render :partial => 'budget', :object => @budget %>
 </div>
 
 <% if allowed_management? %>
