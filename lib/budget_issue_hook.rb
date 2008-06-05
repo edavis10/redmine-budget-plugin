@@ -37,4 +37,16 @@ class BudgetIssueHook
     context[:issue].deliverable = Deliverable.find(context[:params][:deliverable_id]) unless context[:params][:deliverable_id].blank?
     return ''
   end
+  
+  # TODO Later: Overwritting the caller is bad juju
+  def self.issue_helper_show_details(context = { })
+    if context[:detail].prop_key == 'deliverable_id'
+      d = Deliverable.find_by_id(context[:detail].value)
+      context[:detail].value = d.subject unless d.nil? || d.subject.nil?
+
+      d = Deliverable.find_by_id(context[:detail].old_value)
+      context[:detail].old_value = d.subject unless d.nil? || d.subject.nil?      
+    end
+    ''
+  end
 end

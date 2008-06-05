@@ -36,4 +36,6 @@ Redmine::Plugin.register :budget_plugin do
   
   add_hook(:project_member_list_header, Proc.new { |context| BudgetProjectHook.member_list_header(context) })
   add_hook(:project_member_list_column_three, Proc.new { |context| BudgetProjectHook.member_list_column_three(context) })
+  
+  add_hook(:issues_helper_show_details, Proc.new { |context| BudgetIssueHook.issue_helper_show_details(context) })
 end
