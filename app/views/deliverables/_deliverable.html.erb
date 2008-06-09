@@ -3,44 +3,45 @@
         <%= content_tag(:td, deliverable.id) %>
         <%= content_tag(:td, h(deliverable.score.to_i), :class => 'score') if allowed_management? %>
         <%= content_tag(:td, h(deliverable.subject), :class => 'subject') %>
-        <%= content_tag(:td, number_to_currency(deliverable.budget, :precision => 0), :class => 'budget') %>
+        <%= content_tag(:td, number_to_currency(deliverable.labor_budget, :precision => 0), :class => 'budget') %>
         <%= content_tag(:td, number_to_currency(deliverable.spent, :precision => 0), :class => 'spent') if allowed_management? %>
         <%= content_tag(:td, format_date(deliverable.due), :class => 'due_date') %>
         <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%', :class => 'dont_ratio')) %>
         <%= content_tag(:td, link_to_function("Details", "$('deliverable-details-#{deliverable.id}').toggle();"), :class => 'actions') %>
     </tr>
     <tr id="deliverable-details-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
-      <td colspan="4">
-        <dl>
-          <%= paragraph_with_data("Deliverable: ", h(deliverable.subject)) -%>
+      <td>
+        <%= content_tag(:p,link_to("Edit", :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id)) if allowed_management? -%>
+        <%= content_tag(:p,link_to("Delete", { :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure))) if allowed_management? %>
+        <%= content_tag(:p,link_to("Issues", :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id)) -%>
+        <% if allowed_management? %>
+        <div>
+          <% form_for :deliverable, deliverable, :url => { :action => "bulk_assign_issues",  :id => @project.id, :deliverable_id => deliverable.id} do |f| %>
 
-          <%= content_tag(:p, content_tag(:span,"Description: ") + textilizable(deliverable.description)) -%>
-
-          <%= paragraph_with_data("Deliverable Budget: ", number_to_currency(deliverable.budget, :precision => 0)) -%>
-          <%= paragraph_with_data("Due Date", format_date(deliverable.due)) -%>
-          <%= paragraph_with_data("Budget Spent: ", number_to_currency(deliverable.spent, :precision => 0)) if allowed_management? -%>
-          <%= paragraph_with_data("Budget Remaining: ", number_to_currency(deliverable.budget_remaining, :precision => 0)) if allowed_management? -%>
-          <%= paragraph_with_data("Hours Used: ", deliverable.hours_used) if allowed_management? -%>
-          <%= paragraph_with_data("Hours Estimated: ", deliverable.total_hours) if allowed_management? -%>
-          <%= paragraph_with_data("Progress: ", deliverable.progress) -%>
-          <%= paragraph_with_data("Score ", deliverable.score) if allowed_management? -%>
-          <%= paragraph_with_data("Overruns ", number_to_currency(deliverable.overruns, :precision => 0))  if allowed_management? -%>
-          <%= paragraph_with_data("Profit: ", number_to_currency(deliverable.profit, :precision => 0)) if allowed_management? -%>
-        </dl>
+          <%= select("version", "id", @project.versions.sort.collect {|v| [v.name, v.id ] }, { :include_blank => true }) %><br />
+          <%= submit_tag("Bulk Assign") %>
+          <% end %>
+        </div>
+        <% end %>
       </td>
-              <td colspan="4">
-              <%= content_tag(:p,link_to("Assigned Issues", :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id)) -%>
-              <%= content_tag(:p,link_to("Edit", :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id)) if allowed_management? -%>
-              <%= content_tag(:p,link_to("Delete", { :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure))) if allowed_management? %>
-              <% if allowed_management? %>
-              <div>
-                <% form_for :deliverable, deliverable, :url => { :action => "bulk_assign_issues",  :id => @project.id, :deliverable_id => deliverable.id} do |f| %>
 
-                <label for="version_id">Assign issues on Version to Deliverable</label>
-                <%= select("version", "id", @project.versions.sort.collect {|v| [v.name, v.id ] }, { :include_blank => true }) %>
-                <%= submit_tag(l(:button_change)) %>
-                <% end %>
-              </div>
-              <% end %>
-    </td>
+      <td colspan="2">
+        <%= paragraph_with_data("Progress: ", deliverable.progress) -%>
+        <%= paragraph_with_data("Hours Estimated: ", deliverable.total_hours) if allowed_management? -%>
+        <%= paragraph_with_data("Hours Used: ", deliverable.hours_used) if allowed_management? -%>
+        
+        TODO: Each person
+      </td>
+
+      <td colspan="3">
+        <%= paragraph_with_data("Total Budget: ", number_to_currency(deliverable.budget, :precision => 0)) -%>
+        <%= paragraph_with_data("Labor: ", number_to_currency(deliverable.labor_budget, :precision => 0)) -%>
+        <%= paragraph_with_data("Overhead: ", number_to_currency(deliverable.overhead, :precision => 0)) -%>
+        <%= paragraph_with_data("Materials: ", number_to_currency(deliverable.materials, :precision => 0)) -%>
+        <%= paragraph_with_data("Profit: ", number_to_currency(deliverable.profit, :precision => 0)) -%>
+      </td>
+
+      <td colspan="2">
+        TODO Tasks
+      </td>
     </tr>
