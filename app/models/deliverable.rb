@@ -120,6 +120,19 @@ class Deliverable < ActiveRecord::Base
   def labor_budget
     0
   end
+
+  def issues_with_trackers
+    trackers = self.project.trackers
+    return { } if trackers.empty?
+    
+    tracker_map = { }
+    
+    trackers.each do |tracker|
+      tracker_map[tracker.name] = Issue.find_all_by_tracker_id_and_project_id_and_deliverable_id(tracker.id, self.project.id, self.id).size
+    end
+
+    return tracker_map
+  end
   
   # Returns true if the deliverable can be edited by user, otherwise false
   def editable_by?(user)

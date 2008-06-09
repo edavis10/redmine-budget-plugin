@@ -42,6 +42,10 @@
       </td>
 
       <td colspan="2">
-        TODO Tasks
+        <p><%= l(:label_issue_plural) -%>: <%= deliverable.issues.size -%></p>
+
+        <% deliverable.issues_with_trackers.each do |tracker_name, count| %>
+          <p><%= h tracker_name -%>: <%= h(count) %></p>
+        <% end %>
       </td>
     </tr>
