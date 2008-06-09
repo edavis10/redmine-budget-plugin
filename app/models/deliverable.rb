@@ -105,6 +105,10 @@ class Deliverable < ActiveRecord::Base
     0
   end
   
+  def members_spent
+    []
+  end
+  
   def left
     return self.budget - self.spent
   end

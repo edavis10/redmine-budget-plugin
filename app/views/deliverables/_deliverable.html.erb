@@ -29,8 +29,10 @@
         <%= paragraph_with_data("Progress: ", deliverable.progress) -%>
         <%= paragraph_with_data("Hours Estimated: ", deliverable.total_hours) if allowed_management? -%>
         <%= paragraph_with_data("Hours Used: ", deliverable.hours_used) if allowed_management? -%>
-        
-        TODO: Each person
+
+        <% deliverable.members_spent.each do |person| %>
+          <p><%= h person.user.name -%>: <%= h(person.hours) %> <%= number_to_currency(person.spent, :precision => 0) %></p>
+        <% end %>
       </td>
 
       <td colspan="3">

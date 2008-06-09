@@ -23,6 +23,10 @@ class HourlyDeliverable < Deliverable
 
   end
   
+  def members_spent
+    return MemberSpent.find_all_by_deliverable(self)
+  end
+  
   def profit
     if read_attribute(:profit_percent).nil?
       return super
