@@ -117,6 +117,9 @@ class Deliverable < ActiveRecord::Base
     end
   end
 
+  def labor_budget
+    0
+  end
   
   # Returns true if the deliverable can be edited by user, otherwise false
   def editable_by?(user)

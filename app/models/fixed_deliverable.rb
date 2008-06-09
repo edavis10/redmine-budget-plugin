@@ -17,4 +17,9 @@ class FixedDeliverable < Deliverable
       return (read_attribute(:profit_percent).to_f / 100.0) * read_attribute(:fixed_cost)
     end
   end
+  
+  def labor_budget
+    return read_attribute(:fixed_cost)
+  end
+
 end

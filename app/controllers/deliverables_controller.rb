@@ -125,7 +125,7 @@ class DeliverablesController < ApplicationController
 
   # Sorting orders
   def sort_order
-    if %w(score spent progress).include?(session[@sort_name][:key])
+    if %w(score spent progress labor_budget).include?(session[@sort_name][:key])
       return {  }
     else
       return { :order => sort_clause }
@@ -134,7 +134,7 @@ class DeliverablesController < ApplicationController
   
   # Sort +deliverables+ manually using the virtual fields
   def sort_if_needed(deliverables)
-    if %w(score spent progress).include?(session[@sort_name][:key])
+    if %w(score spent progress labor_budget).include?(session[@sort_name][:key])
       case session[@sort_name][:key]
       when "score":
           sorted = deliverables.sort {|a,b| a.score <=> b.score}
@@ -142,6 +142,8 @@ class DeliverablesController < ApplicationController
           sorted = deliverables.sort {|a,b| a.spent <=> b.spent}
       when "progress":
           sorted = deliverables.sort {|a,b| a.progress <=> b.progress}
+      when "labor_budget":
+          sorted = deliverables.sort {|a,b| a.labor_budget <=> b.labor_budget}
       end
 
       return sorted if session[@sort_name][:order] == 'asc'

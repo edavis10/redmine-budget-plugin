@@ -30,5 +30,10 @@ class HourlyDeliverable < Deliverable
       return (read_attribute(:profit_percent).to_f / 100.0) * (read_attribute(:cost_per_hour) * read_attribute(:total_hours))
     end
   end
+  
+  def labor_budget
+    return read_attribute(:cost_per_hour).to_f * read_attribute(:total_hours).to_f
+  end
+
 end
 
