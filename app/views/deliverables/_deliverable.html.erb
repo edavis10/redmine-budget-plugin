@@ -26,12 +26,16 @@
       </td>
 
       <td colspan="2">
-        <%= paragraph_with_data("Progress: ", deliverable.progress) -%>
-        <%= paragraph_with_data("Hours Estimated: ", deliverable.total_hours) if allowed_management? -%>
-        <%= paragraph_with_data("Hours Used: ", deliverable.hours_used) if allowed_management? -%>
+        <%= paragraph_with_double_data "Progress: ", number_to_percentage(deliverable.progress, :precision => 0), '' %>
+        <% if allowed_management? %>
+        <%= paragraph_with_double_data "Hours Estimated: ", number_with_precision(deliverable.total_hours, 0), '' %>
+        <%= paragraph_with_double_data "Hours Used: ", number_with_precision(deliverable.hours_used,0), number_to_currency(deliverable.spent, :precision => 0)  %>
+
+        <p>&nbsp;</p>
 
         <% deliverable.members_spent.each do |person| %>
-          <p><%= h person.user.name -%>: <%= h(person.hours) %> <%= number_to_currency(person.spent, :precision => 0) %></p>
+          <%= paragraph_with_double_data (h(person.user.name), person.hours.round, number_to_currency(person.spent, :precision => 0)) %>
+        <% end %>
         <% end %>
       </td>
 
@@ -44,10 +48,10 @@
       </td>
 
       <td colspan="2">
-        <p><%= l(:label_issue_plural) -%>: <%= deliverable.issues.size -%></p>
+        <%= paragraph_with_data(l(:label_issue_plural), deliverable.issues.size) -%>
 
         <% deliverable.issues_with_trackers.each do |tracker_name, count| %>
-          <p><%= h tracker_name -%>: <%= h(count) %></p>
+          <%= paragraph_with_data(h(tracker_name), count) -%>
         <% end %>
       </td>
     </tr>

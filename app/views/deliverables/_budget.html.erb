@@ -19,7 +19,7 @@
 <% end %>
 
 <p>
-  Progress: <%= h budget.progress %>
+  Progress: <%= h number_to_percentage(budget.progress, :precision => 0) %>
 </p>
 
 <% if allowed_management? %>

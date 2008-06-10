@@ -12,9 +12,20 @@ module DeliverablesHelper
   
   def paragraph_with_data(label, data)
     content_tag(:p,
-                content_tag(:span, label) +
-                h(data))
+                content_tag(:span, label, :class => 'title') +
+                content_tag(:span, h(data), :class => 'data'))
   end
+
+  def paragraph_with_double_data(label, data1, data2)
+    content_tag(:p,
+                content_tag(:span, label, :class => 'title') +
+                content_tag(:span,
+                            content_tag(:span, h(data1), :class => 'left-data') +
+                            content_tag(:span, h(data2), :class => 'right-data'),
+                            :class => 'fake-table'))
+                
+  end
+
   
   def allowed_management?
     return User.current.allowed_to?(:manage_budget, @project)
