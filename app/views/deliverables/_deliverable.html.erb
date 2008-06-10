@@ -41,10 +41,12 @@
 
       <td colspan="3">
         <%= paragraph_with_data("Total Budget: ", number_to_currency(deliverable.budget, :precision => 0)) -%>
+        <% if allowed_management? %>
         <%= paragraph_with_data("Labor: ", number_to_currency(deliverable.labor_budget, :precision => 0)) -%>
         <%= paragraph_with_data("Overhead: ", number_to_currency(deliverable.overhead, :precision => 0)) -%>
         <%= paragraph_with_data("Materials: ", number_to_currency(deliverable.materials, :precision => 0)) -%>
         <%= paragraph_with_data("Profit: ", number_to_currency(deliverable.profit, :precision => 0)) -%>
+        <% end %>
       </td>
 
       <td colspan="2">
