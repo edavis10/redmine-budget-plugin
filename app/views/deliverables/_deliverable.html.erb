@@ -10,7 +10,7 @@
         <%= content_tag(:td, link_to_function("Details", "$('deliverable-details-#{deliverable.id}').toggle();"), :class => 'actions') %>
     </tr>
     <tr id="deliverable-details-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
-      <td>
+      <td class="deliverable-actions">
         <%= content_tag(:p,link_to("Edit", :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id)) if allowed_management? -%>
         <%= content_tag(:p,link_to("Delete", { :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure))) if allowed_management? %>
         <%= content_tag(:p,link_to("Issues", :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id)) -%>

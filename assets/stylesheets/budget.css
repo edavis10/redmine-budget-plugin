@@ -11,6 +11,12 @@ tr.deliverable td.spent { text-align: right; }
 tr.deliverable td.due_date { text-align: center; }
 tr.deliverable td.done_ratio table.progress { margin-left:auto; margin-right: auto;}
 
+tr.deliverable-details { border-top: 1px solid #BBBBBB; }
+tr.deliverable-details td { padding-bottom: 50px ; }
+
+
+td.deliverable-actions { padding-left: 10px; }
+
 tr.deliverable-details p { text-align:left; clear:both;}
 tr.deliverable-details span.title { float:left; font-weight:bold; width: 130px;}
 tr.deliverable-details span.data { float:right; padding-right: 50px;}
