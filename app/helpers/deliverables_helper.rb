@@ -1,4 +1,7 @@
 module DeliverablesHelper
+
+  # Helper to generate a form used to calculate the total budget while editing
+  # a Deliverable
   def field_with_budget_observer_and_totals(form, field)
     content_tag(:p,
                 form.text_field(field, :size => 7) +
@@ -10,12 +13,14 @@ module DeliverablesHelper
                 ) + observe_field('deliverable_' + field.to_s, :function => "new Budget.updateAmounts();")
   end
   
+  # Helper to generate a consistant HTML format for displaying basic data
   def paragraph_with_data(label, data)
     content_tag(:p,
                 content_tag(:span, label, :class => 'title') +
                 content_tag(:span, h(data), :class => 'data'))
   end
 
+  # Helper to generate a consistant HTML format for displaying basic data
   def paragraph_with_double_data(label, data1, data2)
     content_tag(:p,
                 content_tag(:span, label, :class => 'title') +
@@ -26,7 +31,7 @@ module DeliverablesHelper
                 
   end
 
-  
+  # Check if the current user is allowed to manage the budget.  Based on Role permissions.
   def allowed_management?
     return User.current.allowed_to?(:manage_budget, @project)
   end
