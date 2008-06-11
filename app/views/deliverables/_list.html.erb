@@ -7,7 +7,7 @@
       <%= sort_header_tag("spent", :caption => 'Spent') if allowed_management? %>
       <%= sort_header_tag("#{Deliverable.table_name}.due", :caption => 'Due') %>
       <%= sort_header_tag("progress", :caption => 'Progress') %>
-      <%= content_tag('th', "Actions") %>
+      <%= content_tag('th', " ") %>
     </tr></thead>
     <tbody>
       <% deliverables.each do |deliverable| -%>

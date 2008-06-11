@@ -7,7 +7,7 @@
         <%= content_tag(:td, number_to_currency(deliverable.spent, :precision => 0), :class => 'spent') if allowed_management? %>
         <%= content_tag(:td, format_date(deliverable.due), :class => 'due_date') %>
         <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%', :class => 'dont_ratio')) %>
-        <%= content_tag(:td, link_to_function("Details", "$('deliverable-details-#{deliverable.id}').toggle();"), :class => 'actions') %>
+        <%= content_tag(:td, link_to_function(image_tag("edit.png"), "$('deliverable-details-#{deliverable.id}').toggle();"), :class => 'actions') %>
     </tr>
     <tr id="deliverable-details-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
       <td class="deliverable-actions">
@@ -18,7 +18,7 @@
         <div>
           <% form_for :deliverable, deliverable, :url => { :action => "bulk_assign_issues",  :id => @project.id, :deliverable_id => deliverable.id} do |f| %>
 
-          <%= select("version", "id", @project.versions.sort.collect {|v| [v.name, v.id ] }, { :include_blank => true }) %><br />
+          <%= select("version", "id", @project.versions.sort.collect {|v| [v.name, v.id ] }, { :prompt => '-- Version --' }) %><br />
           <%= submit_tag("Bulk Assign") %>
           <% end %>
         </div>

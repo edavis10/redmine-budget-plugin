@@ -15,7 +15,7 @@ tr.deliverable-details { border-top: 1px solid #BBBBBB; }
 tr.deliverable-details td { padding-bottom: 50px ; }
 
 
-td.deliverable-actions { padding-left: 10px; }
+td.deliverable-actions { padding-left: 10px; width:100px;}
 
 tr.deliverable-details p { text-align:left; clear:both;}
 tr.deliverable-details span.title { float:left; font-weight:bold; width: 130px;}
