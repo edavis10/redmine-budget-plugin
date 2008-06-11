@@ -1,3 +1,5 @@
+# A Deliverable is an item that is created as part of the project.  These items
+# contain a collection of issues.
 class Deliverable < ActiveRecord::Base
   unloadable
   validates_presence_of :subject
@@ -5,6 +7,7 @@ class Deliverable < ActiveRecord::Base
   belongs_to :project
   has_many :issues
 
+  # Assign all the issues with +version_id+ to this Deliverable
   def assign_issues_by_version(version_id)
     version = Version.find_by_id(version_id)
     return 0 if version.nil? || version.fixed_issues.blank?
@@ -16,6 +19,10 @@ class Deliverable < ActiveRecord::Base
     return version.fixed_issues.size
   end
 
+  # Change the Deliverable type to another type. Valid types are
+  #
+  # * FixedDeliverable
+  # * HourlyDeliverable
   def change_type(to)
     if [FixedDeliverable.name, HourlyDeliverable.name].include?(to)
       self.type = to
@@ -26,16 +33,21 @@ class Deliverable < ActiveRecord::Base
     end
   end
   
+  # Adjusted score to show the status of the Deliverable.  Will range from 100
+  # (everything done with no money spent) to -100 (nothing done, all the money spent)
   def score
     return self.progress - self.budget_ratio
   end
   
+  # Amount spent.  Virtual accessor that is overriden by subclasses.
   def spent
     0 
   end
   
-  # TODO LATER: Shouldn't require the default_done_ratio patch
+  # Percentage of the deliverable that is compelte based on the progress of the
+  # assigned issues.  Currently requires the +default_done_ratio+ patch.
   def progress
+    # TODO LATER: Shouldn't require the default_done_ratio patch
     return 100 unless self.issues.size > 0
 
     total ||=  self.issues.collect(&:estimated_hours).delete_if {|e| e.nil? }.inject {|sum, n| sum + n} || 0
@@ -50,14 +62,13 @@ class Deliverable < ActiveRecord::Base
     return (balance / total).round
   end
   
+  # Amount of the budget spent.  Expressed as as a percentage whole number
   def budget_ratio
     return 0.0 if self.budget.nil? || self.budget == 0.0
     return ((self.spent / self.budget) * 100).round
   end
   
-  #
-  # These attributes can take a Dollar amount or a %
-  #
+  # Setter for the overhead to take an Dollar amount or a %.
   def overhead=(v)
     if v.match(/%/)
       # Clear amount since this is a %
@@ -71,6 +82,7 @@ class Deliverable < ActiveRecord::Base
     end
   end
 
+  # Setter for the materials to take an Dollar amount or a %.
   def materials=(v)
     if v.match(/%/)
       # Clear amount since this is a %
@@ -84,6 +96,7 @@ class Deliverable < ActiveRecord::Base
     end
   end
 
+  # Setter for the profit to take an Dollar amount or a %.  
   def profit=(v)
     if v.match(/%/)
       # Clear amount since this is a %
@@ -97,22 +110,27 @@ class Deliverable < ActiveRecord::Base
     end
   end
   
+  # Amount of the budget remaining to be spent
   def budget_remaining
     return self.budget - self.spent
   end
   
+  # Number of hours used.  Virtual accessor that is overriden by subclasses.
   def hours_used
     0
   end
   
+  # Amount spent on members.  Virtual accessor that is overriden by subclasses.
   def members_spent
     []
   end
   
+  # Amount of the budget remaining
   def left
     return self.budget - self.spent
   end
   
+  # Amount spent over the total budget
   def overruns
     if self.left >= 0
       return 0
@@ -121,10 +139,12 @@ class Deliverable < ActiveRecord::Base
     end
   end
 
+  # Budget of labor, without counting profit or overheads.  Virtual accessor that is overriden by subclasses.
   def labor_budget
     0
   end
 
+  # Helper method to return an Hash of the trackers and number of issues assigned to each tracker.
   def issues_with_trackers
     trackers = self.project.trackers
     return { } if trackers.empty?

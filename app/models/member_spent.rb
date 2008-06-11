@@ -1,14 +1,18 @@
+# Plain Ruby class to help build a data structure that lists
+# each member and the amount of time and money they spent.
 class MemberSpent
   attr_accessor :user
   attr_accessor :hours
   attr_accessor :spent
   
+  # New data structure to hold the Member's data
   def initialize(options = { })
     self.user = options[:user] || nil
     self.hours = options[:hours] || 0.0
     self.spent = options[:spent] || 0.0
   end
 
+  # Get all the Members, their hours used, and their money spent
   def self.find_all_by_deliverable(deliverable)
     membership = []
     return membership unless deliverable.issues.size > 0

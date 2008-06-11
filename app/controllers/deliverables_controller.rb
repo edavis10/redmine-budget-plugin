@@ -5,7 +5,8 @@ class DeliverablesController < ApplicationController
 
   helper :sort
   include SortHelper
-  
+
+  # Main deliverable list
   def index
     sort_init "#{Deliverable.table_name}.id", "desc"
     sort_update
@@ -31,11 +32,13 @@ class DeliverablesController < ApplicationController
     end
   end
   
+  # Action to preview the Deliverable description
   def preview
     @text = params[:deliverable][:description]
     render :partial => 'common/preview'
   end
   
+  # Saves a new Deliverable
   def create
     if params[:deliverable][:type] == FixedDeliverable.name
       @deliverable = FixedDeliverable.new(params[:deliverable])
@@ -59,10 +62,12 @@ class DeliverablesController < ApplicationController
 
   end
 
+  # Builds the edit form for the Deliverable
   def edit
     @deliverable = Deliverable.find_by_id_and_project_id(params[:deliverable_id], params[:id])
   end
 
+  # Updates an existing Deliverable, optionally changing it's type
   def update
     @deliverable = Deliverable.find(params[:deliverable_id])
     
@@ -82,6 +87,7 @@ class DeliverablesController < ApplicationController
     
   end
   
+  # Removes the Deliverable
   def destroy
     @deliverable = Deliverable.find_by_id_and_project_id(params[:deliverable_id], @project.id)
     
@@ -102,6 +108,7 @@ class DeliverablesController < ApplicationController
     redirect_to :controller => 'issues', :action => 'index', :project_id => @project.id
   end
   
+  # Assigns issues to the Deliverable based on their Version
   def bulk_assign_issues
     @deliverable = Deliverable.find_by_id_and_project_id(params[:deliverable_id], @project.id)
     

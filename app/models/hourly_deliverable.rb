@@ -1,6 +1,8 @@
 class HourlyDeliverable < Deliverable
   unloadable
   
+  # Amount of money spent on the issues.  Determined by the Member's rate and
+  # timelogs.
   def spent
     return 0 unless self.issues.size > 0
     total = 0.0
@@ -17,17 +19,19 @@ class HourlyDeliverable < Deliverable
     return total
   end
   
+  # Number of hours used by Members on the Deliverable's issues
   def hours_used
     return 0 unless self.issues.size > 0
     return self.issues.collect(&:time_entries).flatten.collect(&:hours).sum
 
   end
   
+  # Amount of time and money spent by the Members on the Deliverable's issues.
   def members_spent
     return MemberSpent.find_all_by_deliverable(self)
   end
   
-  def profit
+  def profit # :nodoc:
     if read_attribute(:profit_percent).nil?
       return super
     else
@@ -35,6 +39,7 @@ class HourlyDeliverable < Deliverable
     end
   end
   
+  # Budget for the labor, excluding overhead, profit, and materials
   def labor_budget
     return read_attribute(:cost_per_hour).to_f * read_attribute(:total_hours).to_f
   end
