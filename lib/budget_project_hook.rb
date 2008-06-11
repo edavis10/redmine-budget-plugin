@@ -1,31 +1,19 @@
-class BudgetProjectHook
+# Hooks to attach to the Redmine Projects.  They are attached in init.rb by the
+# +add_hook+ method
+class BudgetProjectHook < Redmine::Plugin::Hook::Base
 
-  # http://snippets.dzone.com/posts/show/1799
-  def self.help
-    Helper.instance
-  end
-
-  class Helper
-    include Singleton
-    include ActionView::Helpers::TagHelper
-    include ActionView::Helpers::UrlHelper
-    include ActionView::Helpers::FormHelper
-    include ActionView::Helpers::FormTagHelper
-    include ActionView::Helpers::FormOptionsHelper
-    include ActionView::Helpers::JavaScriptHelper 
-    include ActionView::Helpers::PrototypeHelper
-    
-    include ActionController::UrlWriter 
-
-    def protect_against_forgery?
-      false
-    end
-  end
-
+  # Renders an additional table header to the membership setting
+  #
+  # Context: none
   def self.member_list_header(context ={ })
     return "<th>#{GLoc.l(:label_member_rate) }</th>"
   end
   
+  # Renders an AJAX from to update the member's billing rate
+  #
+  # Context:
+  # * :member => Current Member record
+  #
   def self.member_list_column_three(context = { })
 
     # Build a form_remote_tag by hand since this isn't in the scope of a controller 
