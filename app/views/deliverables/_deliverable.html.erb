@@ -29,34 +29,40 @@
       </td>
 
       <td colspan="2">
-        <%= paragraph_with_double_data "Progress: ", number_to_percentage(deliverable.progress, :precision => 0), '' %>
-        <% if allowed_management? %>
-        <%= paragraph_with_double_data "Hours Estimated: ", number_with_precision(deliverable.total_hours, 0), '' %>
-        <%= paragraph_with_double_data "Hours Used: ", number_with_precision(deliverable.hours_used,0), number_to_currency(deliverable.spent, :precision => 0)  %>
+        <table class="progress-table">
+          <%= row_with_double_data "Progress: ", number_to_percentage(deliverable.progress, :precision => 0), '' %>
+          <% if allowed_management? %>
+            <%= row_with_double_data "Hours Estimated: ", number_with_precision(deliverable.total_hours, 0), '' %>
+            <%= row_with_double_data "Hours Used: ", number_with_precision(deliverable.hours_used,0), number_to_currency(deliverable.spent, :precision => 0)  %>
 
-        <p>&nbsp;</p>
+            <tr><td>&nbsp;</td></tr>
 
-        <% deliverable.members_spent.each do |person| %>
-          <%= paragraph_with_double_data (h(person.user.name), person.hours.round, number_to_currency(person.spent, :precision => 0)) %>
+            <% deliverable.members_spent.each do |person| %>
+              <%= row_with_double_data (h(person.user.name), person.hours.round, number_to_currency(person.spent, :precision => 0)) %>
+            <% end %>
         <% end %>
-        <% end %>
+        </table>
       </td>
 
       <td colspan="3">
-        <%= paragraph_with_data("Total Budget: ", number_to_currency(deliverable.budget, :precision => 0)) -%>
+        <table class="financials">
+        <%= row_with_data("Total Budget: ", number_to_currency(deliverable.budget, :precision => 0)) -%>
         <% if allowed_management? %>
-        <%= paragraph_with_data("Labor: ", number_to_currency(deliverable.labor_budget || 0.0, :precision => 0)) -%>
-        <%= paragraph_with_data("Overhead: ", number_or_percent(deliverable.overhead, deliverable.overhead_percent)) -%>
-        <%= paragraph_with_data("Materials: ", number_or_percent(deliverable.materials, deliverable.materials_percent)) -%>
-        <%= paragraph_with_data("Profit: ", number_or_percent(deliverable.profit, deliverable.profit_percent)) -%>
+        <%= row_with_data("Labor: ", number_to_currency(deliverable.labor_budget || 0.0, :precision => 0)) -%>
+        <%= row_with_data("Overhead: ", number_or_percent(deliverable.overhead, deliverable.overhead_percent)) -%>
+        <%= row_with_data("Materials: ", number_or_percent(deliverable.materials, deliverable.materials_percent)) -%>
+        <%= row_with_data("Profit: ", number_or_percent(deliverable.profit, deliverable.profit_percent)) -%>
         <% end %>
+        </table>
       </td>
 
       <td colspan="2">
-        <%= paragraph_with_data(l(:label_issue_plural), deliverable.issues.size) -%>
+        <table class="issue-totals">
+          <%= row_with_data(l(:label_issue_plural), deliverable.issues.size, 'issue-totals') -%>
 
-        <% deliverable.issues_with_trackers.each do |tracker_name, count| %>
-          <%= paragraph_with_data(h(tracker_name), count) -%>
-        <% end %>
+          <% deliverable.issues_with_trackers.each do |tracker_name, count| %>
+            <%= row_with_data(h(tracker_name), count,'issue-totals') -%>
+          <% end %>
+        </table>
       </td>
     </tr>

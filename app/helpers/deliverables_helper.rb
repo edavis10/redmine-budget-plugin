@@ -23,6 +23,13 @@ module DeliverablesHelper
                 content_tag(:span, label, :class => 'title') +
                 content_tag(:span, h(data), :class => 'data'))
   end
+  
+  def row_with_data(label, data, css_class='')
+    content_tag(:tr,
+                content_tag(:td, label, :class => 'title') +
+                content_tag(:td, h(data), :class => 'data'),
+                :class => css_class)
+  end
 
   # Helper to generate a consistant HTML format for displaying basic data
   def paragraph_with_double_data(label, data1, data2)
@@ -33,6 +40,15 @@ module DeliverablesHelper
                             content_tag(:span, h(data2), :class => 'right-data'),
                             :class => 'fake-table'))
                 
+  end
+
+  # Helper to generate a consistant HTML format for displaying basic data
+  def row_with_double_data(label, data1, data2, css_class='')
+    content_tag(:tr,
+                content_tag(:td, label, :class => 'title') +
+                content_tag(:td, h(data1), :class => 'data') +
+                content_tag(:td, h(data2), :class => 'data'),
+                :class => css_class)
   end
 
   # Check if the current user is allowed to manage the budget.  Based on Role permissions.
