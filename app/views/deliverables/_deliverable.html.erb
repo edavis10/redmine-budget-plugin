@@ -17,7 +17,7 @@
         <%= content_tag(:p,link_to("Edit", :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id)) if allowed_management? -%>
         <%= content_tag(:p,link_to("Delete", { :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure))) if allowed_management? %>
         <%= content_tag(:p,link_to("Issues", :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id)) -%>
-        <% if allowed_management? %>
+        <% if allowed_management? && @project.versions.size > 0 %>
         <div>
           <% form_for :deliverable, deliverable, :url => { :action => "bulk_assign_issues",  :id => @project.id, :deliverable_id => deliverable.id} do |f| %>
 
