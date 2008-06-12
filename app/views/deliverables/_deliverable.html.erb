@@ -1,5 +1,16 @@
 <% css = cycle('odd','even') %>
       <tr id="deliverable-<%= deliverable.id %>" class="deliverable <%= css %>">
+        <td class="actions">
+          <span class="toggle_<%= deliverable.id -%>">
+            <%= link_to_function(image_tag("toggle-arrow-closed.gif", :plugin => "budget_plugin"),
+            "$('deliverable-details-#{deliverable.id}').show(); $$('.toggle_#{deliverable.id}').each(function(e) {e.toggle();})") %>
+          </span>
+          <span class="toggle_<%= deliverable.id -%>" style="display:none;">
+            <%= link_to_function(image_tag("toggle-arrow-open.gif", :plugin => "budget_plugin"),
+            "$('deliverable-details-#{deliverable.id}').hide(); $$('.toggle_#{deliverable.id}').each(function(e) {e.toggle();})") %>
+          </span>
+        </td>
+
         <%= content_tag(:td, deliverable.id) %>
         <%= content_tag(:td, h(deliverable.score.to_i), :class => 'score') if allowed_management? %>
         <%= content_tag(:td, h(deliverable.subject), :class => 'subject') %>
@@ -7,7 +18,6 @@
         <%= content_tag(:td, number_to_currency(deliverable.spent, :precision => 0), :class => 'spent') if allowed_management? %>
         <%= content_tag(:td, format_date(deliverable.due), :class => 'due_date') %>
         <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%', :class => 'dont_ratio')) %>
-        <%= content_tag(:td, link_to_function(image_tag("edit.png"), "$('deliverable-details-#{deliverable.id}').toggle();"), :class => 'actions') %>
     </tr>
     <tr id="deliverable-details-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
       <td class="deliverable-actions">
