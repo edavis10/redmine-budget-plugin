@@ -22,7 +22,7 @@ class FixedDeliverable < Deliverable
   
   # Budget for the labor, excluding overhead, profit, and materials
   def labor_budget
-    return read_attribute(:fixed_cost)
+    return read_attribute(:fixed_cost) || 0.0
   end
 
 end

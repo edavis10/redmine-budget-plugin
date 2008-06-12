@@ -41,7 +41,7 @@ class HourlyDeliverable < Deliverable
   
   # Budget for the labor, excluding overhead, profit, and materials
   def labor_budget
-    return read_attribute(:cost_per_hour).to_f * read_attribute(:total_hours).to_f
+    return (read_attribute(:cost_per_hour).to_f * read_attribute(:total_hours).to_f) || 0.0
   end
 
 end
