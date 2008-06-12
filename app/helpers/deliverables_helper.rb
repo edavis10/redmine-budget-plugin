@@ -43,4 +43,24 @@ module DeliverablesHelper
   def l_field(field, prefix='')
     l((prefix + field.to_s).to_sym)
   end
+  
+  def toggle_arrows(deliverable_id)
+    open_js = "$('deliverable-details-#{deliverable_id}').show(); $$('.toggle_#{deliverable_id}').each(function(e) {e.toggle();})"
+    close_js = "$('deliverable-details-#{deliverable_id}').hide(); $$('.toggle_#{deliverable_id}').each(function(e) {e.toggle();})"
+
+    return toggle_arrow(deliverable_id, "toggle-arrow-closed.gif", open_js, false) +
+      toggle_arrow(deliverable_id, "toggle-arrow-open.gif", close_js, true)
+  end
+  
+  def toggle_arrow(deliverable_id, image, js, hide=false)
+    style = "display:none;" if hide
+    style ||= ''
+
+    content_tag(:span,
+                link_to_function(image_tag(image, :plugin => "budget_plugin"), js),
+                :class => "toggle_" + deliverable_id.to_s,
+                :style => style
+                )
+    
+  end
 end

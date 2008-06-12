@@ -1,14 +1,7 @@
 <% css = cycle('odd','even') %>
       <tr id="deliverable-<%= deliverable.id %>" class="deliverable <%= css %>">
         <td class="actions">
-          <span class="toggle_<%= deliverable.id -%>">
-            <%= link_to_function(image_tag("toggle-arrow-closed.gif", :plugin => "budget_plugin"),
-            "$('deliverable-details-#{deliverable.id}').show(); $$('.toggle_#{deliverable.id}').each(function(e) {e.toggle();})") %>
-          </span>
-          <span class="toggle_<%= deliverable.id -%>" style="display:none;">
-            <%= link_to_function(image_tag("toggle-arrow-open.gif", :plugin => "budget_plugin"),
-            "$('deliverable-details-#{deliverable.id}').hide(); $$('.toggle_#{deliverable.id}').each(function(e) {e.toggle();})") %>
-          </span>
+          <%= toggle_arrows(deliverable.id) %>
         </td>
 
         <%= content_tag(:td, deliverable.id) %>
