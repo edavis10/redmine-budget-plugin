@@ -1,48 +1,95 @@
 <h2 class="title">Budget</h2>
 
-<% if allowed_management? %>
-<p>
-  Project Budget: <%= h number_to_currency(budget.budget, :precision => 0) %>
-</p>
-<% end %>
+<table>
+  <% if allowed_management? %>
+  <tr>
+    <td>
+      Project Budget:
+    </td>
+    <td class="calculation-column">
+      <%= h number_to_currency(budget.budget, :precision => 0) %>
+    </td>
+  </tr>
+  <% end %>
 
-<% if allowed_management? %>
-<p>
-  Budget Spent: <%= h number_to_currency(budget.spent, :precision => 0) %>
-</p>
-<% end %>
+  <% if allowed_management? %>
+  <tr>
+    <td>
+      Budget Spent:
+    </td>
+    <td class="calculation-column">
+      <%= h number_to_currency(budget.spent, :precision => 0) %>
+    </td>
+  </tr>
+  <% end %>
 
-<% if allowed_management? %>
-<p>
-  Budget Remaining: <%= h number_to_currency(budget.left, :precision => 0) %>
-</p>
-<% end %>
+  <% if allowed_management? %>
+  <tr>
+    <td>
+      Budget Remaining:
+    </td>
+    <td class="calculation-column">
+      <%= h number_to_currency(budget.left, :precision => 0) %>
+    </td>
+  </tr>
+  <% end %>
 
-<p>
-  Progress: <%= h number_to_percentage(budget.progress, :precision => 0) %>
-</p>
+  <tr>
+    <td>
+      Progress:
+    </td>
+    <td class="calculation-column">
+      <%= h number_to_percentage(budget.progress, :precision => 0) %>
+    </td>
+  </tr>
 
-<% if allowed_management? %>
-<p>
-  Budget Score: <%= h budget.score %>
-</p>
-<% end %>
+  <% if allowed_management? %>
+  <tr>
+    <td>
+      Budget Score:
+    </td>
+    <td class="calculation-column">
+      <%= h budget.score %>
+    </td>
+  </tr>
+  <% end %>
 
-<% if allowed_management? %>
-<p>
-  Overruns: <%= h number_to_currency(budget.overruns, :precision => 0) %>
-</p>
-<% end %>
+  <% if allowed_management? %>
+  <tr>
+    <td>
+      Overruns:
+    </td>
+    <td class="calculation-column">
+      <%= h number_to_currency(budget.overruns, :precision => 0) %>
+    </td>
+  </tr>
+  <% end %>
 
-<p>
-  Next Due Date: <%= h distance_of_time_in_words_to_now(budget.next_due_date) if budget.next_due_date %>
-</p>
-<p>
-  Completion: <%= h distance_of_time_in_words_to_now(budget.final_due_date) if budget.final_due_date %>
-</p>
+  <tr>
+    <td>
+      Next Due Date:
+    </td>
+    <td class="calculation-column">
+      <%= h distance_of_time_in_words_to_now(budget.next_due_date) if budget.next_due_date %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Completion:
+    </td>
+    <td class="calculation-column">
+      <%= h distance_of_time_in_words_to_now(budget.final_due_date) if budget.final_due_date %>
+    </td>
+  </tr>
 
-<% if allowed_management? %>
-<p>
-  Profit: <%= h number_to_currency(budget.profit, :precision => 0) %>
-</p>
-<% end %>
+  <% if allowed_management? %>
+  <tr>
+    <td>
+      Profit:
+    </td>
+    <td class="calculation-column">
+      <%= h number_to_currency(budget.profit, :precision => 0) %>
+    </td>
+  </tr>
+  <% end %>
+</table>
