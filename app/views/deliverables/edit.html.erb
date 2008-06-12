@@ -5,3 +5,7 @@
 
   <%= render :partial => 'form', :locals => { :mode => :update, :f => f } %>
 <% end %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag "budget.css", :plugin => "budget_plugin", :media => "screen" %>
+<% end %>

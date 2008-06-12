@@ -41,4 +41,6 @@ p.total-budget #total-budget-calculation {  }
 
 /* Rest some defaults */
 .jstElements button { padding: 0; margin-right: 0px;}
-.tabular label { margin-left: 0; float: none;}
+
+.tabular div.splitcontentright label { margin-left: 0; float: none;}
+.tabular div.splitcontentright  p { padding-left: 80px; }
