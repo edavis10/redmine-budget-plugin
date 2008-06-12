@@ -14,36 +14,70 @@
       </div>
 
       <div class="splitcontentright">
-        <p>
-          <label for="deliverable_type">Fixed Cost</label>
-          <%= check_box(:deliverable, :type, {}, FixedDeliverable.name, HourlyDeliverable.name) %>
-        </p>
-        <%= observe_field('deliverable_type', :function => "new Budget.changeType();") %>
+        <table>
 
-        <p class="budget-hourly"><%= f.text_field :cost_per_hour, :size => 7 %></p>
-        <%= observe_field('deliverable_cost_per_hour', :function => "new Budget.updateAmounts();") %>
+          <tr>
+            <td>
+              <label for="deliverable_type">Fixed Cost</label>
+            </td>
+            <td>
+              <%= check_box(:deliverable, :type, {}, FixedDeliverable.name, HourlyDeliverable.name) %>
+              <%= observe_field('deliverable_type', :function => "new Budget.changeType();") %>
+            </td>
+            <td>
+            </td>
+          </tr>
 
-        <p class="budget-hourly">
-          <%= f.text_field :total_hours, :size => 7 %>
-          <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'variableCost') %>
-        </p>
-        <%= observe_field('deliverable_total_hours', :function => "new Budget.updateAmounts();") %>
+          <tr class="budget-hourly">
+            <td>
+              <label for="deliverable_cost_per_hour">Cost per hour</label>
+            </td>
+            <td>
+              <%= text_field :deliverable, :cost_per_hour, :size => 7 %>
+              <%= observe_field('deliverable_cost_per_hour', :function => "new Budget.updateAmounts();") %>
+            </td>
+            <td>
+            </td>
+          </tr>
 
-        <p class="budget-fixed" style="display:none;">
-          <%= f.text_field :fixed_cost, :size => 7 %>
-          <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'fixedCost') %>
-        </p>
-        <%= observe_field('deliverable_fixed_cost', :function => "new Budget.updateAmounts();") %>
+          <tr class="budget-hourly">
+            <td>
+              <label for="deliverable_total_hours">Total Hours</label>
+            </td>
+            <td>
+              <%= text_field :deliverable, :total_hours, :size => 7 %>
+              <%= observe_field('deliverable_total_hours', :function => "new Budget.updateAmounts();") %>
+            </td>
+            <td>
+              <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'variableCost') %>
+            </td>
+          </tr>
 
-        <%= field_with_budget_observer_and_totals(f, :overhead) %>
-        <%= field_with_budget_observer_and_totals(f, :materials) %>
-        <%= field_with_budget_observer_and_totals(f, :profit) %>
+          <tr class="budget-fixed" style="display:none;">
+            <td>
+              <label for="deliverable_fixed_cost">Fixed Bid</label>
+            </td>
+            <td>
+              <%= text_field :deliverable, :fixed_cost, :size => 7 %>
+              <%= observe_field('deliverable_fixed_cost', :function => "new Budget.updateAmounts();") %>
+            </td>
+            <td>
+              <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'fixedCost') %>
+            </td>
+          </tr>
 
-        <%= content_tag(:p,"Total Budget:" + content_tag(:span, 0, :id => 'total-budget-calculation', :class => "budget-calculation"),
-                        :class => "total-budget") %>
+          <%= field_with_budget_observer_and_totals(f, :overhead) %>
+          <%= field_with_budget_observer_and_totals(f, :materials) %>
+          <%= field_with_budget_observer_and_totals(f, :profit) %>
 
-        <p><%= f.hidden_field :budget %></p>
-        
+          <tr class="total-budget">
+            <td><label>Total Budget:</label></td>
+            <td></td>
+            <td><%= content_tag(:span, 0, :id => 'total-budget-calculation', :class => "budget-calculation") %></td>
+          </tr>
+          
+        </table>
+        <%= f.hidden_field :budget %>
       </div>
       <script type="text/javascript">new Budget.changeType();</script>
       <script type="text/javascript">new Budget.updateAmounts();</script>

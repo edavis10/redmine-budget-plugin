@@ -37,4 +37,6 @@ span.budget-calculation { color:#999999; font-weight:bold; display:block; text-a
 p.total-budget { font-weight: bold; }
 p.total-budget #total-budget-calculation {  }
 
+/* Rest some defaults */
 .jstElements button { padding: 0; margin-right: 0px;}
+.tabular label { margin-left: 0; float: none;}

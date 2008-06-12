@@ -3,14 +3,16 @@ module DeliverablesHelper
   # Helper to generate a form used to calculate the total budget while editing
   # a Deliverable
   def field_with_budget_observer_and_totals(form, field)
-    content_tag(:p,
-                form.text_field(field, :size => 7) +
-                content_tag(:span,
-                            0,
-                            :class => "budget-calculation",
-                            :id => field.to_s + '_subtotal'
-                            )
-                ) + observe_field('deliverable_' + field.to_s, :function => "new Budget.updateAmounts();")
+    content_tag(:tr,
+                content_tag(:td, "<label for='deliverable_#{field}'>TODO</label>") +
+                content_tag(:td, text_field(:deliverable, field, :size => 7)) +
+                content_tag(:td,
+                            content_tag(:span,
+                                        0,
+                                        :class => "budget-calculation",
+                                        :id => field.to_s + '_subtotal'
+                                        ) + observe_field('deliverable_' + field.to_s, :function => "new Budget.updateAmounts();")))
+                            
   end
   
   # Helper to generate a consistant HTML format for displaying basic data
