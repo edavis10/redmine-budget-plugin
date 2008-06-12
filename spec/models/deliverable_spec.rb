@@ -165,11 +165,11 @@ describe Deliverable, '.progress' do
     @deliverable.progress.should eql(66)
   end
 
-  it 'should return 100 if there are no assigned issues' do
+  it 'should return 0 if there are no assigned issues' do
     @deliverable = Deliverable.new({ :subject => 'test' })
     @deliverable.should_receive(:issues).and_return([])
     
-    @deliverable.progress.should eql(100)
+    @deliverable.progress.should eql(0)
   end
 
   it 'should not count issues with no estimated time' do
@@ -187,7 +187,7 @@ describe Deliverable, '.progress' do
     @deliverable.progress.should eql(50)
   end
   
-  it 'should return 100 if there are no estimates on any of the assigned issues' do
+  it 'should return 0 if there are no estimates on any of the assigned issues' do
     @issue1 = mock_model(Issue)
     @issue1.should_receive(:estimated_hours).and_return(nil)
     @issue2 = mock_model(Issue)
@@ -198,7 +198,7 @@ describe Deliverable, '.progress' do
     @deliverable = Deliverable.new({ :subject => 'test' })
     @deliverable.should_receive(:issues).exactly(2).times.and_return(@issues)
     
-    @deliverable.progress.should eql(100)
+    @deliverable.progress.should eql(0)
     
   end
   
