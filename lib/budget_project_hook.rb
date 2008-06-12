@@ -28,7 +28,7 @@ class BudgetProjectHook < Redmine::Plugin::Hook::Base
                                                            :form => true,
                                                            :method => 'post',
                                                            :return => 'false' )+ '; return false;') + 
-      help.text_field_tag('member[rate]', context[:member].rate, :class => "small") + 
+      help.text_field_tag('member[rate]', help.number_with_precision(context[:member].rate, 0), :class => "small") + 
       help.submit_tag(GLoc.l(:button_change), :class => "small") + "</form>"
     
     return help.content_tag(:td, form, :align => 'center' )
