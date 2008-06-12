@@ -4,14 +4,16 @@ module DeliverablesHelper
   # a Deliverable
   def field_with_budget_observer_and_totals(form, field)
     content_tag(:tr,
-                content_tag(:td, "<label for='deliverable_#{field}'>TODO</label>") +
+                content_tag(:td, "<label for='deliverable_#{field.to_s}'>#{l_field(field, 'field_')}</label>") +
                 content_tag(:td, text_field(:deliverable, field, :size => 7)) +
                 content_tag(:td,
                             content_tag(:span,
                                         0,
                                         :class => "budget-calculation",
                                         :id => field.to_s + '_subtotal'
-                                        ) + observe_field('deliverable_' + field.to_s, :function => "new Budget.updateAmounts();")))
+                                        ) + observe_field('deliverable_' + field.to_s, :function => "new Budget.updateAmounts();"), 
+                            :class => "calculation-column"
+                            ))
                             
   end
   
@@ -36,5 +38,9 @@ module DeliverablesHelper
   # Check if the current user is allowed to manage the budget.  Based on Role permissions.
   def allowed_management?
     return User.current.allowed_to?(:manage_budget, @project)
+  end
+  
+  def l_field(field, prefix='')
+    l((prefix + field.to_s).to_sym)
   end
 end

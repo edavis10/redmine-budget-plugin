@@ -33,7 +33,9 @@ tr.deliverable-details div { text-align:left; }
 #deliverable-form .splitcontentright p { padding-right: 30px; }
 #deliverable-form .splitcontentright input { float:left }
 
-span.budget-calculation { color:#999999; font-weight:bold; display:block; text-align:right; width: 100%;}
+
+td.calculation-column { text-align:right; width: auto; }
+.budget-calculation { color:#999999; font-weight:bold; display:block; text-align:right; width: 100%;}
 p.total-budget { font-weight: bold; }
 p.total-budget #total-budget-calculation {  }
 

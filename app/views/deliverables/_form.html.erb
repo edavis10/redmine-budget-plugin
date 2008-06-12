@@ -24,7 +24,7 @@
               <%= check_box(:deliverable, :type, {}, FixedDeliverable.name, HourlyDeliverable.name) %>
               <%= observe_field('deliverable_type', :function => "new Budget.changeType();") %>
             </td>
-            <td>
+            <td class="calculation-column">
             </td>
           </tr>
 
@@ -48,7 +48,7 @@
               <%= text_field :deliverable, :total_hours, :size => 7 %>
               <%= observe_field('deliverable_total_hours', :function => "new Budget.updateAmounts();") %>
             </td>
-            <td>
+            <td class="calculation-column">
               <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'variableCost') %>
             </td>
           </tr>
@@ -61,7 +61,7 @@
               <%= text_field :deliverable, :fixed_cost, :size => 7 %>
               <%= observe_field('deliverable_fixed_cost', :function => "new Budget.updateAmounts();") %>
             </td>
-            <td>
+            <td class="calculation-column">
               <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'fixedCost') %>
             </td>
           </tr>
@@ -73,7 +73,9 @@
           <tr class="total-budget">
             <td><label>Total Budget:</label></td>
             <td></td>
-            <td><%= content_tag(:span, 0, :id => 'total-budget-calculation', :class => "budget-calculation") %></td>
+            <td class="calculation-column">
+              <%= content_tag(:span, 0, :id => 'total-budget-calculation', :class => "budget-calculation") %>
+            </td>
           </tr>
           
         </table>
