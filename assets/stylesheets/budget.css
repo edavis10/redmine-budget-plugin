@@ -1,4 +1,6 @@
 #budget-summary { background-image:url('../images/header.png');padding: 20px 10px 10px 10px; border: 2px solid #DDDDDD }
+h2.title {  }
+
 #budget-list {  }
 
 table.list.deliverables { margin-top: 10px; }
