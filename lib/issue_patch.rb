@@ -23,8 +23,10 @@ module IssuePatch
     def find(*args)
       # Options defined
       if args[1].is_a?(Hash)
-        # include used?
-        if args[1].has_key?(:include) && !args[1][:include].nil?
+        # Abort the special case of issue.search.  LIKE is used by search
+        if args[1].has_key?(:conditions) && args[1][:conditions].is_a?(Array) && args[1][:conditions][0].match(/LIKE \?/)
+          # skip
+        elsif args[1].has_key?(:include) && !args[1][:include].nil? # include used?
           # Add our include
           args[1][:include] << :deliverable
         else
