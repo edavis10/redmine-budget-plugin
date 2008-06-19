@@ -2,6 +2,7 @@ module DeliverablesHelper
 
   # Helper to generate a form used to calculate the total budget while editing
   # a Deliverable
+  # TODO Later: Refactor since observers are not used anymore
   def field_with_budget_observer_and_totals(form, field)
     content_tag(:tr,
                 content_tag(:td, "<label for='deliverable_#{field.to_s}'>#{l_field(field, 'field_')}</label>") +
@@ -11,7 +12,7 @@ module DeliverablesHelper
                                         0,
                                         :class => "budget-calculation",
                                         :id => field.to_s + '_subtotal'
-                                        ) + observe_field('deliverable_' + field.to_s, :function => "new Budget.updateAmounts();"), 
+                                        ),
                             :class => "calculation-column"
                             ))
                             

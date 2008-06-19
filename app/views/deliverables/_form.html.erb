@@ -35,7 +35,6 @@
             </td>
             <td>
               <%= text_field :deliverable, :cost_per_hour, :size => 7 %>
-              <%= observe_field('deliverable_cost_per_hour', :function => "new Budget.updateAmounts();") %>
             </td>
             <td>
             </td>
@@ -47,7 +46,6 @@
             </td>
             <td>
               <%= text_field :deliverable, :total_hours, :size => 7 %>
-              <%= observe_field('deliverable_total_hours', :function => "new Budget.updateAmounts();") %>
             </td>
             <td class="calculation-column">
               <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'variableCost') %>
@@ -60,7 +58,6 @@
             </td>
             <td>
               <%= text_field :deliverable, :fixed_cost, :size => 7 %>
-              <%= observe_field('deliverable_fixed_cost', :function => "new Budget.updateAmounts();") %>
             </td>
             <td class="calculation-column">
               <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'fixedCost') %>
@@ -81,12 +78,18 @@
           
         </table>
         <%= f.hidden_field :budget %>
+        <%= observe_form('deliverable-form', :function => "new Budget.updateAmounts();", :on => 'blur') %>
+
+        
       </div>
       <script type="text/javascript">new Budget.changeType();</script>
       <script type="text/javascript">new Budget.updateAmounts();</script>
+      <script type="text/javascript">
+        new PeriodicalExecuter(function() {
+            Budget.updateAmounts();
+        }, 5);
+      </script>
       <div style="clear:both;"> </div>
-
-      
 
     </div>
     <%= mode == :create ? submit_tag(l(:button_create)) : submit_tag(l(:button_update)) %>
@@ -124,6 +127,7 @@ Object.extend(BudgetModule.prototype, {
     },
 
     updateAmounts: function() {
+        console.log('updateAmounts() called');
         if ($('deliverable_type').checked) {
             // Fixed cost
             var cost = Budget.toAmount($('deliverable_fixed_cost').value);
