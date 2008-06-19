@@ -68,8 +68,16 @@ class Deliverable < ActiveRecord::Base
     return ((self.spent / self.budget) * 100).round
   end
   
+  def overhead
+    return read_attribute(:overhead) unless read_attribute(:overhead).nil?
+    return ((read_attribute(:overhead_percent).to_f / 100.0) * self.labor_budget) unless read_attribute(:overhead_percent).nil?
+    return 0
+  end
+  
   # Setter for the overhead to take an Dollar amount or a %.
   def overhead=(v)
+    return if v.nil?
+
     if v.match(/%/)
       # Clear amount since this is a %
       write_attribute(:overhead, nil)
@@ -84,6 +92,8 @@ class Deliverable < ActiveRecord::Base
 
   # Setter for the materials to take an Dollar amount or a %.
   def materials=(v)
+    return if v.nil?
+
     if v.match(/%/)
       # Clear amount since this is a %
       write_attribute(:materials, nil)

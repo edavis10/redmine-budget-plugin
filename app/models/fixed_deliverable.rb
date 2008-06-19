@@ -16,7 +16,7 @@ class FixedDeliverable < Deliverable
     if read_attribute(:profit_percent).nil?
       return super
     else
-      return (read_attribute(:profit_percent).to_f / 100.0) * read_attribute(:fixed_cost)
+      return (read_attribute(:profit_percent).to_f / 100.0) * (read_attribute(:fixed_cost) + self.overhead)
     end
   end
   

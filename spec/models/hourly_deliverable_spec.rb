@@ -28,8 +28,13 @@ describe HourlyDeliverable, '.spent' do
 end
 
 describe HourlyDeliverable, '.profit as a %' do
-  it 'should return the % of the hours mutipled by the cost per hour amount' do    
-    @deliverable = HourlyDeliverable.new({ :subject => 'test', :profit_percent => 50, :cost_per_hour => 100.0, :total_hours => 10 })
-    @deliverable.profit.should eql(500.0)
+  it 'should return the % of the hours mutipled by the cost per hour amount plus the overhead' do    
+    @deliverable = HourlyDeliverable.new({ :subject => 'test', :profit_percent => 50, :cost_per_hour => 100.0, :total_hours => 10, :overhead => '1000.00', :overhead_percent => nil })
+    @deliverable.profit.should eql(1000.0)
+  end
+
+  it 'should return the % of the hours mutipled by the cost per hour amount plus the overhead percentage' do    
+    @deliverable = HourlyDeliverable.new({ :subject => 'test', :profit_percent => 50, :cost_per_hour => 100.0, :total_hours => 10, :overhead => nil, :overhead_percent => 100 })
+    @deliverable.profit.should eql(1000.0)
   end
 end

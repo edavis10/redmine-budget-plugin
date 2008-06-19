@@ -150,8 +150,9 @@ Object.extend(BudgetModule.prototype, {
             var materials_subtotal =  Budget.toAmount($('deliverable_materials').value);
         }
 
+        // Profit uses labor cost and overhead
         if ($('deliverable_profit').value.match('%')) {
-            var profit_subtotal =  (Budget.toAmount($('deliverable_profit').value) / 100) * cost;
+            var profit_subtotal =  (Budget.toAmount($('deliverable_profit').value) / 100) * (cost + overhead_subtotal);
         } else {
             var profit_subtotal =  Budget.toAmount($('deliverable_profit').value);
         }

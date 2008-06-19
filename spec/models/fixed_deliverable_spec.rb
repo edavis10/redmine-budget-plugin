@@ -17,8 +17,13 @@ describe FixedDeliverable, '.spent' do
 end
 
 describe FixedDeliverable, '.profit as a %' do
-  it 'should return the % of the fixed bid amount' do    
-    @deliverable = FixedDeliverable.new({ :subject => 'test', :profit_percent => 50, :fixed_cost => 1000.0 })
-    @deliverable.profit.should eql(500.0)
+  it 'should return the % of the fixed bid and overhead amount' do    
+    @deliverable = FixedDeliverable.new({ :subject => 'test', :profit_percent => 50, :fixed_cost => 1000.0, :overhead => "1000.00", :overhead_percent => nil })
+    @deliverable.profit.should eql(1000.0)
+  end
+
+  it 'should return the % of the fixed bid and overhead percentage' do    
+    @deliverable = FixedDeliverable.new({ :subject => 'test', :profit_percent => 50, :fixed_cost => 1000.0, :overhead => nil, :overhead_percent => 100 })
+    @deliverable.profit.should eql(1000.0)
   end
 end

@@ -20,7 +20,7 @@ describe Deliverable, 'associations' do
   end
 end
 
-describe Deliverable, '.overhead' do
+describe Deliverable, '.overhead=' do
   before(:each) do
     @deliverable = Deliverable.new({ :subject => 'test' })
   end
@@ -28,24 +28,24 @@ describe Deliverable, '.overhead' do
   describe 'with a dollar amount' do
     it 'should store the dollar amount' do
       @deliverable.overhead = "$1, 000.10"
-      @deliverable.overhead.should eql(1000.1)
+      @deliverable.read_attribute(:overhead).should eql(1000.1)
     end
     
     it 'should clear the .overhead_percent' do
       @deliverable.overhead = "$1, 000.10"
-      @deliverable.overhead_percent.should eql(nil)
+      @deliverable.read_attribute(:overhead_percent).should eql(nil)
     end
   end
   
   describe 'with a percentage' do
     it 'should store the % of the amount to .overhead_percent' do
       @deliverable.overhead = "100 %"
-      @deliverable.overhead_percent.should eql(100)
+      @deliverable.read_attribute(:overhead_percent).should eql(100)
     end
 
     it 'should clean the .overhead' do
       @deliverable.overhead = "100 %"
-      @deliverable.overhead.should eql(nil)
+      @deliverable.read_attribute(:overhead).should eql(nil)
     end
   end  
 end

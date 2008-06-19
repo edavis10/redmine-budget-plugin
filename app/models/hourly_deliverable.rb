@@ -35,7 +35,9 @@ class HourlyDeliverable < Deliverable
     if read_attribute(:profit_percent).nil?
       return super
     else
-      return (read_attribute(:profit_percent).to_f / 100.0) * (read_attribute(:cost_per_hour) * read_attribute(:total_hours))
+      labor = (read_attribute(:cost_per_hour) * read_attribute(:total_hours))
+      
+      return (read_attribute(:profit_percent).to_f / 100.0) * (labor + self.overhead)
     end
   end
   
