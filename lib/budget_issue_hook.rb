@@ -8,8 +8,12 @@ class BudgetIssueHook < Redmine::Plugin::Hook::Base
   # * :issue => Issue being rendered
   #
   def self.issue_show(context = { })
-    data = "<td><b>Deliverable :</b></td><td>#{help.html_escape context[:issue].deliverable.subject unless context[:issue].deliverable.nil?}</td>"
-    return "<tr>#{data}<td></td></tr>"
+    if context[:project].module_enabled?('budget_module')
+      data = "<td><b>Deliverable :</b></td><td>#{help.html_escape context[:issue].deliverable.subject unless context[:issue].deliverable.nil?}</td>"
+      return "<tr>#{data}<td></td></tr>"
+    else
+      return ''
+    end
   end
   
   # Renders a select tag with all the Deliverables
@@ -19,8 +23,12 @@ class BudgetIssueHook < Redmine::Plugin::Hook::Base
   # * :project => Current project
   #
   def self.issue_edit(context = { })
-    select = context[:form].select :deliverable_id, Deliverable.find_all_by_project_id(context[:project]).collect { |d| [d.subject, d.id] }, :include_blank => true 
-    return "<p>#{select}</p>"
+    if context[:project].module_enabled?('budget_module')
+      select = context[:form].select :deliverable_id, Deliverable.find_all_by_project_id(context[:project]).collect { |d| [d.subject, d.id] }, :include_blank => true 
+      return "<p>#{select}</p>"
+    else
+      return ''
+    end
   end
   
   # Renders a select tag with all the Deliverables for the bulk edit page
@@ -29,12 +37,16 @@ class BudgetIssueHook < Redmine::Plugin::Hook::Base
   # * :project => Current project
   #
   def self.issue_bulk_edit(context = { })
-    select = help.select_tag('deliverable_id',
-                        help.content_tag('option', GLoc.l(:label_no_change_option), :value => '') +
-                                help.content_tag('option', GLoc.l(:label_none), :value => 'none') +
-                                help.options_from_collection_for_select(Deliverable.find_all_by_project_id(context[:project].id, :id, :subject), :id, :subject))
+    if context[:project].module_enabled?('budget_module')
+      select = help.select_tag('deliverable_id',
+                               help.content_tag('option', GLoc.l(:label_no_change_option), :value => '') +
+                               help.content_tag('option', GLoc.l(:label_none), :value => 'none') +
+                               help.options_from_collection_for_select(Deliverable.find_all_by_project_id(context[:project].id, :id, :subject), :id, :subject))
     
-    return help.content_tag(:p, "<label>#{GLoc.l(:field_deliverable)}: " + select + "</label>")
+      return help.content_tag(:p, "<label>#{GLoc.l(:field_deliverable)}: " + select + "</label>")
+    else
+      return ''
+    end
   end
   
   # Saves the Deliverable assignment to the issue
