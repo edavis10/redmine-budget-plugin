@@ -3,10 +3,10 @@ module DeliverablesHelper
   # Helper to generate a form used to calculate the total budget while editing
   # a Deliverable
   # TODO Later: Refactor since observers are not used anymore
-  def field_with_budget_observer_and_totals(form, object, field, percent_field)
+  def field_with_budget_observer_and_totals(form, object, field, percent_field, default_value='')
     content_tag(:tr,
                 content_tag(:td, "<label for='deliverable_#{field.to_s}'>#{l_field(field, 'field_')}</label>") +
-                content_tag(:td, number_or_percent_field(object, field, percent_field, :size => 7)) +
+                content_tag(:td, number_or_percent_field(object, field, percent_field, default_value, :size => 7)) +
                 content_tag(:td,
                             content_tag(:span,
                                         0,
@@ -18,14 +18,15 @@ module DeliverablesHelper
                             
   end
 
-  def number_or_percent_field(object, number_field, percent_field, options)
+  def number_or_percent_field(object, number_field, percent_field, default_value, options)
     # Build a text_field by hand named after the number field but with the percent_field and % as the value
     return text_field_tag('deliverable_' + number_field.to_s, 
                           object.read_attribute(percent_field).to_s + "%",
                           options.merge({ :name => "deliverable[#{number_field.to_s}]"})) unless object.read_attribute(percent_field).blank?
     
     # Number and fallback with no values
-    return text_field(:deliverable, number_field, options)
+    value = object.read_attribute(number_field) || default_value || ''
+    return text_field(:deliverable, number_field, options.merge({ :value => value}))
   end
   
   # Helper to generate a consistant HTML format for displaying basic data

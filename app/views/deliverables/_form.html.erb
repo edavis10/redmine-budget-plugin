@@ -64,9 +64,9 @@
             </td>
           </tr>
 
-          <%= field_with_budget_observer_and_totals(f, @deliverable, :overhead, :overhead_percent) %>
-          <%= field_with_budget_observer_and_totals(f, @deliverable, :materials, :materials_percent) %>
-          <%= field_with_budget_observer_and_totals(f, @deliverable, :profit, :profit_percent) %>
+          <%= field_with_budget_observer_and_totals(f, @deliverable, :overhead, :overhead_percent, @settings[:budget_non_billable_overhead]) %>
+          <%= field_with_budget_observer_and_totals(f, @deliverable, :materials, :materials_percent, @settings[:budget_materials]) %>
+          <%= field_with_budget_observer_and_totals(f, @deliverable, :profit, :profit_percent, @settings[:budget_profit]) %>
 
           <tr class="total-budget">
             <td><label>Total Budget:</label></td>
