@@ -38,7 +38,7 @@
             <tr><td>&nbsp;</td></tr>
 
             <% deliverable.members_spent.each do |person| %>
-              <%= row_with_double_data (h(person.user.name), person.hours.round, number_to_currency(person.spent, :precision => 0)) %>
+              <%= row_with_double_data(h(person.user.name), person.hours.round, number_to_currency(person.spent, :precision => 0)) %>
             <% end %>
         <% end %>
         </table>
