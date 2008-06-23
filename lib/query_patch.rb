@@ -39,7 +39,7 @@ module QueryPatch
       @available_filters = redmine_available_filters
       
       if project
-        budget_filters = { "deliverable_id" => { :type => :list, :order => 14,
+        budget_filters = { "deliverable_id" => { :type => :list_optional, :order => 14,
             :values => Deliverable.find(:all, :conditions => ["project_id IN (?)", project]).collect { |d| [d.subject, d.id.to_s]}
           }}
       else
