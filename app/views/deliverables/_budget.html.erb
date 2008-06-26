@@ -76,6 +76,28 @@
   </tr>
   <% end %>
 
+  <% if allowed_management? %>
+  <tr>
+    <td>
+      Missing on Deliverables:
+    </td>
+    <td class="calculation-column">
+      <%= h number_to_currency(budget.amount_missing_on_deliverables, :precision => 0) %>
+    </td>
+  </tr>
+  <% end %>
+
+  <% if allowed_management? %>
+  <tr>
+    <td>
+      Missing on Issues:
+    </td>
+    <td class="calculation-column">
+      <%= h number_to_currency(budget.amount_missing_on_issues, :precision => 0) %>
+    </td>
+  </tr>
+  <% end %>
+
   <tr>
     <td>
       Next Due Date:

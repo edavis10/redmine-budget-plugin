@@ -114,4 +114,41 @@ class Budget
     
     return profit
   end
+  
+  # Dollar amount of time that has been logged to the project itself
+  def amount_missing_on_issues
+    time_logs = TimeEntry.find_all_by_project_id_and_issue_id(self.project, nil)
+    total = 0
+    
+    # Find each Member for their rate
+    time_logs.each do |time_log|
+      member = Member.find_by_user_id_and_project_id(time_log.user_id, time_log.project_id)
+      total += (member.rate * time_log.hours) unless member.nil? || member.rate.nil?
+    end
+    
+    return total
+  end
+  
+  # Dollar amount of time that has been logged to issues that are not assigned to deliverables
+  def amount_missing_on_deliverables
+    total = 0
+    
+    # Bisect the issues because NOT IN isn't reliable
+    all_issues = self.project.issues.find(:all)
+    deliverable_issues = self.project.issues.find(:all, :conditions => ["deliverable_id IN (?)", self.deliverables.collect(&:id)])
+
+    return 0 if all_issues.empty?
+    missing_issues = all_issues - deliverable_issues
+
+    
+    time_logs = missing_issues.collect(&:time_entries).flatten
+    
+    # Find each Member for their rate
+    time_logs.each do |time_log|
+      member = Member.find_by_user_id_and_project_id(time_log.user_id, time_log.project_id)
+      total += (member.rate * time_log.hours) unless member.nil? || member.rate.nil?
+    end
+    
+    return total
+  end
 end
