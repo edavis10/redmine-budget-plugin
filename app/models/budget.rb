@@ -41,6 +41,11 @@ class Budget
     return self.deliverables.collect(&:budget).inject { |sum, n| sum + n} || 0.0
   end
 
+  # Total labor budget all of the deliverables
+  def labor_budget
+    return self.deliverables.collect(&:labor_budget).inject { |sum, n| sum + n} || 0.0
+  end
+
   # Amount of the budget spent.  Expressed as as a percentage whole number
   def budget_ratio
     budget = self.budget # cache result
@@ -60,7 +65,12 @@ class Budget
   def left
     return self.budget - self.spent
   end
-  
+
+  # Amount of labor budget left on the deliverables
+  def labor_budget_left
+    return self.labor_budget - self.spent
+  end
+
   # Amount spent over the budget
   def overruns
     if self.left >= 0

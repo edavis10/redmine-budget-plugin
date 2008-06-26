@@ -15,6 +15,17 @@
   <% if allowed_management? %>
   <tr>
     <td>
+      Labor Budget:
+    </td>
+    <td class="calculation-column">
+      <%= h number_to_currency(budget.labor_budget, :precision => 0) %>
+    </td>
+  </tr>
+  <% end %>
+
+  <% if allowed_management? %>
+  <tr>
+    <td>
       Labor Budget Spent:
     </td>
     <td class="calculation-column">
@@ -29,7 +40,7 @@
       Labor Budget Remaining:
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.left, :precision => 0) %>
+      <%= h number_to_currency(budget.labor_budget_left, :precision => 0) %>
     </td>
   </tr>
   <% end %>
