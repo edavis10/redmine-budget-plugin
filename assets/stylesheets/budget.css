@@ -18,11 +18,14 @@ tr.deliverable-details td { padding-bottom: 50px ; }
 
 
 td.deliverable-actions { padding-left: 10px; width:100px;}
+td.deliverable-actions { padding-left: 10px; width:100px;}
 
+tr.deliverable-details { border: none; }
 tr.deliverable-details p { text-align:left; clear:both;}
 tr.deliverable-details div { text-align:left; }
 tr.deliverable-details table { width: 85%; }
-tr.deliverable-details table tr td { padding: 0px; }
+tr.deliverable-details table tr td { padding: 0px; border:none; }
+tr.deliverable-details:hover table tr td{ border: none; }
 tr.deliverable-details table tr td.title { font-weight:bold; text-align:left; }
 tr.deliverable-details table tr td.data { text-align:right; }
 
