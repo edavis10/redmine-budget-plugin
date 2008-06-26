@@ -76,7 +76,7 @@
   </tr>
   <% end %>
 
-  <% if allowed_management? %>
+  <% if allowed_management? && budget.amount_missing_on_deliverables > 0%>
   <tr>
     <td>
       Missing on <%= link_to('Deliverables:', :action => 'issues', :id => @project.id, :deliverable_id => :none) %>
@@ -87,7 +87,7 @@
   </tr>
   <% end %>
 
-  <% if allowed_management? %>
+  <% if allowed_management? && budget.amount_missing_on_issues > 0 %>
   <tr>
     <td>
       Missing on <%= link_to('Issues:', 
