@@ -79,7 +79,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Missing on Deliverables:
+      Missing on <%= link_to('Deliverables:', :action => 'issues', :id => @project.id, :deliverable_id => :none) %>
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.amount_missing_on_deliverables, :precision => 0) %>
@@ -90,7 +90,13 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Missing on Issues:
+      Missing on <%= link_to('Issues:', 
+          :controller => 'timelog',
+          :action => 'details', 
+          :project_id => @project.id,
+          :sort_key => 'issue_id',
+          :sort_order => 'asc') %>
+
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.amount_missing_on_issues, :precision => 0) %>

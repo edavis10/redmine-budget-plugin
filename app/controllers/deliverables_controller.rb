@@ -102,7 +102,12 @@ class DeliverablesController < ApplicationController
   def issues
     @query = Query.new(:name => "_")
     @query.project = @project
-    @query.add_filter("deliverable_id", '=', [params[:deliverable_id]])
+    unless params[:deliverable_id] == 'none'
+      @query.add_filter("deliverable_id", '=', [params[:deliverable_id]])
+    else
+      @query.add_filter("deliverable_id", '!*', []) # None
+    end
+    
     session[:query] = {:project_id => @query.project_id, :filters => @query.filters}
 
     redirect_to :controller => 'issues', :action => 'index', :project_id => @project.id
