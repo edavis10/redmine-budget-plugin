@@ -105,9 +105,10 @@ class DeliverablesController < ApplicationController
     unless params[:deliverable_id] == 'none'
       @query.add_filter("deliverable_id", '=', [params[:deliverable_id]])
     else
-      @query.add_filter("deliverable_id", '!*', []) # None
+      @query.add_filter("deliverable_id", '!*', ['']) # None
+      @query.add_filter("status_id", '*', ['']) # All statuses
     end
-    
+
     session[:query] = {:project_id => @query.project_id, :filters => @query.filters}
 
     redirect_to :controller => 'issues', :action => 'index', :project_id => @project.id
