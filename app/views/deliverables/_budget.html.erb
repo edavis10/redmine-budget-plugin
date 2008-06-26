@@ -4,7 +4,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Project Budget:
+      Total Budget:
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.budget, :precision => 0) %>
@@ -15,7 +15,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Budget Spent:
+      Labor Budget Spent:
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.spent, :precision => 0) %>
@@ -26,7 +26,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Budget Remaining:
+      Labor Budget Remaining:
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.left, :precision => 0) %>
@@ -85,7 +85,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Profit:
+      Potential Profit:
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.profit, :precision => 0) %>
