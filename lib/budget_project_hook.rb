@@ -26,6 +26,7 @@ class BudgetProjectHook < Redmine::Plugin::Hook::Base
                                                                :controller => 'members',
                                                                :action => 'edit',
                                                                :id => context[:member].id,
+                                                               :protocol => Setting.protocol,
                                                                :host => Setting.host_name
                                                              },
                                                              :host => Setting.host_name,
