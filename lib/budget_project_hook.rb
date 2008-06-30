@@ -21,7 +21,7 @@ class BudgetProjectHook < Redmine::Plugin::Hook::Base
   def self.member_list_column_three(context = { })
     if context[:project].module_enabled?('budget_module')
       # Build a form_remote_tag by hand since this isn't in the scope of a controller 
-      form = help.form_tag({:controller => 'members', :action => 'edit', :id => context[:member].id, :host => Setting.host_name},
+      form = help.form_tag({:controller => 'members', :action => 'edit', :id => context[:member].id, :protocol => Setting.protocol, :host => Setting.host_name},
                            :onsubmit => help.remote_function(:url => {
                                                                :controller => 'members',
                                                                :action => 'edit',
@@ -29,6 +29,7 @@ class BudgetProjectHook < Redmine::Plugin::Hook::Base
                                                                :host => Setting.host_name
                                                              },
                                                              :host => Setting.host_name,
+                                                             :protocol => Setting.protocol,
                                                              :form => true,
                                                              :method => 'post',
                                                              :return => 'false' )+ '; return false;') + 
