@@ -28,7 +28,11 @@ module IssuePatch
           # skip
         elsif args[1].has_key?(:include) && !args[1][:include].nil? # include used?
           # Add our include
-          args[1][:include] << :deliverable
+          if args[1][:include].is_a?(Array)
+            args[1][:include] << :deliverable
+          else
+            args[1][:include] = [args[1][:include], :deliverable] # Rewrite a the include as an array
+          end
         else
           # Add an include
           args[1][:include] = [:deliverable]
