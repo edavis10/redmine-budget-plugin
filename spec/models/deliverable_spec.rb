@@ -132,37 +132,68 @@ end
 
 describe Deliverable, '.progress' do
   before(:each) do
-    @status_in_progress = mock_model(IssueStatus)
-    @status_in_progress.stub!(:default_done_ratio).and_return(50)
-    @status_new = mock_model(IssueStatus)
-    @status_new.stub!(:default_done_ratio).and_return(0)
-    @status_pending = mock_model(IssueStatus)
-    @status_pending.stub!(:default_done_ratio).and_return(80)
-    @status_complete = mock_model(IssueStatus)
-    @status_complete.stub!(:default_done_ratio).and_return(100)
-
+    Setting.stub!(:issue_status_for_done_ratio?).and_return(false)
   end
-  
-  it 'should be calculated by the weighted average of the estimated hours of issues' do
-    @issue1 = mock_model(Issue)
-    @issue1.should_receive(:status).and_return(@status_in_progress)
-    @issue1.should_receive(:estimated_hours).exactly(3).times.and_return(3.0)
-    @issue2 = mock_model(Issue)
-    @issue2.should_receive(:status).and_return(@status_new)
-    @issue2.should_receive(:estimated_hours).exactly(3).times.and_return(2.0)
-    @issue3 = mock_model(Issue)
-    @issue3.should_receive(:status).and_return(@status_pending)
-    @issue3.should_receive(:estimated_hours).exactly(3).times.and_return(10.0)
-    @issue4 = mock_model(Issue)
-    @issue4.should_receive(:status).and_return(@status_complete)
-    @issue4.should_receive(:estimated_hours).exactly(3).times.and_return(1.0)
-    @issues = [@issue1, @issue2, @issue3, @issue4]
-    @issues.stub!(:count).and_return(4)
+
+  describe 'using the issue done ratio' do
+    it 'should be calculated by the weighted average of the estimated hours of issues' do
+      @issue1 = mock_model(Issue)
+      @issue1.should_receive(:done_ratio).and_return(50)
+      @issue1.should_receive(:estimated_hours).exactly(3).times.and_return(3.0)
+      @issue2 = mock_model(Issue)
+      @issue2.should_receive(:done_ratio).and_return(0)
+      @issue2.should_receive(:estimated_hours).exactly(3).times.and_return(2.0)
+      @issue3 = mock_model(Issue)
+      @issue3.should_receive(:done_ratio).and_return(80)
+      @issue3.should_receive(:estimated_hours).exactly(3).times.and_return(10.0)
+      @issue4 = mock_model(Issue)
+      @issue4.should_receive(:done_ratio).and_return(100)
+      @issue4.should_receive(:estimated_hours).exactly(3).times.and_return(1.0)
+      @issues = [@issue1, @issue2, @issue3, @issue4]
+      @issues.stub!(:count).and_return(4)
+      
+      @deliverable = Deliverable.new({ :subject => 'test' })
+      @deliverable.should_receive(:issues).exactly(3).times.and_return(@issues)
+      
+      @deliverable.progress.should eql(66)
+    end
+  end
+
+  describe 'using the status done ratio patch' do
+    before(:each) do
+      Setting.stub!(:issue_status_for_done_ratio?).and_return(true)
+      @status_in_progress = mock_model(IssueStatus)
+      @status_in_progress.stub!(:default_done_ratio).and_return(50)
+      @status_new = mock_model(IssueStatus)
+      @status_new.stub!(:default_done_ratio).and_return(0)
+      @status_pending = mock_model(IssueStatus)
+      @status_pending.stub!(:default_done_ratio).and_return(80)
+      @status_complete = mock_model(IssueStatus)
+      @status_complete.stub!(:default_done_ratio).and_return(100)
+
+    end
     
-    @deliverable = Deliverable.new({ :subject => 'test' })
-    @deliverable.should_receive(:issues).exactly(3).times.and_return(@issues)
-    
-    @deliverable.progress.should eql(66)
+    it 'should be calculated by the weighted average of the estimated hours of issues' do
+      @issue1 = mock_model(Issue)
+      @issue1.should_receive(:status).and_return(@status_in_progress)
+      @issue1.should_receive(:estimated_hours).exactly(3).times.and_return(3.0)
+      @issue2 = mock_model(Issue)
+      @issue2.should_receive(:status).and_return(@status_new)
+      @issue2.should_receive(:estimated_hours).exactly(3).times.and_return(2.0)
+      @issue3 = mock_model(Issue)
+      @issue3.should_receive(:status).and_return(@status_pending)
+      @issue3.should_receive(:estimated_hours).exactly(3).times.and_return(10.0)
+      @issue4 = mock_model(Issue)
+      @issue4.should_receive(:status).and_return(@status_complete)
+      @issue4.should_receive(:estimated_hours).exactly(3).times.and_return(1.0)
+      @issues = [@issue1, @issue2, @issue3, @issue4]
+      @issues.stub!(:count).and_return(4)
+      
+      @deliverable = Deliverable.new({ :subject => 'test' })
+      @deliverable.should_receive(:issues).exactly(3).times.and_return(@issues)
+      
+      @deliverable.progress.should eql(66)
+    end
   end
 
   it 'should return 0 if there are no assigned issues' do
@@ -174,7 +205,7 @@ describe Deliverable, '.progress' do
 
   it 'should not count issues with no estimated time' do
     @issue1 = mock_model(Issue)
-    @issue1.should_receive(:status).and_return(@status_in_progress)
+    @issue1.should_receive(:done_ratio).and_return(50)
     @issue1.should_receive(:estimated_hours).exactly(3).times.and_return(3.0)
     @issue2 = mock_model(Issue)
     @issue2.should_receive(:estimated_hours).exactly(2).times.and_return(nil)

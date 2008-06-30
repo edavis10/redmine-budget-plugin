@@ -45,18 +45,21 @@ class Deliverable < ActiveRecord::Base
   end
   
   # Percentage of the deliverable that is compelte based on the progress of the
-  # assigned issues.  Currently requires the +default_done_ratio+ patch.
+  # assigned issues.
   def progress
-    # TODO LATER: Shouldn't require the default_done_ratio patch
     return 0 unless self.issues.size > 0
-
+    
     total ||=  self.issues.collect(&:estimated_hours).delete_if {|e| e.nil? }.inject {|sum, n| sum + n} || 0
 
     return 0 unless total > 0
     balance = 0.0
 
     self.issues.each do |issue|
-      balance += issue.status.default_done_ratio * issue.estimated_hours unless issue.estimated_hours.nil?
+      if use_issue_status_for_done_ratios?
+        balance += issue.status.default_done_ratio * issue.estimated_hours unless issue.estimated_hours.nil?
+      else
+        balance += issue.done_ratio * issue.estimated_hours unless issue.estimated_hours.nil?
+      end
     end
 
     return (balance / total).round
@@ -173,4 +176,10 @@ class Deliverable < ActiveRecord::Base
     (user == user && user.allowed_to?(:manage_budget, project))
   end
 
+  private
+  
+  def use_issue_status_for_done_ratios?
+    return defined?(Setting.issue_status_for_done_ratio?) && Setting.issue_status_for_done_ratio?
+  end
+  
 end
