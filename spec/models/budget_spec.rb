@@ -340,8 +340,8 @@ describe Budget, '.profit' do
 
   it 'should be calculated by the total profit of the deliverables with % amounts' do
     @project = mock_model(Project)
-    @deliverable1 = mock_model(HourlyDeliverable, :project_id => @project, :profit_percent => 10, :budget => 2000.0, :profit => nil)
-    @deliverable2 = mock_model(HourlyDeliverable, :project_id => @project, :profit_percent => 10, :budget => 1000.0, :profit => nil)
+    @deliverable1 = mock_model(HourlyDeliverable, :project_id => @project, :profit_percent => 10, :budget => 2000.0, :profit => 200)
+    @deliverable2 = mock_model(HourlyDeliverable, :project_id => @project, :profit_percent => 10, :budget => 1000.0, :profit => 100)
 
     Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
     Project.stub!(:find).with(@project.id).and_return(@project)
