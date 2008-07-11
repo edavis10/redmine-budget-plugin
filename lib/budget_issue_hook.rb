@@ -24,7 +24,7 @@ class BudgetIssueHook < Redmine::Plugin::Hook::Base
   #
   def self.issue_edit(context = { })
     if context[:project].module_enabled?('budget_module')
-      select = context[:form].select :deliverable_id, Deliverable.find_all_by_project_id(context[:project]).collect { |d| [d.subject, d.id] }, :include_blank => true 
+      select = context[:form].select :deliverable_id, Deliverable.find_all_by_project_id(context[:project], :order => 'subject ASC').collect { |d| [d.subject, d.id] }, :include_blank => true 
       return "<p>#{select}</p>"
     else
       return ''
@@ -41,7 +41,7 @@ class BudgetIssueHook < Redmine::Plugin::Hook::Base
       select = help.select_tag('deliverable_id',
                                help.content_tag('option', GLoc.l(:label_no_change_option), :value => '') +
                                help.content_tag('option', GLoc.l(:label_none), :value => 'none') +
-                               help.options_from_collection_for_select(Deliverable.find_all_by_project_id(context[:project].id, :id, :subject), :id, :subject))
+                               help.options_from_collection_for_select(Deliverable.find_all_by_project_id(context[:project].id, :order => 'subject ASC'), :id, :subject))
     
       return help.content_tag(:p, "<label>#{GLoc.l(:field_deliverable)}: " + select + "</label>")
     else

@@ -40,7 +40,7 @@ module QueryPatch
       
       if project
         budget_filters = { "deliverable_id" => { :type => :list_optional, :order => 14,
-            :values => Deliverable.find(:all, :conditions => ["project_id IN (?)", project]).collect { |d| [d.subject, d.id.to_s]}
+            :values => Deliverable.find(:all, :conditions => ["project_id IN (?)", project], :order => 'subject ASC').collect { |d| [d.subject, d.id.to_s]}
           }}
       else
         budget_filters = { }
