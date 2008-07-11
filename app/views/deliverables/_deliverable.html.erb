@@ -57,7 +57,8 @@
         <table class="financials">
         <%= row_with_data("Total Budget: ", number_to_currency(deliverable.budget, :precision => 0)) -%>
         <% if allowed_management? %>
-        <%= row_with_data("Labor: ", number_to_currency(deliverable.labor_budget || 0.0, :precision => 0)) -%>
+        <% base_price_label = deliverable.hourly? ? "Labor: " : "Fixed Amount: " %>
+        <%= row_with_data(base_price_label, number_to_currency(deliverable.labor_budget || 0.0, :precision => 0)) -%>
         <%= row_with_data("Overhead: ", number_or_percent(deliverable.overhead, deliverable.overhead_percent)) -%>
         <%= row_with_data("Materials: ", number_or_percent(deliverable.materials, deliverable.materials_percent)) -%>
         <%= row_with_data("Potential Profit: ", number_or_percent(deliverable.profit, deliverable.profit_percent)) -%>
