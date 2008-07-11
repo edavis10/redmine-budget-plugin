@@ -6,10 +6,25 @@ class FixedDeliverable < Deliverable
     0
   end
 
-  # Returns the amount spent.  It will always be the fixed cost because
-  # that money has been allocated already and is managed by the user
+  # Returns the amount spent.  It will always be the fixed cost plus logged time
+  # because that money has been allocated already and is managed by the user.
   def spent
-    self.fixed_cost || 0.0
+    return 0.0 if self.fixed_cost.nil?
+    return self.fixed_cost unless self.issues.size > 0
+
+    total = fixed_cost.to_f
+    
+    # Get all timelogs assigned
+    time_logs = self.issues.collect(&:time_entries).flatten
+    
+    # Find each Member for their rate
+    time_logs.each do |time_log|
+      member = Member.find_by_user_id_and_project_id(time_log.user_id, time_log.project_id)
+      total += (member.rate * time_log.hours) unless member.nil? || member.rate.nil?
+    end
+    
+    return total
+    
   end
   
   def profit # :nodoc:

@@ -18,6 +18,26 @@ describe FixedDeliverable, '.spent' do
     @deliverable = FixedDeliverable.new({ :subject => 'test' })
     @deliverable.spent.should eql(0.0)
   end
+
+  it 'should always equal the sum of the fixed cost and any logged hours' do
+    
+    @project = mock_model(Project)
+    @user = mock_model(User)
+    @issue1 = mock_model(Issue)
+    
+    @issue_1_time_entry = mock_model(TimeEntry, :issue_id => @issue1.id, :user_id => @user.id, :project_id => @project.id, :hours => 1.0)
+    @issue1.stub!(:time_entries).and_return([@issue_1_time_entry])
+    
+    @member = mock_model(Member, :user => @user, :project => @project, :rate => 60.0)
+    Member.should_receive(:find_by_user_id_and_project_id).with(@user.id, @project.id).and_return(@member)
+    
+    @deliverable = FixedDeliverable.new({ :subject => 'test' })
+    @issues = [@issue1]
+    @deliverable.stub!(:fixed_cost).and_return(5000.0)
+    @deliverable.should_receive(:issues).twice.and_return(@issues)
+    
+    @deliverable.spent.should eql(5060.0)
+  end
 end
 
 describe FixedDeliverable, '.profit as a %' do
