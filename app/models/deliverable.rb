@@ -128,14 +128,15 @@ class Deliverable < ActiveRecord::Base
     return self.budget - self.spent
   end
   
-  # Number of hours used.  Virtual accessor that is overriden by subclasses.
+  # Number of hours used.
   def hours_used
-    0
+    return 0 unless self.issues.size > 0
+    return self.issues.collect(&:time_entries).flatten.collect(&:hours).sum
   end
   
-  # Amount spent on members.  Virtual accessor that is overriden by subclasses.
+  # Amount spent on members.
   def members_spent
-    []
+    return MemberSpent.find_all_by_deliverable(self)
   end
   
   # Amount of the budget remaining

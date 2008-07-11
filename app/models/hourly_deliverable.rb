@@ -19,18 +19,6 @@ class HourlyDeliverable < Deliverable
     return total
   end
   
-  # Number of hours used by Members on the Deliverable's issues
-  def hours_used
-    return 0 unless self.issues.size > 0
-    return self.issues.collect(&:time_entries).flatten.collect(&:hours).sum
-
-  end
-  
-  # Amount of time and money spent by the Members on the Deliverable's issues.
-  def members_spent
-    return MemberSpent.find_all_by_deliverable(self)
-  end
-  
   def profit # :nodoc:
     if read_attribute(:profit_percent).nil?
       return super
