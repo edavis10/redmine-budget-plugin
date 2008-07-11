@@ -6,10 +6,10 @@ class FixedDeliverable < Deliverable
     0
   end
 
-  # Returns the amount spent.  It will always be related to the progress of the 
-  # FixedDeliverable because it is managed by the user
+  # Returns the amount spent.  It will always be the fixed cost because
+  # that money has been allocated already and is managed by the user
   def spent
-    (self.progress.to_f / 100 ) * self.budget
+    self.fixed_cost || 0.0
   end
   
   def profit # :nodoc:

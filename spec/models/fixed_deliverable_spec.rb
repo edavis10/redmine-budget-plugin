@@ -8,11 +8,15 @@ describe FixedDeliverable, '.score' do
 end
 
 describe FixedDeliverable, '.spent' do
-  it 'should always equal the progress % * budget' do    
+  it 'should always equal the fixed cost if there are no hours logged' do
     @deliverable = FixedDeliverable.new({ :subject => 'test' })
-    @deliverable.stub!(:progress).and_return(50.0)
-    @deliverable.stub!(:budget).and_return(5000.0)
-    @deliverable.spent.should eql(2500.0)
+    @deliverable.stub!(:fixed_cost).and_return(5000.0)
+    @deliverable.spent.should eql(5000.0)
+  end
+  
+  it 'should return 0.0 if fixed_cost is not set' do
+    @deliverable = FixedDeliverable.new({ :subject => 'test' })
+    @deliverable.spent.should eql(0.0)
   end
 end
 
