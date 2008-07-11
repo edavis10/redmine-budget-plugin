@@ -32,10 +32,16 @@
         <table class="progress-table">
           <%= row_with_double_data "Progress: ", number_to_percentage(deliverable.progress, :precision => 0), '' %>
           <% if allowed_management? %>
-            <%= row_with_double_data "Hours Estimated: ", number_with_precision(deliverable.total_hours, 0), '' %>
+
+            <% if deliverable.hourly? %>
+              <%= row_with_double_data "Hours Estimated: ", number_with_precision(deliverable.total_hours, 0), '' %>
+            <% end %>
+            <% if deliverable.fixed? %>
+              <%= row_with_double_data "Fixed Amount: ", '', number_to_currency(deliverable.fixed_cost, :precision => 0)  %>
+            <% end %>
 
             <% if deliverable.hours_used > 0 %>
-            <%= row_with_double_data "Hours Used: ", number_with_precision(deliverable.hours_used,0), number_to_currency(deliverable.spent, :precision => 0)  %>
+            <%= row_with_double_data "Hours Used: ", number_with_precision(deliverable.hours_used,0), number_to_currency(deliverable.spent_by_members, :precision => 0)  %>
 
             <tr><td>&nbsp;</td></tr>
 

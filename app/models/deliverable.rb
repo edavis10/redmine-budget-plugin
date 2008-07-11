@@ -134,9 +134,14 @@ class Deliverable < ActiveRecord::Base
     return self.issues.collect(&:time_entries).flatten.collect(&:hours).sum
   end
   
-  # Amount spent on members.
+  # Grouping of members and how much they spent
   def members_spent
     return MemberSpent.find_all_by_deliverable(self)
+  end
+  
+  # Amount spent on members.
+  def spent_by_members
+    return self.members_spent.collect(&:spent)
   end
   
   # Amount of the budget remaining
@@ -177,6 +182,13 @@ class Deliverable < ActiveRecord::Base
     (user == user && user.allowed_to?(:manage_budget, project))
   end
 
+  def fixed?
+    return self.class == FixedDeliverable
+  end
+
+  def hourly?
+    return self.class == HourlyDeliverable
+  end
   private
   
   def use_issue_status_for_done_ratios?
