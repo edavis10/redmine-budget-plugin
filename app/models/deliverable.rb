@@ -141,7 +141,7 @@ class Deliverable < ActiveRecord::Base
   
   # Amount spent on members.
   def spent_by_members
-    return self.members_spent.collect(&:spent)
+    return self.members_spent.collect(&:spent).sum
   end
   
   # Amount of the budget remaining
