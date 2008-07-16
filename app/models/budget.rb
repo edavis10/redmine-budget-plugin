@@ -38,12 +38,12 @@ class Budget
   
   # Total budget all of the deliverables
   def budget
-    return self.deliverables.collect(&:budget).inject { |sum, n| sum + n} || 0.0
+    return self.deliverables.collect(&:budget).delete_if { |d| d.blank?}.inject { |sum, n| sum + n} || 0.0
   end
 
   # Total labor budget all of the deliverables
   def labor_budget
-    return self.deliverables.collect(&:labor_budget).inject { |sum, n| sum + n} || 0.0
+    return self.deliverables.collect(&:labor_budget).delete_if { |d| d.blank?}.inject { |sum, n| sum + n} || 0.0
   end
 
   # Amount of the budget spent.  Expressed as as a percentage whole number
@@ -58,7 +58,7 @@ class Budget
   
   # Total amount spent for all the deliverables
   def spent
-    self.deliverables.collect(&:spent).inject { |sum, n| sum + n } || 0.0
+    self.deliverables.collect(&:spent).delete_if { |d| d.blank?}.inject { |sum, n| sum + n } || 0.0
   end
   
   # Amount of budget left on the deliverables

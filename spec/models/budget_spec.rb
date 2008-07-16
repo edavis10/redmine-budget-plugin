@@ -223,6 +223,55 @@ describe Budget,'.budget' do
 
     @budget.budget.should eql(0.0)    
   end
+  
+  it 'should skip deliverables with a nil budget' do
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :budget => 2000.00)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :budget => nil)
+
+    @project = mock_model(Project)
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)  
+    @budget.budget.should eql(2000.0)    
+  end
+end
+
+describe Budget,'.labor_budget' do
+  it 'should be the sum of all the deliverables labor_budget' do
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :labor_budget => 2000.00)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :labor_budget => 3000.00)
+
+    @project = mock_model(Project)
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)  
+    @budget.labor_budget.should eql(5000.0)
+  end
+
+  it 'should be 0 if there are no deliverables' do
+    Deliverable.stub!(:find_all_by_project_id).and_return([])
+    
+    @project = mock_model(Project)
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)
+
+    @budget.labor_budget.should eql(0.0)    
+  end
+  
+  it 'should skip deliverables with a nil budget' do
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :labor_budget => 2000.00)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :labor_budget => nil)
+
+    @project = mock_model(Project)
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)  
+    @budget.labor_budget.should eql(2000.0)    
+  end
 end
 
 describe Budget,'.budget_ratio' do
@@ -322,6 +371,19 @@ describe Budget, '.spent' do
 
     @budget.spent.should eql(0.0)    
   end
+  
+  it 'should skip deliverables with a nil budget' do
+    @deliverable1 = mock_model(Deliverable, :project_id => @project, :spent => 2000.00)
+    @deliverable2 = mock_model(Deliverable, :project_id => @project, :spent => nil)
+
+    @project = mock_model(Project)
+    Deliverable.stub!(:find_all_by_project_id).and_return([@deliverable1, @deliverable2])
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    
+    @budget = Budget.new(@project.id)  
+    @budget.spent.should eql(2000.0)
+  end
+
 end
   
 describe Budget, '.profit' do
