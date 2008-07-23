@@ -29,6 +29,7 @@ Spec::Rake::SpecTask.new(:spec => spec_prereq) do |t|
 end
 
 namespace :spec do
+  # TODO: Exclude non plugin files
   desc "Run all specs in spec directory with RCov (excluding plugin specs)"
   Spec::Rake::SpecTask.new(:rcov) do |t|
     t.spec_opts = ['--options', "\"#{PLUGIN_ROOT}/spec/spec.opts\""]
@@ -68,4 +69,11 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README.txt')
   rdoc.rdoc_files.include('lib/**/*.rb')
   rdoc.rdoc_files.include('app/**/*.rb')
+end
+
+desc 'Uploads project documentation'
+task :upload_doc => ['spec:rcov', :doc] do |t|
+  # TODO: Get rdoc working without frames
+  # TODO: Add inline CSS to rcov
+  `scp -r coverage/ dev.littlestreamsoftware.com:/home/websites/projects.littlestreamsoftware.com/shared/embedded_docs/redmine-budget`
 end
