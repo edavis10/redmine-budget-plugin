@@ -47,7 +47,7 @@ namespace :spec do
 
   desc "Print Specdoc for all specs as HTML (excluding plugin specs)"
   Spec::Rake::SpecTask.new(:htmldoc) do |t|
-    t.spec_opts = ["--format", "html", "--dry-run"]
+    t.spec_opts = ["--format", "html:doc/rspec_report.html", "--loadby", "mtime"]
     t.spec_files = FileList['spec/**/*_spec.rb']
   end
 
@@ -71,8 +71,9 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
 end
 
 desc 'Uploads project documentation'
-task :upload_doc => ['spec:rcov', :doc] do |t|
+task :upload_doc => ['spec:rcov', :doc, 'spec:htmldoc'] do |t|
   # TODO: Get rdoc working without frames
-  # TODO: Add inline CSS to rcov
-  `scp -r coverage/ dev.littlestreamsoftware.com:/home/websites/projects.littlestreamsoftware.com/shared/embedded_docs/redmine-budget`
+  `scp -r doc/ dev.littlestreamsoftware.com:/home/websites/projects.littlestreamsoftware.com/shared/embedded_docs/redmine-budget/doc`
+  `scp -r coverage/ dev.littlestreamsoftware.com:/home/websites/projects.littlestreamsoftware.com/shared/embedded_docs/redmine-budget/coverage`
 end
+
