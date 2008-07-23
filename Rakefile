@@ -2,6 +2,8 @@ Dir[File.expand_path(File.dirname(__FILE__)) + "/lib/tasks/**/*.rake"].sort.each
 
 # Modifided from the RSpec on Rails plugins
 PLUGIN_ROOT = File.expand_path(File.dirname(__FILE__))
+REDMINE_APP = File.expand_path(File.dirname(__FILE__) + '/../../../app')
+REDMINE_LIB = File.expand_path(File.dirname(__FILE__) + '/../../../lib')
 
 # In rails 1.2, plugins aren't available in the path until they're loaded.
 # Check to see if the rspec plugin is installed first and require
@@ -29,15 +31,12 @@ Spec::Rake::SpecTask.new(:spec => spec_prereq) do |t|
 end
 
 namespace :spec do
-  # TODO: Exclude non plugin files
   desc "Run all specs in spec directory with RCov (excluding plugin specs)"
   Spec::Rake::SpecTask.new(:rcov) do |t|
     t.spec_opts = ['--options', "\"#{PLUGIN_ROOT}/spec/spec.opts\""]
     t.spec_files = FileList['spec/**/*_spec.rb']
     t.rcov = true
-    t.rcov_opts = lambda do
-      IO.readlines("#{PLUGIN_ROOT}/spec/rcov.opts").map {|l| l.chomp.split " "}.flatten
-    end
+    t.rcov_opts << ["--rails", "--sort=coverage", "--exclude '/var/lib/gems,spec,#{REDMINE_APP},#{REDMINE_LIB}'"]
   end
   
   desc "Print Specdoc for all specs (excluding plugin specs)"
