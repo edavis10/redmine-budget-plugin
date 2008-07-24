@@ -80,7 +80,6 @@ If you need help you can contact the maintainer at his email address (See CREDIT
 
 ### Bug tracker
 
-If you would like to report a bug or request a new feature the bug tracker is located at:
+If you would like to report a bug or request a new feature the bug tracker is located at [https://projects.littlestreamsoftware.com/projects/show/redmine-budget](https://projects.littlestreamsoftware.com/projects/show/redmine-budget)
 
-   TODO: Which tracker
 
