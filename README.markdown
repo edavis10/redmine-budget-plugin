@@ -31,6 +31,7 @@ Budget is a plugin to manage the set of deliverables for each project, automatic
 
 ## Install
 
+0. Before installing, apply the Plugin Hook API patch from [http://www.redmine.org/issues/show/1677](http://www.redmine.org/issues/show/1677)
 1. Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins
 2. Login to your Redmine install as an Administrator
 3. Enable the permissions for your Roles
