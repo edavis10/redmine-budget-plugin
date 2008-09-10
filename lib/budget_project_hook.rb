@@ -7,7 +7,9 @@ class BudgetProjectHook < Redmine::Hook::ViewListener
   
   # Renders an additional table header to the membership setting
   #
-  # Context: none
+  # Context:
+  # * :project => Current project
+  #
   def view_projects_settings_members_table_header(context ={ })
     if context[:project].module_enabled?('budget_module')
       return "<th>#{GLoc.l(:label_member_rate) }</th>"
@@ -19,6 +21,7 @@ class BudgetProjectHook < Redmine::Hook::ViewListener
   # Renders an AJAX from to update the member's billing rate
   #
   # Context:
+  # * :project => Current project
   # * :member => Current Member record
   #
   def view_projects_settings_members_table_row(context = { })
