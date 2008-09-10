@@ -29,6 +29,10 @@ Budget is a plugin to manage the set of deliverables for each project, automatic
 * Ability to add the Deliverable column to the Main Issues list, including sorting and filtering by Deliverable name
 * Adding the billable rate to project members on a per project basis
 
+## Getting the plugin
+
+A copy of the plugin can be found in the [downloads](https://projects.littlestreamsoftware.com/projects/list_files/redmine-budget) at Little Stream Software and also on [GitHub](http://github.com/edavis10/redmine-budget-plugin/tree/master).
+
 ## Install
 
 0. Before installing, make sure you are running Redmine after r1796.
