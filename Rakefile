@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+require "fileutils"
+
 Dir[File.expand_path(File.dirname(__FILE__)) + "/lib/tasks/**/*.rake"].sort.each { |ext| load ext }
 
 # Modifided from the RSpec on Rails plugins
@@ -12,9 +15,14 @@ rspec_base = File.expand_path(File.dirname(__FILE__) + '/../rspec/lib')
 $LOAD_PATH.unshift(rspec_base) if File.exist?(rspec_base)
 
 require 'rake'
+require 'rake/clean'
 require 'rake/rdoctask'
 require 'spec/rake/spectask'
 require 'spec/translator'
+
+PROJECT_NAME = 'budget_plugin'
+ZIP_FILE = PROJECT_NAME + ".zip"
+CLEAN.include('**/semantic.cache', ZIP_FILE)
 
 # No Database needed
 spec_prereq = :noop
@@ -65,7 +73,7 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'doc'
   rdoc.title    = 'Budget'
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README.txt')
+  rdoc.rdoc_files.include('README.markdown')
   rdoc.rdoc_files.include('lib/**/*.rb')
   rdoc.rdoc_files.include('app/**/*.rb')
 end
@@ -77,3 +85,28 @@ task :upload_doc => ['spec:rcov', :doc, 'spec:htmldoc'] do |t|
   `scp -r coverage/ dev.littlestreamsoftware.com:/home/websites/projects.littlestreamsoftware.com/shared/embedded_docs/redmine-budget/coverage`
 end
 
+desc "Zip of the folder for release"
+task :zip => [:clean, :rdoc] do
+  require 'zip/zip'
+  require 'zip/zipfilesystem'
+  
+  # check to see if the file exists already, and if it does, delete it.
+  if File.file?(ZIP_FILE)
+    File.delete(ZIP_FILE)
+  end 
+
+  # open or create the zip file
+  Zip::ZipFile.open(ZIP_FILE, Zip::ZipFile::CREATE) do |zipfile|
+    zipfile.mkdir(PROJECT_NAME)
+    files = Dir['**/*.*']
+
+    files.each do |file|
+      print "Adding #{file} ...."
+      zipfile.add(PROJECT_NAME + '/' + file, file)
+      puts ". done"
+    end
+  end
+  
+  # set read permissions on the file
+  File.chmod(0644, ZIP_FILE)
+end
