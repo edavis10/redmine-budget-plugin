@@ -127,7 +127,6 @@ Object.extend(BudgetModule.prototype, {
     },
 
     updateAmounts: function() {
-        console.log('updateAmounts() called');
         if ($('deliverable_type').checked) {
             // Fixed cost
             var cost = Budget.toAmount($('deliverable_fixed_cost').value);
