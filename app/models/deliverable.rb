@@ -123,6 +123,16 @@ class Deliverable < ActiveRecord::Base
     end
   end
   
+  # Wrap the budget getter so it returns 0 if budget is nil
+  def budget
+    raw_budget = read_attribute(:budget)
+    unless raw_budget.nil?
+      return raw_budget
+    else
+      return 0
+    end
+  end
+  
   # Amount of the budget remaining to be spent
   def budget_remaining
     return self.budget - self.spent

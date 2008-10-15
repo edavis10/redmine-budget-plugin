@@ -120,6 +120,15 @@ describe Deliverable, '.budget_ratio' do
   end
 end
 
+describe Deliverable, '.budget' do
+  it 'should return 0 if the budget is nil' do
+    @deliverable = Deliverable.new({ :subject => 'test' })
+    
+    @deliverable.budget.should eql(0)
+    @deliverable.read_attribute(:budget).should eql(nil)
+  end
+end
+
 describe Deliverable, '.score' do
   it 'should be calculated by the progress and the budget usage' do
     @deliverable = Deliverable.new({ :subject => 'test' })
