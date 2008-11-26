@@ -4,6 +4,6 @@ class AddProjectIdToDeliverables < ActiveRecord::Migration
   end
   
   def self.down
-    remove_column :deliverables, :project_idx
+    remove_column :deliverables, :project_id
   end
 end
