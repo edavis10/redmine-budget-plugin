@@ -86,28 +86,19 @@ task :upload_doc => ['spec:rcov', :doc, 'spec:htmldoc'] do |t|
   `scp -r coverage/ dev.littlestreamsoftware.com:/home/websites/projects.littlestreamsoftware.com/shared/embedded_docs/redmine-budget/coverage`
 end
 
-desc "Zip of the folder for release"
-task :zip => [:clean, :rdoc] do
-  require 'zip/zip'
-  require 'zip/zipfilesystem'
-  
-  # check to see if the file exists already, and if it does, delete it.
-  if File.file?(ZIP_FILE)
-    File.delete(ZIP_FILE)
-  end 
+desc "Create release archives"
+task :release => [:clean, :rdoc, 'release:zip', 'release:tarball']
 
-  # open or create the zip file
-  Zip::ZipFile.open(ZIP_FILE, Zip::ZipFile::CREATE) do |zipfile|
-    zipfile.mkdir(PROJECT_NAME)
-    files = Dir['**/*.*']
-
-    files.each do |file|
-      print "Adding #{file} ...."
-      zipfile.add(PROJECT_NAME + '/' + file, file)
-      puts ". done"
-    end
+namespace :release do
+  desc "Create a zip archive"
+  task :zip => [:clean] do
+    sh "git archive --format=zip --prefix=#{PLUGIN_NAME}/ HEAD > #{PLUGIN_NAME}.zip"
   end
-  
-  # set read permissions on the file
-  File.chmod(0644, ZIP_FILE)
+
+  desc "Create a tarball archive"
+  task :tarball => [:clean] do
+    sh "git archive --format=tar --prefix=#{PLUGIN_NAME}/ HEAD | gzip > #{PLUGIN_NAME}.tar.gz"
+  end  
 end
+
+
