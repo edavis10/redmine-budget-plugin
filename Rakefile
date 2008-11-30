@@ -8,8 +8,11 @@ Dir[File.expand_path(File.dirname(__FILE__)) + "/lib/tasks/**/*.rake"].sort.each
 
 # Modifided from the RSpec on Rails plugins
 PLUGIN_ROOT = File.expand_path(File.dirname(__FILE__))
-REDMINE_APP = File.expand_path(File.dirname(__FILE__) + '/../../../app')
-REDMINE_LIB = File.expand_path(File.dirname(__FILE__) + '/../../../lib')
+
+# Allows loading of an environment config based on the environment
+REDMINE_ROOT = ENV["REDMINE_ROOT"] || File.dirname(__FILE__) + "/../../../.."
+REDMINE_APP = File.expand_path(REDMINE_ROOT + '/app')
+REDMINE_LIB = File.expand_path(REDMINE_ROOT + '/lib')
 
 require 'rake'
 require 'rake/clean'
