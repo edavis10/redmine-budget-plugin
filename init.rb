@@ -20,7 +20,7 @@ Redmine::Plugin.register :budget_plugin do
     'budget_nonbillable_overhead' => '',
     'budget_materials' => '',
     'budget_profit' => ''
-  }, :partial => 'settings/settings'
+  }, :partial => 'settings/budget_settings'
 
   
   project_module :budget_module do
