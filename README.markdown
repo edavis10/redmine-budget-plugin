@@ -31,7 +31,7 @@ Budget is a plugin to manage the set of deliverables for each project, automatic
 
 ## Getting the plugin
 
-A copy of the plugin can be found in the [downloads](https://projects.littlestreamsoftware.com/projects/list_files/redmine-budget) at Little Stream Software and also on [GitHub](http://github.com/edavis10/redmine-budget-plugin/tree/master).
+A copy of the plugin can be found in the [downloads](https://projects.littlestreamsoftware.com/projects/list_files/redmine-budget) at Little Stream Software and also on [GitHub](http://github.com/edavis10/redmine-budget-plugin/tree/master).  Make sure you install the plugin to @vendor/plugins/budget_plugin@.
 
 ## Install
 
