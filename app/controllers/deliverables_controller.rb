@@ -9,7 +9,7 @@ class DeliverablesController < ApplicationController
   # Main deliverable list
   def index
     sort_init "#{Deliverable.table_name}.id", "desc"
-    sort_update
+    sort_update 'id' => "#{Deliverable.table_name}.id"
 
     @deliverable_count = Deliverable.count(:conditions => { :project_id => @project.id})
     @deliverable_pages = Paginator.new self, @deliverable_count, per_page_option, params['page']
