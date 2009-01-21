@@ -6,7 +6,6 @@ require_dependency 'query_patch'
 
 # Hooks
 require_dependency 'budget_issue_hook'
-require_dependency 'budget_project_hook'
 
 RAILS_DEFAULT_LOGGER.info 'Starting Budget plugin for RedMine'
 
