@@ -437,3 +437,17 @@ describe Budget, '.profit' do
     @budget.profit.should eql(0.0)    
   end
 end
+
+describe Budget, 'amount_missing_on_issues' do
+  it 'should caclulate the cost of the time logged to the project itself' do
+    project = mock_model(Project)
+    Project.stub!(:find).with(project.id).and_return(project)
+    budget = Budget.new(project.id)
+    
+    time_entry_one = mock_model(TimeEntry, :cost => 300.0)
+    time_entry_two = mock_model(TimeEntry, :cost => 500.0)
+
+    TimeEntry.should_receive(:find_all_by_project_id_and_issue_id).with(project.id, nil).and_return([time_entry_one, time_entry_two])
+    budget.amount_missing_on_issues.should eql(time_entry_one.cost + time_entry_two.cost)
+  end
+end

@@ -109,7 +109,7 @@ class Budget
   
   # Dollar amount of time that has been logged to the project itself
   def amount_missing_on_issues
-    time_logs = TimeEntry.find_all_by_project_id_and_issue_id(self.project, nil)
+    time_logs = TimeEntry.find_all_by_project_id_and_issue_id(self.project.id, nil)
 
     return time_logs.collect(&:cost).sum
   end
