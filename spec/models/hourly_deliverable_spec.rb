@@ -13,12 +13,11 @@ describe HourlyDeliverable, '.spent' do
     @user = mock_model(User)
     @issue1 = mock_model(Issue)
     
-    @issue_1_time_entry = mock_model(TimeEntry, :issue_id => @issue1.id, :user_id => @user.id, :project_id => @project.id, :hours => 1.0)
+    @issue_1_time_entry = mock_model(TimeEntry, :issue_id => @issue1.id, :user => @user, :project => @project, :hours => 1.0, :spent_on => Date.today)
     @issue1.stub!(:time_entries).and_return([@issue_1_time_entry])
     
-    @member = mock_model(Member, :user => @user, :project => @project, :rate => 60.0)
-    Member.should_receive(:find_by_user_id_and_project_id).with(@user.id, @project.id).and_return(@member)
-    
+    Rate.should_receive(:amount_for).with(@user, @project, @issue_1_time_entry.spent_on).and_return(60.0)
+
     @deliverable = HourlyDeliverable.new({ :subject => 'test' })
     @issues = [@issue1]
     @deliverable.should_receive(:issues).twice.and_return(@issues)

@@ -12,8 +12,8 @@ class HourlyDeliverable < Deliverable
     
     # Find each Member for their rate
     time_logs.each do |time_log|
-      member = Member.find_by_user_id_and_project_id(time_log.user_id, time_log.project_id)
-      total += (member.rate * time_log.hours) unless member.nil? || member.rate.nil?
+      rate = Rate.amount_for(time_log.user, time_log.project, time_log.spent_on)
+      total += (rate * time_log.hours) unless rate.nil?
     end
     
     return total
