@@ -49,3 +49,10 @@ describe FixedDeliverable, '.profit as a %' do
     @deliverable.profit.should eql(1000.0)
   end
 end
+
+describe FixedDeliverable, '.profit as an dollar amount' do
+  it 'should return the amount' do
+    deliverable = FixedDeliverable.new({ :subject => 'test', :profit => "$100.00", :fixed_cost => 1000.0, :overhead => "1000.00", :overhead_percent => nil })
+    deliverable.profit.should eql(100.0)
+  end
+end
