@@ -49,7 +49,7 @@ class Deliverable < ActiveRecord::Base
   def progress
     return 0 unless self.issues.size > 0
     
-    total ||=  self.issues.collect(&:estimated_hours).delete_if {|e| e.nil? }.inject {|sum, n| sum + n} || 0
+    total ||=  self.issues.collect(&:estimated_hours).compact.sum || 0
 
     return 0 unless total > 0
     balance = 0.0
