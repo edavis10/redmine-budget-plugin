@@ -10,7 +10,7 @@ Dir[File.expand_path(File.dirname(__FILE__)) + "/lib/tasks/**/*.rake"].sort.each
 PLUGIN_ROOT = File.expand_path(File.dirname(__FILE__))
 
 # Allows loading of an environment config based on the environment
-REDMINE_ROOT = ENV["REDMINE_ROOT"] || File.dirname(__FILE__) + "/../../../.."
+REDMINE_ROOT = ENV["REDMINE_ROOT"] || File.dirname(__FILE__) + "/../../.."
 REDMINE_APP = File.expand_path(REDMINE_ROOT + '/app')
 REDMINE_LIB = File.expand_path(REDMINE_ROOT + '/lib')
 
