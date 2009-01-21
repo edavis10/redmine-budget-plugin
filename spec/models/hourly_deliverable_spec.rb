@@ -36,3 +36,10 @@ describe HourlyDeliverable, '.profit as a %' do
     @deliverable.profit.should eql(1000.0)
   end
 end
+
+describe HourlyDeliverable, '.profit as an dollar amount' do
+  it 'should return the amount' do
+    deliverable = HourlyDeliverable.new({ :subject => 'test', :profit => "$100.00", :cost_per_hour => 100.0, :total_hours => 10, :overhead => "1000.00", :overhead_percent => nil })
+    deliverable.profit.should eql(100.0)
+  end
+end
