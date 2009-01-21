@@ -17,7 +17,7 @@ class FixedDeliverable < Deliverable
     # Get all timelogs assigned
     time_logs = self.issues.collect(&:time_entries).flatten
     
-    return total + time_logs.collect(&:cost).inject { |sum, n| sum + n} 
+    return total + time_logs.collect(&:cost).sum 
     
   end
   

@@ -10,7 +10,7 @@ class HourlyDeliverable < Deliverable
     # Get all timelogs assigned
     time_logs = self.issues.collect(&:time_entries).flatten
 
-    return time_logs.collect(&:cost).inject { |sum, n| sum + n} 
+    return time_logs.collect(&:cost).sum 
   end
   
   def profit # :nodoc:

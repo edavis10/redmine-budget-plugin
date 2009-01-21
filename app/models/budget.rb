@@ -111,7 +111,7 @@ class Budget
   def amount_missing_on_issues
     time_logs = TimeEntry.find_all_by_project_id_and_issue_id(self.project, nil)
 
-    return time_logs.collect(&:cost).inject { |sum, n| sum + n}
+    return time_logs.collect(&:cost).sum
   end
   
   # Dollar amount of time that has been logged to issues that are not assigned to deliverables
@@ -127,6 +127,6 @@ class Budget
 
     time_logs = missing_issues.collect(&:time_entries).flatten
     
-    return time_logs.collect(&:cost).inject { |sum, n| sum + n}
+    return time_logs.collect(&:cost).sum
   end
 end
