@@ -26,9 +26,8 @@ describe FixedDeliverable, '.spent' do
     @issue1 = mock_model(Issue)
     
     @issue_1_time_entry = mock_model(TimeEntry, :issue_id => @issue1.id, :user => @user, :project => @project, :hours => 1.0, :spent_on => Date.today)
+    @issue_1_time_entry.should_receive(:cost).and_return(60.0)
     @issue1.stub!(:time_entries).and_return([@issue_1_time_entry])
-    
-    Rate.should_receive(:amount_for).with(@user, @project, @issue_1_time_entry.spent_on.to_s).and_return(60.0)
     
     @deliverable = FixedDeliverable.new({ :subject => 'test' })
     @issues = [@issue1]

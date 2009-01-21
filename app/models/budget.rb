@@ -110,15 +110,8 @@ class Budget
   # Dollar amount of time that has been logged to the project itself
   def amount_missing_on_issues
     time_logs = TimeEntry.find_all_by_project_id_and_issue_id(self.project, nil)
-    total = 0
-    
-    # Find each Member for their rate
-    time_logs.each do |time_log|
-      rate = Rate.amount_for(time_log.user, time_log.project, time_log.spent_on.to_s)
-      total += (rate * time_log.hours) unless rate.nil?
-    end
-    
-    return total
+
+    return time_logs.collect(&:cost).inject { |sum, n| sum + n}
   end
   
   # Dollar amount of time that has been logged to issues that are not assigned to deliverables
@@ -132,14 +125,8 @@ class Budget
     return 0 if all_issues.empty?
     missing_issues = all_issues - deliverable_issues
 
-    
     time_logs = missing_issues.collect(&:time_entries).flatten
     
-    time_logs.each do |time_log|
-      rate = Rate.amount_for(time_log.user, time_log.project, time_log.spent_on.to_s)
-      total += (rate * time_log.hours) unless rate.nil?
-    end
-    
-    return total
+    return time_logs.collect(&:cost).inject { |sum, n| sum + n}
   end
 end
