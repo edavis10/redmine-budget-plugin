@@ -24,12 +24,14 @@ class MemberSpent
     
     project.members.each do |member|
       member_time_entries = time_entries.select { |tl| tl.user_id == member.user.id}
-      hours = member_time_entries.collect(&:hours).sum || 0.0
+      
+      spent = 0.0
+      hours = 0.0
 
-      unless member.rate.nil?
-        spent = hours.to_f * member.rate
-      else
-        spent = 0.0
+      member_time_entries.each do |time_entry|
+        rate = Rate.amount_for(time_entry.user, time_entry.project, time_entry.spent_on.to_s)
+        spent += time_entry.hours.to_f * rate unless rate.nil?
+        hours += time_entry.hours
       end
       
       membership << MemberSpent.new({ 
