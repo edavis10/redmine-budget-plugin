@@ -16,7 +16,7 @@ describe HourlyDeliverable, '.spent' do
     @issue_1_time_entry = mock_model(TimeEntry, :issue_id => @issue1.id, :user => @user, :project => @project, :hours => 1.0, :spent_on => Date.today)
     @issue1.stub!(:time_entries).and_return([@issue_1_time_entry])
     
-    Rate.should_receive(:amount_for).with(@user, @project, @issue_1_time_entry.spent_on).and_return(60.0)
+    Rate.should_receive(:amount_for).with(@user, @project, @issue_1_time_entry.spent_on.to_s).and_return(60.0)
 
     @deliverable = HourlyDeliverable.new({ :subject => 'test' })
     @issues = [@issue1]

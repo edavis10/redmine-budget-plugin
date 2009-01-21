@@ -16,10 +16,10 @@ class FixedDeliverable < Deliverable
     
     # Get all timelogs assigned
     time_logs = self.issues.collect(&:time_entries).flatten
-    
+
     # Find each Member for their rate
     time_logs.each do |time_log|
-      rate = Rate.amount_for(time_log.user, time_log.project, time_log.spent_on)
+      rate = Rate.amount_for(time_log.user, time_log.project, time_log.spent_on.to_s)
       total += (rate * time_log.hours) unless rate.nil?
     end
     
