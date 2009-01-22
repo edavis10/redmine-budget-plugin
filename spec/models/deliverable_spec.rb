@@ -258,3 +258,51 @@ describe Deliverable, '.spent' do
     @deliverable.spent.should eql(0)
   end
 end
+
+describe Deliverable, 'fixed?' do
+  it 'should be true for FixedDeliverables' do
+    FixedDeliverable.new.fixed?.should be_true
+  end
+
+  it 'should be false for HourlyDeliverables' do
+    HourlyDeliverable.new.fixed?.should be_false
+  end
+
+  it 'should be false for generic Deliverables' do
+    Deliverable.new.fixed?.should be_false
+  end
+end
+
+describe Deliverable, 'hourly?' do
+  it 'should be false for FixedDeliverables' do
+    FixedDeliverable.new.hourly?.should be_false
+  end
+
+  it 'should be true for HourlyDeliverables' do
+    HourlyDeliverable.new.hourly?.should be_true
+  end
+
+  it 'should be false for generic Deliverables' do
+    Deliverable.new.hourly?.should be_false
+  end
+end
+
+describe Deliverable, 'labor_budget' do
+  it 'should be 0 because the specific Deliverables will have their own logic' do
+    Deliverable.new.labor_budget.should eql(0)
+  end
+end
+
+describe Deliverable, 'budget_remaining' do
+  it 'should calculated by the budget minus the amount spent' do
+    deliverable = Deliverable.new({ :budget => 3000.00})
+    deliverable.should_receive(:spent).and_return(1000.0)
+    deliverable.budget_remaining.should eql(2000.0)
+  end
+  
+  it 'should be the same as Budget#left' do
+    deliverable = Deliverable.new({ :budget => 3000.00})
+    deliverable.should_receive(:spent).twice.and_return(1000.0)
+    deliverable.budget_remaining.should eql(deliverable.left)
+  end
+end

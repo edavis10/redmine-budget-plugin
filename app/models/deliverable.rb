@@ -137,6 +137,7 @@ class Deliverable < ActiveRecord::Base
   def budget_remaining
     return self.budget - self.spent
   end
+  alias :left :budget_remaining
   
   # Number of hours used.
   def hours_used
@@ -152,11 +153,6 @@ class Deliverable < ActiveRecord::Base
   # Amount spent on members.
   def spent_by_members
     return self.members_spent.collect(&:spent).sum
-  end
-  
-  # Amount of the budget remaining
-  def left
-    return self.budget - self.spent
   end
   
   # Amount spent over the total budget
