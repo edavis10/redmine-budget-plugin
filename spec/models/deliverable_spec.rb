@@ -306,3 +306,33 @@ describe Deliverable, 'budget_remaining' do
     deliverable.budget_remaining.should eql(deliverable.left)
   end
 end
+
+describe Deliverable, 'hours_used' do
+  it 'should return 0 if there are no issues on the Deliverable' do
+    deliverable = Deliverable.new
+    deliverable.hours_used.should eql(0)
+  end
+
+  it 'should total up the hours on the issues assigned to the Deliverable' do
+    deliverable = Deliverable.new
+    time_entries = [mock_model(TimeEntry, :hours => 100)]
+    issues = [mock_model(Issue, :time_entries => time_entries)]
+    deliverable.should_receive(:issues).at_least(:once).and_return(issues)
+    
+    deliverable.hours_used.should eql(100)
+  end
+end
+
+describe Deliverable, 'overruns' do
+  it 'should be 0 if there still is budget left' do
+    deliverable = Deliverable.new
+    deliverable.should_receive(:left).and_return(100)
+    deliverable.overruns.should eql(0)
+  end
+
+  it 'should be the invoice of left if left is below 0' do
+    deliverable = Deliverable.new
+    deliverable.should_receive(:left).at_least(:once).and_return(-100)
+    deliverable.overruns.should eql(100)
+  end
+end
