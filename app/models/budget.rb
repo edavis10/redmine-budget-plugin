@@ -116,13 +116,12 @@ class Budget
   
   # Dollar amount of time that has been logged to issues that are not assigned to deliverables
   def amount_missing_on_deliverables
-    total = 0
-    
     # Bisect the issues because NOT IN isn't reliable
     all_issues = self.project.issues.find(:all)
+    return 0 if all_issues.empty?
+
     deliverable_issues = self.project.issues.find(:all, :conditions => ["deliverable_id IN (?)", self.deliverables.collect(&:id)])
 
-    return 0 if all_issues.empty?
     missing_issues = all_issues - deliverable_issues
 
     time_logs = missing_issues.collect(&:time_entries).flatten

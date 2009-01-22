@@ -451,3 +451,44 @@ describe Budget, 'amount_missing_on_issues' do
     budget.amount_missing_on_issues.should eql(time_entry_one.cost + time_entry_two.cost)
   end
 end
+
+describe Budget, 'amount_missing_on_deliverables' do
+  before(:each) do
+    @project = mock_model(Project)
+    @project.stub!(:issues).and_return(Issue)
+    Project.stub!(:find).with(@project.id).and_return(@project)
+    @deliverable = mock_model(Deliverable, :project => @project)
+    @budget = Budget.new(@project.id)
+    @budget.stub!(:deliverables).and_return([@deliverable])
+  end
+  
+  it 'should caclulate the cost of the time logged to the issues that are not on a Deliverable' do
+    time_entry_one = mock_model(TimeEntry, :cost => 300.0)
+    time_entry_two = mock_model(TimeEntry, :cost => 500.0)
+
+    issue_one = mock_model(Issue, :project => @project, :time_entries => [time_entry_one])
+    issue_two = mock_model(Issue, :project => @project, :time_entries => [time_entry_two])
+    issues = [issue_one, issue_two]
+    Issue.should_receive(:find).with(:all).and_return(issues)
+    Issue.should_receive(:find).with(:all, { :conditions => ["deliverable_id IN (?)", [@deliverable.id]]}).and_return([])
+    
+    @budget.amount_missing_on_deliverables.should eql(time_entry_one.cost + time_entry_two.cost)
+  end
+  
+  it 'should return 0 if there are no issues on the project' do
+    Issue.should_receive(:find).with(:all).and_return([])
+    
+    @budget.amount_missing_on_deliverables.should eql(0)
+  end
+  
+  it 'should return 0 if all issues are on a Deliverable' do
+    issue_one = mock_model(Issue, :project => @project)
+    issue_two = mock_model(Issue, :project => @project)
+    issues = [issue_one, issue_two]
+    Issue.should_receive(:find).with(:all).and_return(issues)
+    Issue.should_receive(:find).with(:all, { :conditions => ["deliverable_id IN (?)", [@deliverable.id]]}).and_return(issues)
+
+    @budget.amount_missing_on_deliverables.should eql(0)
+  end
+  
+end
