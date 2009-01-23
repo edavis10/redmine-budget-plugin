@@ -13,7 +13,7 @@ Redmine::Plugin.register :budget_plugin do
   name 'Budget'
   author 'Eric Davis <edavis@littlestreamsoftware.com>'
   description 'Budget is a plugin to manage the set of deliverables for each project, automatically calculating key performance indicators.'
-  version '0.1.0'
+  version '0.2.0'
   
   settings :default => {
     'budget_nonbillable_overhead' => '',
