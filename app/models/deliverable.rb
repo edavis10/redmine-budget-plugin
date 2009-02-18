@@ -195,6 +195,11 @@ class Deliverable < ActiveRecord::Base
   def hourly?
     return self.class == HourlyDeliverable
   end
+
+  def to_s
+    self.subject
+  end
+  
   private
   
   def use_issue_status_for_done_ratios?
