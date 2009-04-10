@@ -1,8 +1,13 @@
 require 'redmine'
 
-# Patches to the Redmine core.  Will not work in development mode
-require_dependency 'issue_patch'
-require_dependency 'query_patch'
+# Patches to the Redmine core.
+require 'dispatcher'
+require 'issue_patch'
+require 'query_patch'
+Dispatcher.to_prepare do
+  Issue.send(:include, IssuePatch)
+  Query.send(:include, QueryPatch)
+end
 
 # Hooks
 require_dependency 'budget_issue_hook'

@@ -50,7 +50,4 @@ module QueryPatch
   end    
 end
 
-# Add module to Query
-Query.send(:include, QueryPatch)
-
 
