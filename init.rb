@@ -1,5 +1,13 @@
 require 'redmine'
 
+# Budget requires the Rate plugin
+begin
+  require 'rate' unless Object.const_defined?('Rate')
+rescue LoadError
+  # rate_plugin is not installed
+  raise Exception.new("ERROR: The Rate plugin is not installed.  Please install the Rate plugin from https://projects.littlestreamsoftware.com/projects/redmine-rate")
+end
+
 # Patches to the Redmine core.
 require 'dispatcher'
 require 'issue_patch'
@@ -12,8 +20,6 @@ end
 # Hooks
 require_dependency 'budget_issue_hook'
 require_dependency 'budget_project_hook'
-
-RAILS_DEFAULT_LOGGER.info 'Starting Budget plugin for RedMine'
 
 Redmine::Plugin.register :budget_plugin do
   name 'Budget'
