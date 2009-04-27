@@ -1,0 +1,46 @@
+budget_title: Pressupost
+field_cost_per_hour: Cost per hora
+field_total_hours: Total hores
+field_overhead: Imprevists
+label_overhead: "Imprevists: "
+field_materials: Cost dels materials
+label_materials: "Materials: "
+field_profit: Benefici
+field_budget: Pressupost total
+label_budget: "Pressupost total: "
+field_fixed_cost: Preu tancat
+field_project_manager_signoff: Vistiplau cap projecte
+field_client_signoff: Vistiplau client
+field_deliverable: Entregable
+field_deliverable_subject: Entregable
+field_due: Data finalització
+label_member_rate: Tarifa (EUR)
+message_updated_issues: Actualitzats %d assumptes
+message_settings: Introduïu una quantitat en euros o un percentatge en cada camp per a establir un valor per defecte.  Utilitzeu <strong>%%</strong> per indicar percentatges.
+label_non_billable_overhead: Imprevists no facturables
+label_materials: Materials
+label_profit: Benefici
+label_new_deliverable: Nou entregable
+label_fixed_cost: Cost fix
+caption_due: Entrega
+caption_progress: Progrés
+caption_subject: Assumpte
+caption_score: Puntuació
+caption_budget: Pressupost
+caption_spent: Gastat
+label_update_deliverable: Actualitzar entregable
+label_labor_budget: "Pressupost mà d'obra: "
+label_labor_budget_spent: "Pressupost gastat mà d'obra: "
+label_labor_budget_remaining: "Pressupost romanent mà d'obra: "
+label_progress: "Progrés: "
+label_budget_score: "Puntuació pressupost: "
+label_overruns: "Excessos: "
+label_missing_on: Falta en
+label_next_due_date: "Següent data d'entrega: "
+label_completion: "Finalització: "
+label_potential_profit: "Benefici potencial: "
+label_bulk_assign: Assignar tots
+label_labor: "Mà d'obra: "
+label_fixed_amount: "Quantitat fixa: "
+label_hours_estimated: "Hores estimades: "
+label_hours_used: "Hores gastades: "

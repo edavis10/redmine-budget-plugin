@@ -1,0 +1,45 @@
+budget_title: Presupuestos
+field_cost_per_hour: Coste por hora
+field_total_hours: Total horas
+field_overhead: Imprevistos
+label_overhead: "Imprevistos: "
+field_materials: Coste de los materiales
+label_materials: "Materiales: "
+field_profit: Beneficio
+field_budget: Presupuesto total
+label_budget: "Presupuesto total: "
+field_fixed_cost: Precio cerrado
+field_project_manager_signoff: Visto bueno jefe proyecto
+field_client_signoff: Visto bueno cliente
+field_deliverable: Entregable
+field_deliverable_subject: Entregable
+field_due: Fecha entrega
+label_member_rate: Tarifa (EUR)
+message_updated_issues: Actualizadas %d peticiones
+message_settings: Introduce cantidades en euros o porcentajes en cada campo para establecer los valores por defecto.  Usa <strong>%%</strong> para indicar porcentajes.
+label_non_billable_overhead: Imprevistos no facturables
+label_profit: Beneficio
+label_new_deliverable: Nuevo entregable
+label_fixed_cost: Coste fijo
+caption_due: Entrega
+caption_progress: Progreso
+caption_subject: Asunto
+caption_score: Importancia
+caption_budget: Presupuesto
+caption_spent: Gastado
+label_update_deliverable: Actualizar entregable
+label_labor_budget: "Presupuesto mano de obra: "
+label_labor_budget_spent: "Presupuesto gastado mano de obra: "
+label_labor_budget_remaining: "Presupuesto remanente mano de obra: "
+label_progress: "Progreso: "
+label_budget_score: "Puntuación presupuesto: "
+label_overruns: "Excesos: "
+label_missing_on: Falta en
+label_next_due_date: "Siguiente entrega: "
+label_completion: "Finalización: "
+label_potential_profit: "Beneficio potencial: "
+label_bulk_assign: Asignar todos
+label_labor: "Mano de obra: "
+label_fixed_amount: "Cantidad fija: "
+label_hours_estimated: "Horas estimadas: "
+label_hours_used: "Horas usadas: "
