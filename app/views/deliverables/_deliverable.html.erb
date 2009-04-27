@@ -7,6 +7,7 @@
         <%= content_tag(:td, deliverable.id) %>
         <%= content_tag(:td, h(deliverable.score.to_i), :class => 'score') if allowed_management? %>
         <%= content_tag(:td, h(deliverable.subject), :class => 'subject') %>
+        <%= content_tag(:td, number_to_currency(deliverable.budget || 0.0, :precision => 0), :class => 'budget') if allowed_management? %>
         <%= content_tag(:td, number_to_currency(deliverable.labor_budget || 0.0, :precision => 0), :class => 'budget') if allowed_management? %>
         <%= content_tag(:td, number_to_currency(deliverable.spent, :precision => 0), :class => 'spent') if allowed_management? %>
         <%= content_tag(:td, format_date(deliverable.due), :class => 'due_date') %>
@@ -66,7 +67,7 @@
         </table>
       </td>
 
-      <td colspan="2">
+      <td colspan="3">
         <table class="issue-totals">
           <%= row_with_data(l(:label_issue_plural), deliverable.issues.size, 'issue-totals') -%>
 
@@ -77,7 +78,7 @@
       </td>
     </tr>
     <tr id="deliverable-description-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
-      <td colspan="8" style="text-align: left;">
+      <td colspan="9" style="text-align: left;">
         <%= l(:field_description) %>: <%= textilizable deliverable.description %>
       </td>
     </tr>

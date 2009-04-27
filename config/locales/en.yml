@@ -28,6 +28,7 @@ en:
   caption_subject: Subject
   caption_score: Score
   caption_budget: Budget
+  caption_labor_budget: Labor Budget
   caption_spent: Spent
   label_update_deliverable: Update Deliverable
   label_labor_budget: "Labor Budget: "

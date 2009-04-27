@@ -4,7 +4,8 @@
       <%= sort_header_tag("#{Deliverable.table_name}.id", :caption => '#', :default_order => 'desc') %>
       <%= sort_header_tag("score", :caption => l(:caption_score), :default_order => 'desc') if allowed_management? %>
       <%= sort_header_tag("#{Deliverable.table_name}.subject", :caption => l(:caption_subject)) %>
-      <%= sort_header_tag("labor_budget", :caption => l(:caption_budget)) if allowed_management? %>
+      <%= sort_header_tag("total_budget", :caption => l(:caption_budget)) if allowed_management? %>
+      <%= sort_header_tag("labor_budget", :caption => l(:caption_labor_budget)) if allowed_management? %>
       <%= sort_header_tag("spent", :caption => l(:caption_spent)) if allowed_management? %>
       <%= sort_header_tag("#{Deliverable.table_name}.due", :caption => l(:caption_due)) %>
       <%= sort_header_tag("progress", :caption => l(:caption_progress)) %>
