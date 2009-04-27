@@ -8,4 +8,5 @@
 
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag "budget.css", :plugin => "budget_plugin", :media => "screen" %>
+  <%= javascript_include_tag('budget', :plugin => 'budget_plugin') %>
 <% end %>
