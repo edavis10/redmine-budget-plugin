@@ -1,0 +1,15 @@
+lt:
+  field_cost_per_hour: Valandinis užmokestis
+  field_total_hours: Iš viso valandų
+  field_overhead: Viršyjimas
+  field_materials: Material costs
+  field_profit: Pelnas
+  field_budget: Visas biudžetas
+  field_fixed_cost: Patovus pasiūlymas
+  field_project_manager_signoff: Pasirašo projekto vadovas
+  field_client_signoff: Pasirašo klientas
+  field_deliverable: Pateiktis
+  field_deliverable_subject: Pateiktis
+  field_due: Data iki
+  label_member_rate: Užmokestis (LTL)
+  message_updated_issues: Atnaujinta(i) %d darbų(ai)
