@@ -89,7 +89,7 @@ Object.extend(BudgetModule.prototype, {
             var parts = parseFloat(number).toFixed(precision).split('.');
             return unit + Budget.number_with_delimiter(parts[0], delimiter) + separator + parts[1].toString();
         } catch(e) {
-            return number
+            return number;
         }
     },
 
@@ -120,6 +120,7 @@ function toggleAll() {
 
 function expandRow(deliverable_id) {
   $('deliverable-details-'+ deliverable_id).show();
+  $('deliverable-description-'+ deliverable_id).show();
   $$('.toggle_' + deliverable_id).each(function(e) {
     e.toggle();
   });
@@ -127,6 +128,7 @@ function expandRow(deliverable_id) {
 
 function collapseRow(deliverable_id) {
   $('deliverable-details-'+ deliverable_id).hide();
+   $('deliverable-description-'+ deliverable_id).hide();
   $$('.toggle_' + deliverable_id).each(function(e) {
     e.toggle();
   });
