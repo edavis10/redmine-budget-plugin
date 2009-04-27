@@ -31,17 +31,19 @@ Budget is a plugin to manage the set of deliverables for each project, automatic
 
 == Getting the plugin
 
-A copy of the plugin can be found in the {downloads}[https://projects.littlestreamsoftware.com/projects/redmine-budget/files] at Little Stream Software and also on {GitHub}[http://github.com/edavis10/redmine-budget-plugin/tree/master].  Make sure you install the plugin to +vendor/plugins/budget_plugin+.
+A copy of the plugin can be found in the {downloads}[https://projects.littlestreamsoftware.com/projects/redmine-budget/files] at Little Stream Software and also on {GitHub}[http://github.com/edavis10/redmine-budget-plugin/tree/master].
 
 == Install
 
-0. Before installing, make sure you are running Redmine after r1796.
-1. Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins
-2. Login to your Redmine install as an Administrator
-3. Enable the permissions for your Roles
-4. Setup your companies defaults in the Plugins' configuration panel
-5. Add the "Budget module" to the enabled modules for the projects you want to manage
-6. The link to the plugin should appear on that project's navigation
+1. Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins  Make sure the plugin is installed to Make sure you install the plugin to +vendor/plugins/budget_plugin+.
+2. The Rate plugin is required also, install it from {Little Stream Software}[https://projects.littlestreamsoftware.com/projects/redmine-rate/files]
+3. Run the plugin migrations +rake db:migrate_plugins+
+4. Restart your Redmine web servers (e.g. mongrel, thin, mod_rails)
+5. Login to your Redmine install as an Administrator
+6. Enable the permissions for your Roles
+7. Setup your companies defaults in the Plugins' configuration panel
+8. Add the "Budget module" to the enabled modules for the projects you want to manage
+9. The link to the plugin should appear on that project's navigation
 
 == Usage
 
