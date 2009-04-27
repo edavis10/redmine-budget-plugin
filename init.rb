@@ -17,9 +17,13 @@ RAILS_DEFAULT_LOGGER.info 'Starting Budget plugin for RedMine'
 
 Redmine::Plugin.register :budget_plugin do
   name 'Budget'
-  author 'Eric Davis <edavis@littlestreamsoftware.com>'
+  author 'Eric Davis'
   description 'Budget is a plugin to manage the set of deliverables for each project, automatically calculating key performance indicators.'
+  url 'https://projects.littlestreamsoftware.com/projects/redmine-budget'
+  author_url 'http://www.littlestreamsoftware.com'
   version '0.2.0'
+
+  requires_redmine :version_or_higher => '0.8.0'
   
   settings :default => {
     'budget_nonbillable_overhead' => '',
