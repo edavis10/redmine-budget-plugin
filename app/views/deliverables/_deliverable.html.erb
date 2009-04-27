@@ -10,7 +10,7 @@
         <%= content_tag(:td, number_to_currency(deliverable.labor_budget || 0.0, :precision => 0), :class => 'budget') if allowed_management? %>
         <%= content_tag(:td, number_to_currency(deliverable.spent, :precision => 0), :class => 'spent') if allowed_management? %>
         <%= content_tag(:td, format_date(deliverable.due), :class => 'due_date') %>
-        <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%', :class => 'dont_ratio')) %>
+        <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%', :class => 'done_ratio')) %>
     </tr>
     <tr id="deliverable-details-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
       <td class="deliverable-actions">
