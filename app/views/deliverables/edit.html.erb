@@ -1,4 +1,4 @@
-<h2>Update Deliverable</h2>
+<h2><%= l(:label_update_deliverable) %></h2>
 <% form_for :deliverable, @deliverable, :url => {:controller => 'deliverables', :action => 'update', :id => @project, :deliverable_id => @deliverable.id },
                            :method => :post, :builder => TabularFormBuilder, :lang => current_language,
                            :html => {:multipart => true, :id => 'deliverable-form', :class => 'tabular'} do |f| %>

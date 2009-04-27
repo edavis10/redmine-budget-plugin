@@ -4,7 +4,7 @@
 
 <% if allowed_management? %>
 <div id="new-deliverable" style="display:none;">
-  <h2>New Deliverable</h2>
+  <h2><%= l(:label_new_deliverable) %></h2>
   <% remote_form_for :deliverable, @deliverable, :url => {:controller => 'deliverables', :action => 'create', :id => @project },
                      :method => :post, :builder => TabularFormBuilder, :lang => current_language,
                      :html => {:multipart => true, :id => 'deliverable-form', :class => 'tabular'} do |f| %>

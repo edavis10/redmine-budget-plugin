@@ -19,7 +19,7 @@
 
           <tr>
             <td>
-              <label for="deliverable_type">Fixed Cost</label>
+              <label for="deliverable_type"><%= l(:label_fixed_cost) %></label>
             </td>
             <td>
               <%= check_box(:deliverable, :type, {}, FixedDeliverable.name, HourlyDeliverable.name) %>
@@ -31,7 +31,7 @@
 
           <tr class="budget-hourly">
             <td>
-              <label for="deliverable_cost_per_hour">Cost per hour</label>
+              <label for="deliverable_cost_per_hour"><%= l(:field_cost_per_hour)%></label>
             </td>
             <td>
               <%= text_field :deliverable, :cost_per_hour, :size => 7 %>
@@ -42,7 +42,7 @@
 
           <tr class="budget-hourly">
             <td>
-              <label for="deliverable_total_hours">Total Hours</label>
+              <label for="deliverable_total_hours"><%= l(:field_total_hours) %></label>
             </td>
             <td>
               <%= text_field :deliverable, :total_hours, :size => 7 %>
@@ -54,7 +54,7 @@
 
           <tr class="budget-fixed" style="display:none;">
             <td>
-              <label for="deliverable_fixed_cost">Fixed Bid</label>
+              <label for="deliverable_fixed_cost"><%= l(:field_fixed_cost) %></label>
             </td>
             <td>
               <%= text_field :deliverable, :fixed_cost, :size => 7 %>
@@ -69,7 +69,7 @@
           <%= field_with_budget_observer_and_totals(f, @deliverable, :profit, :profit_percent, @settings[:budget_profit]) %>
 
           <tr class="total-budget">
-            <td><label>Total Budget:</label></td>
+            <td><label><%= l(:field_budget) %></label></td>
             <td></td>
             <td class="calculation-column">
               <%= content_tag(:span, 0, :id => 'total-budget-calculation', :class => "budget-calculation") %>

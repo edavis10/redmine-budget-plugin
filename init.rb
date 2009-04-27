@@ -33,5 +33,5 @@ Redmine::Plugin.register :budget_plugin do
     permission :manage_budget, { :deliverables => [:new, :edit, :create, :update, :destroy, :preview, :bulk_assign_issues]}
   end
   
-  menu :project_menu, :budget, :controller => "deliverables", :action => 'index'
+  menu :project_menu, :budget, {:controller => "deliverables", :action => 'index'}, :caption => :budget_title
 end

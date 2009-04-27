@@ -1,10 +1,14 @@
 en:
+  budget_title: Budget
   field_cost_per_hour: Cost per hour
   field_total_hours: Total hours
   field_overhead: Overhead
+  label_overhead: "Overhead: "
   field_materials: Material costs
+  label_materials: "Materials: "
   field_profit: Profit
   field_budget: Total Budget
+  label_budget: "Total Budget: "
   field_fixed_cost: Fixed Bid
   field_project_manager_signoff: Project Manager Signoff
   field_client_signoff: Client Signoff
@@ -13,3 +17,31 @@ en:
   field_due: Due Date
   label_member_rate: Rate ($)
   message_updated_issues: Updated %d issues
+  message_budget_settings: Enter a dollar amount or percentage into each field to set your default amount.  Use <strong>%%</strong> in the field for percentages.
+  label_non_billable_overhead: Non billable overhead
+  label_materials: Materials
+  label_profit: Profit
+  label_new_deliverable: New deliverable
+  label_fixed_cost: Fixed cost
+  caption_due: Due
+  caption_progress: Progress
+  caption_subject: Subject
+  caption_score: Score
+  caption_budget: Budget
+  caption_spent: Spent
+  label_update_deliverable: Update Deliverable
+  label_labor_budget: "Labor Budget: "
+  label_labor_budget_spent: "Labor Budget Spent: "
+  label_labor_budget_remaining: "Labor Budget Remaining: "
+  label_progress: "Progress: "
+  label_budget_score: "Budget Score: "
+  label_overruns: "Overruns: "
+  label_missing_on: Missing on
+  label_next_due_date: "Next Due Date: "
+  label_completion: "Completion: "
+  label_potential_profit: "Potential Profit: "
+  label_bulk_assign: Bulk Assign
+  label_labor: "Labor: "
+  label_fixed_amount: "Fixed Amount: "
+  label_hours_estimated: "Hours Estimated: "
+  label_hours_used: "Hours Used: "

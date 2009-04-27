@@ -2,12 +2,12 @@
     <thead><tr>
       <%= content_tag('th', " ") %>
       <%= sort_header_tag("#{Deliverable.table_name}.id", :caption => '#', :default_order => 'desc') %>
-      <%= sort_header_tag("score", :caption => 'Score', :default_order => 'desc') if allowed_management? %>
-      <%= sort_header_tag("#{Deliverable.table_name}.subject", :caption => 'Subject') %>
-      <%= sort_header_tag("labor_budget", :caption => 'Budget') if allowed_management? %>
-      <%= sort_header_tag("spent", :caption => 'Spent') if allowed_management? %>
-      <%= sort_header_tag("#{Deliverable.table_name}.due", :caption => 'Due') %>
-      <%= sort_header_tag("progress", :caption => 'Progress') %>
+      <%= sort_header_tag("score", :caption => l(:caption_score), :default_order => 'desc') if allowed_management? %>
+      <%= sort_header_tag("#{Deliverable.table_name}.subject", :caption => l(:caption_subject)) %>
+      <%= sort_header_tag("labor_budget", :caption => l(:caption_budget)) if allowed_management? %>
+      <%= sort_header_tag("spent", :caption => l(:caption_spent)) if allowed_management? %>
+      <%= sort_header_tag("#{Deliverable.table_name}.due", :caption => l(:caption_due)) %>
+      <%= sort_header_tag("progress", :caption => l(:caption_progress)) %>
     </tr></thead>
     <tbody>
       <% deliverables.each do |deliverable| -%>

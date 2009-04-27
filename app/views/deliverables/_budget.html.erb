@@ -1,10 +1,10 @@
-<h2 class="title">Budget</h2>
+<h2 class="title"><%= l(:budget_title) %></h2>
 
 <table>
   <% if allowed_management? %>
   <tr>
     <td>
-      Total Budget:
+      <%= l(:field_budget) %>
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.budget, :precision => 0) %>
@@ -15,7 +15,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Labor Budget:
+      <%= l(:label_labor_budget) %>
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.labor_budget, :precision => 0) %>
@@ -26,7 +26,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Labor Budget Spent:
+      <%= l(:label_labor_budget_spent) %>
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.spent, :precision => 0) %>
@@ -37,7 +37,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Labor Budget Remaining:
+      <%= l(:label_labor_budget_remaining) %>
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.labor_budget_left, :precision => 0) %>
@@ -47,7 +47,7 @@
 
   <tr>
     <td>
-      Progress:
+      <%= l(:label_progress) %>
     </td>
     <td class="calculation-column">
       <%= h number_to_percentage(budget.progress, :precision => 0) %>
@@ -57,7 +57,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Budget Score:
+      <%= l(:label_budget_score) %>
     </td>
     <td class="calculation-column">
       <%= h budget.score %>
@@ -68,7 +68,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Overruns:
+      <%= l(:label_overruns) %>
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.overruns, :precision => 0) %>
@@ -79,7 +79,7 @@
   <% if allowed_management? && budget.amount_missing_on_deliverables > 0%>
   <tr>
     <td>
-      Missing on <%= link_to('Deliverables:', :action => 'issues', :id => @project.id, :deliverable_id => :none) %>
+      <%= l(:label_missing_on) %> <%= link_to('Deliverables:', :action => 'issues', :id => @project.id, :deliverable_id => :none) %>
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.amount_missing_on_deliverables, :precision => 0) %>
@@ -90,7 +90,7 @@
   <% if allowed_management? && budget.amount_missing_on_issues > 0 %>
   <tr>
     <td>
-      Missing on <%= link_to('Issues:', 
+      <%= l(:label_missing_on) %> <%= link_to('Issues:', 
           :controller => 'timelog',
           :action => 'details', 
           :project_id => @project.id,
@@ -106,7 +106,7 @@
 
   <tr>
     <td>
-      Next Due Date:
+      <%= l(:label_next_due_date) %>
     </td>
     <td class="calculation-column">
       <%= h distance_of_time_in_words_to_now(budget.next_due_date) if budget.next_due_date %>
@@ -114,7 +114,7 @@
   </tr>
   <tr>
     <td>
-      Completion:
+      <%= l(:label_completion) %>
     </td>
     <td class="calculation-column">
       <%= h distance_of_time_in_words_to_now(budget.final_due_date) if budget.final_due_date %>
@@ -124,7 +124,7 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Potential Profit:
+      <%= l(:label_potential_profit) %>
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.profit, :precision => 0) %>
