@@ -1,0 +1,15 @@
+hu:
+  field_cost_per_hour: Óradíj
+  field_total_hours: Összes órák
+  field_overhead: Felfüggesztett
+  field_materials: Anyag költség
+  field_profit: Profit
+  field_budget: Teljes költség
+  field_fixed_cost: Rögzített árajánlat
+  field_project_manager_signoff: Projekt felelős által aláíratlan
+  field_client_signoff: Ügyfél által aláíratlan
+  field_deliverable: Teljesítés
+  field_deliverable_subject: Teljesítés
+  field_due: Esedékesség dátuma
+  label_member_rate: Részesedés ($)
+  message_updated_issues: Frissítve % feladat
