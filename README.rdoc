@@ -1,8 +1,8 @@
-## Budget Plugin
+== Budget Plugin
 
 Budget is a plugin to manage the set of deliverables for each project, automatically calculating key performance indicators.
 
-## Features
+== Features
 
 * Add new deliverable to a project - Fixed bid or Time Based
   * New issues appended using JavaScript to the top of the deliverables list
@@ -29,11 +29,11 @@ Budget is a plugin to manage the set of deliverables for each project, automatic
 * Ability to add the Deliverable column to the Main Issues list, including sorting and filtering by Deliverable name
 * Adding the billable rate to project members on a per project basis
 
-## Getting the plugin
+== Getting the plugin
 
-A copy of the plugin can be found in the [downloads](https://projects.littlestreamsoftware.com/projects/list_files/redmine-budget) at Little Stream Software and also on [GitHub](http://github.com/edavis10/redmine-budget-plugin/tree/master).  Make sure you install the plugin to @vendor/plugins/budget_plugin@.
+A copy of the plugin can be found in the {downloads}[https://projects.littlestreamsoftware.com/projects/redmine-budget/files] at Little Stream Software and also on {GitHub}[http://github.com/edavis10/redmine-budget-plugin/tree/master].  Make sure you install the plugin to +vendor/plugins/budget_plugin+.
 
-## Install
+== Install
 
 0. Before installing, make sure you are running Redmine after r1796.
 1. Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins
@@ -43,30 +43,30 @@ A copy of the plugin can be found in the [downloads](https://projects.littlestre
 5. Add the "Budget module" to the enabled modules for the projects you want to manage
 6. The link to the plugin should appear on that project's navigation
 
-## Usage
+== Usage
 
-### Adding deliverables
+=== Adding deliverables
 
 1. Use the "New Deliverable" link on sidebar of the Budget page to add a new deliverable
 2. The deliverable can be a Fixed Bid or an Hourly deliverable.  The type can be changed later.
 3. Saving the deliverable will add it to the Deliverable list.
 
-### Viewing deliverables
+=== Viewing deliverables
 
 1. Clicking the pencil icon will drop down the deliverable details, with summary and calculations about the deliverable.
 2. Links on the left can be used to edit or delete a deliverable and well as view the issue list for the deliverable.
 
-### Assignment of an issue to a deliverable
+=== Assignment of an issue to a deliverable
 
 Edit an issue and select the deliverable from the dropdown
 
-### Bulk assignment of issues to a deliverable
+=== Bulk assignment of issues to a deliverable
 
 1. Select multiple issues on the issue list
 2. Right click and select the edit option
 3. Select the deliverable from the dropdown and save
 
-### Bulk Assignment of issues by Version
+=== Bulk Assignment of issues by Version
 
 Issues can be bulk assigned to a deliverable based on a Version.
 
@@ -75,16 +75,12 @@ Issues can be bulk assigned to a deliverable based on a Version.
 3. Click the Bulk Assign button
 4. All issues for that version will now be assigned to that Deliverable
 
-## License
+== License
 
 This plugin is licensed under the GNU GPL v2.  See LICENSE.txt and GPL.txt for details.
 
-## Project help
+== Project help
 
-If you need help you can contact the maintainer at his email address (See CREDITS.txt) or create an issue in the Bug Tracker.
-
-### Bug tracker
-
-If you would like to report a bug or request a new feature the bug tracker is located at [https://projects.littlestreamsoftware.com/projects/show/redmine-budget](https://projects.littlestreamsoftware.com/projects/show/redmine-budget)
+If you need help you can contact the maintainer on the bug tracker at https://projects.littlestreamsoftware.com/projects/redmine-budget
 
 
