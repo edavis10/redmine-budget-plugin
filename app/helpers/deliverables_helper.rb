@@ -73,8 +73,8 @@ module DeliverablesHelper
   end
   
   def toggle_arrows(deliverable_id)
-    open_js = "$('deliverable-details-#{deliverable_id}').show(); $$('.toggle_#{deliverable_id}').each(function(e) {e.toggle();})"
-    close_js = "$('deliverable-details-#{deliverable_id}').hide(); $$('.toggle_#{deliverable_id}').each(function(e) {e.toggle();})"
+    open_js = "expandRow(#{deliverable_id})"
+    close_js = "collapseRow(#{deliverable_id})"
 
     return toggle_arrow(deliverable_id, "toggle-arrow-closed.gif", open_js, false) +
       toggle_arrow(deliverable_id, "toggle-arrow-open.gif", close_js, true)
@@ -86,7 +86,7 @@ module DeliverablesHelper
 
     content_tag(:span,
                 link_to_function(image_tag(image, :plugin => "budget_plugin"), js),
-                :class => "toggle_" + deliverable_id.to_s,
+                :class => "toggle toggle_" + deliverable_id.to_s,
                 :style => style
                 )
     

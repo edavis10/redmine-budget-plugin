@@ -45,3 +45,4 @@ en:
   label_fixed_amount: "Fixed Amount: "
   label_hours_estimated: "Hours Estimated: "
   label_hours_used: "Hours Used: "
+  label_toggle_all: "Expand all deliverable rows"

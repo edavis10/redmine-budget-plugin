@@ -108,3 +108,26 @@ Object.extend(BudgetModule.prototype, {
 });
 Budget = new BudgetModule();
 
+function toggleAll() {
+  $$('.deliverable-details').each(function(ele) {
+    ele.toggle();
+  });
+  $$('.toggle').each(function(e) {
+    e.toggle();
+  });
+}
+
+
+function expandRow(deliverable_id) {
+  $('deliverable-details-'+ deliverable_id).show();
+  $$('.toggle_' + deliverable_id).each(function(e) {
+    e.toggle();
+  });
+}
+
+function collapseRow(deliverable_id) {
+  $('deliverable-details-'+ deliverable_id).hide();
+  $$('.toggle_' + deliverable_id).each(function(e) {
+    e.toggle();
+  });
+}
