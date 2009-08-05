@@ -9,6 +9,7 @@
       <%= sort_header_tag("spent", :caption => l(:caption_spent)) if allowed_management? %>
       <%= sort_header_tag("#{Deliverable.table_name}.due", :caption => l(:caption_due)) %>
       <%= sort_header_tag("progress", :caption => l(:caption_progress)) %>
+      <%= Redmine::Hook.call_hook(:plugin_budget_view_deliverable_list_header, { }) %>
     </tr></thead>
     <tbody>
       <% deliverables.each do |deliverable| -%>

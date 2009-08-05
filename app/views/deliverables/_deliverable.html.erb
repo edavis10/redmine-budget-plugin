@@ -12,6 +12,7 @@
         <%= content_tag(:td, number_to_currency(deliverable.spent, :precision => 0), :class => 'spent') if allowed_management? %>
         <%= content_tag(:td, format_date(deliverable.due), :class => 'due_date') %>
         <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%', :class => 'done_ratio')) %>
+        <%= Redmine::Hook.call_hook(:plugin_budget_view_deliverable_summary_row, { :deliverable => deliverable }) %>
     </tr>
     <tr id="deliverable-details-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
       <td class="deliverable-actions">
@@ -76,9 +77,11 @@
           <% end %>
         </table>
       </td>
+      <%= Redmine::Hook.call_hook(:plugin_budget_view_deliverable_details_row, { :deliverable => deliverable }) %>
     </tr>
     <tr id="deliverable-description-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
       <td colspan="9" style="text-align: left;">
         <%= l(:field_description) %>: <%= textilizable deliverable.description %>
       </td>
+      <%= Redmine::Hook.call_hook(:plugin_budget_view_deliverable_description_row, { :deliverable => deliverable }) %>
     </tr>
