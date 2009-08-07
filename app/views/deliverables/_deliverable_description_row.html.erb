@@ -1,0 +1,6 @@
+    <tr id="deliverable-description-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
+      <td colspan="9" style="text-align: left;">
+        <%= l(:field_description) %>: <%= textilizable deliverable.description %>
+      </td>
+      <%= Redmine::Hook.call_hook(:plugin_budget_view_deliverable_description_row, { :deliverable => deliverable }) %>
+    </tr>

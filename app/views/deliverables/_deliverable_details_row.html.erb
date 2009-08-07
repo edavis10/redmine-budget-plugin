@@ -1,0 +1,65 @@
+    <tr id="deliverable-details-<%= deliverable.id %>" class="deliverable deliverable-details <%= css %>" style="display:none;">
+      <td class="deliverable-actions">
+        <%= content_tag(:p,link_to(l(:button_edit), :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id)) if allowed_management? -%>
+        <%= content_tag(:p,link_to(l(:button_delete), { :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure))) if allowed_management? %>
+        <%= content_tag(:p,link_to(l(:label_issue_plural), :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id)) -%>
+        <% if allowed_management? && @project.versions.size > 0 %>
+        <div>
+          <% form_for :deliverable, deliverable, :url => { :action => "bulk_assign_issues",  :id => @project.id, :deliverable_id => deliverable.id} do |f| %>
+
+          <%= select("version", "id", @project.versions.sort.collect {|v| [v.name, v.id ] }, { :prompt => '-- Version --' }) %><br />
+          <%= submit_tag(l(:label_bulk_assign)) %>
+          <% end %>
+        </div>
+        <% end %>
+      </td>
+
+      <td colspan="2">
+        <table class="progress-table">
+          <%= row_with_double_data l(:label_progress), number_to_percentage(deliverable.progress, :precision => 0), '' %>
+          <% if allowed_management? %>
+
+            <% if deliverable.hourly? %>
+              <%= row_with_double_data l(:label_hours_estimated), number_with_precision(deliverable.total_hours, 0), '' %>
+            <% end %>
+            <% if deliverable.fixed? %>
+              <%= row_with_double_data l(:label_fixed_amount), '', number_to_currency(deliverable.fixed_cost, :precision => 0)  %>
+            <% end %>
+
+            <% if deliverable.hours_used > 0 %>
+            <%= row_with_double_data l(:label_hours_used), number_with_precision(deliverable.hours_used,0), number_to_currency(deliverable.spent_by_members, :precision => 0)  %>
+
+            <tr><td>&nbsp;</td></tr>
+
+            <% deliverable.members_spent.each do |person| %>
+              <%= row_with_double_data(h(person.user.name), person.hours.round, number_to_currency(person.spent, :precision => 0)) %>
+            <% end %>
+            <% end %>
+        <% end %>
+        </table>
+      </td>
+
+      <td colspan="3">
+        <table class="financials">
+        <%= row_with_data(l(:field_budget), number_to_currency(deliverable.budget, :precision => 0)) -%>
+        <% if allowed_management? %>
+        <% base_price_label = deliverable.hourly? ? l(:label_labor) : l(:label_fixed_amount) %>
+        <%= row_with_data(base_price_label, number_to_currency(deliverable.labor_budget || 0.0, :precision => 0)) -%>
+        <%= row_with_data(l(:label_overhead), number_or_percent(deliverable.overhead, deliverable.overhead_percent)) -%>
+        <%= row_with_data(l(:label_materials), number_or_percent(deliverable.materials, deliverable.materials_percent)) -%>
+        <%= row_with_data(l(:label_potential_profit), number_or_percent(deliverable.profit, deliverable.profit_percent)) -%>
+        <% end %>
+        </table>
+      </td>
+
+      <td colspan="3">
+        <table class="issue-totals">
+          <%= row_with_data(l(:label_issue_plural), deliverable.issues.size, 'issue-totals') -%>
+
+          <% deliverable.issues_with_trackers.each do |tracker_name, count| %>
+            <%= row_with_data(h(tracker_name), count,'issue-totals') -%>
+          <% end %>
+        </table>
+      </td>
+      <%= Redmine::Hook.call_hook(:plugin_budget_view_deliverable_details_row, { :deliverable => deliverable }) %>
+    </tr>
