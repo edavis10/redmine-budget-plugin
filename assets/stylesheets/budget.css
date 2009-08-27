@@ -20,7 +20,7 @@ tr.deliverable-details td { padding-bottom: 50px ; }
 td.deliverable-actions { padding-left: 10px; width:100px;}
 td.deliverable-actions { padding-left: 10px; width:100px;}
 
-tr.deliverable-details { border: none; }
+tr.deliverable-details { border: none; white-space: normal; }
 tr.deliverable-details p { text-align:left; clear:both;}
 tr.deliverable-details div { text-align:left; }
 tr.deliverable-details table { width: 85%; }
