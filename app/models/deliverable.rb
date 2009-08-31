@@ -5,7 +5,7 @@ class Deliverable < ActiveRecord::Base
   validates_presence_of :subject
   
   belongs_to :project
-  has_many :issues
+  has_many :issues, :dependent => :nullify
 
   # Assign all the issues with +version_id+ to this Deliverable
   def assign_issues_by_version(version_id)
