@@ -3,7 +3,7 @@
 </div>
 
 <% if allowed_management? %>
-<div id="new-deliverable" style="display:none;">
+<div id="new-deliverable" style="<%= @display_form ? '' : 'display:none;' -%>">
   <h2><%= l(:label_new_deliverable) %></h2>
   <% remote_form_for :deliverable, @deliverable, :url => {:controller => 'deliverables', :action => 'create', :id => @project },
                      :method => :post, :builder => TabularFormBuilder, :lang => current_language,

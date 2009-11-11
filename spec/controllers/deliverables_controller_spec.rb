@@ -30,6 +30,16 @@ describe DeliverablesController,"#index when logged in" do
     get :index, :id => @project.id
     assigns[:deliverables].should_not be_nil
   end
+
+  it "should set @display_form to false by default" do
+    get :index, :id => @project.id
+    assigns[:display_form].should eql(false)
+  end
+
+  it "should set @display_form to true if the 'new' parameter is used" do
+    get :index, :id => @project.id, :new => 'true'
+    assigns[:display_form].should eql(true)
+  end
   
   it "should only show the deliverables for the current project only" do
     # TODO: Get spec working for full finder
