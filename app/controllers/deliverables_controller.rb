@@ -27,7 +27,7 @@ class DeliverablesController < ApplicationController
 
     @budget = Budget.new(@project.id)
 
-    @display_form = params[:new].present?
+    @display_form = params[:new].present? || @deliverables.empty?
 
     respond_to do |format|
       format.html { render :action => 'index', :layout => !request.xhr? }

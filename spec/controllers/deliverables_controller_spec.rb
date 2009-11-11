@@ -12,9 +12,10 @@ end
 describe DeliverablesController,"#index when logged in" do
   before(:each) do
     @project = mock_model(Project)
+    @deliverable = mock_model(Deliverable)
     
-    Deliverable.stub!(:count).and_return(0)
-    Deliverable.stub!(:find).and_return([])
+    Deliverable.stub!(:count).and_return(1)
+    Deliverable.stub!(:find).and_return([@deliverable])
     
     Project.should_receive(:find).with(@project.to_param).and_return(@project)
     Project.should_receive(:find).with(@project.id).and_return(@project)
@@ -34,6 +35,15 @@ describe DeliverablesController,"#index when logged in" do
   it "should set @display_form to false by default" do
     get :index, :id => @project.id
     assigns[:display_form].should eql(false)
+  end
+
+  it "should set @display_form to true if there are no deliverables" do
+    Deliverable.should_receive(:count).and_return(0)
+    Deliverable.should_receive(:find).and_return([])
+
+    get :index, :id => @project.id
+
+    assigns[:display_form].should eql(true)
   end
 
   it "should set @display_form to true if the 'new' parameter is used" do
