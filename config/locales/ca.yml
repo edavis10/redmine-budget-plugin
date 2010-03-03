@@ -16,6 +16,7 @@ ca:
   field_deliverable_subject: Entregable
   field_due: Data finalització
   label_member_rate: Tarifa (EUR)
+  label_currency: €
   message_updated_issues: Actualitzats %d assumptes
   message_settings: Introduïu una quantitat en euros o un percentatge en cada camp per a establir un valor per defecte.  Utilitzeu <strong>%%</strong> per indicar percentatges.
   label_non_billable_overhead: Imprevists no facturables

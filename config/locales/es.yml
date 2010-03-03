@@ -16,6 +16,7 @@ es:
   field_deliverable_subject: Entregable
   field_due: Fecha entrega
   label_member_rate: Tarifa (EUR)
+  label_currency: €
   message_updated_issues: Actualizadas %d peticiones
   message_settings: Introduce cantidades en euros o porcentajes en cada campo para establecer los valores por defecto.  Usa <strong>%%</strong> para indicar porcentajes.
   label_non_billable_overhead: Imprevistos no facturables
