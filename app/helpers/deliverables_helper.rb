@@ -93,8 +93,8 @@ module DeliverablesHelper
   end
   
   def number_or_percent(number_field, percent_field)
-    return number_to_currency(number_field, :precision => 0) unless number_field.blank?
+    return number_to_currency(number_field, :unit => l(:label_currency), :precision => 0) unless number_field.blank?
     return number_to_percentage(percent_field, :precision => 0) unless percent_field.blank?
-    return "$0"
+    return number_to_currency(0, :unit => l(:label_currency), :precision => 0)
   end
 end

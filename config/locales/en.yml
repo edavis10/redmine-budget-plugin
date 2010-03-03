@@ -15,9 +15,10 @@ en:
   field_deliverable: Deliverable
   field_deliverable_subject: Deliverable
   field_due: Due Date
-  label_member_rate: Rate ($)
+  label_member_rate: Rate (£)
+  label_currency: £
   message_updated_issues: Updated %d issues
-  message_budget_settings: Enter a dollar amount or percentage into each field to set your default amount.  Use <strong>%%</strong> in the field for percentages.
+  message_budget_settings: Enter an amount in pounds, or a percentage into each field to set your default amount.  Use <strong>%%</strong> in the field for percentages.
   label_non_billable_overhead: Non billable overhead
   label_materials: Materials
   label_profit: Profit
