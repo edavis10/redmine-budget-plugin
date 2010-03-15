@@ -13,8 +13,8 @@ require 'dispatcher'
 require 'issue_patch'
 require 'query_patch'
 Dispatcher.to_prepare do
-  Issue.send(:include, IssuePatch)
-  Query.send(:include, QueryPatch)
+  Issue.send(:include, IssuePatch) unless Issue.included_modules.include? IssuePatch
+  Query.send(:include, QueryPatch) unless Query.included_modules.include? QueryPatch
 end
 
 # Hooks
