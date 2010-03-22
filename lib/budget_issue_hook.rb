@@ -49,8 +49,8 @@ class BudgetIssueHook  < Redmine::Hook::ViewListener
   end
 
   def controller_issues_edit_before_save(context = {})
-    if context[:params] && context[:params][:issue]
-      context[:issue].deliverable = Deliverable.find_by_id_and_project_id(context[:params][:issue][:deliverable_id], context[:issue].project.id)
+    if context[:params] && context[:params][:issue] && context[:params][:issue][:deliverable_id].present?
+      context[:issue].deliverable = Deliverable.find_by_id_and_project_id(context[:params][:issue][:deliverable_id].to_i, context[:issue].project.id)
     end
     return ''
   end
