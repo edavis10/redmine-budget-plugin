@@ -45,3 +45,4 @@ Redmine::Plugin.register :budget_plugin do
   
   menu :project_menu, :budget, {:controller => "deliverables", :action => 'index'}, :caption => :budget_title
 end
+require 'redmine_budget/hooks/controller_timelog_available_criterias_hook'
