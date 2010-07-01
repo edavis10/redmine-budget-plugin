@@ -41,8 +41,8 @@ class BudgetIssueHook  < Redmine::Hook::ViewListener
                                content_tag('option', l(:label_no_change_option), :value => '') +
                                content_tag('option', l(:label_none), :value => 'none') +
                                options_from_collection_for_select(Deliverable.find_all_by_project_id(context[:project].id, :order => 'subject ASC'), :id, :subject))
-    
-      return content_tag(:p, "<label>#{l(:field_deliverable)}: " + select + "</label>")
+
+      return content_tag(:p, content_tag(:label, l(:field_deliverable)) + select)
     else
       return ''
     end
