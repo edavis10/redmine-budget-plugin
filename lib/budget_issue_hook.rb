@@ -48,11 +48,19 @@ class BudgetIssueHook  < Redmine::Hook::ViewListener
     end
   end
 
-  def controller_issues_edit_before_save(context = {})
+  def set_deliverable_on_issue(context)
     if context[:params] && context[:params][:issue] && context[:params][:issue][:deliverable_id].present?
       context[:issue].deliverable = Deliverable.find_by_id_and_project_id(context[:params][:issue][:deliverable_id].to_i, context[:issue].project.id)
     end
     return ''
+  end
+
+  def controller_issues_new_before_save(context = {})
+    set_deliverable_on_issue(context)
+  end
+
+  def controller_issues_edit_before_save(context = {})
+    set_deliverable_on_issue(context)
   end
   
   # Saves the Deliverable assignment to the issue
