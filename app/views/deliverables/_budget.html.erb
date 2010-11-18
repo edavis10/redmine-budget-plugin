@@ -7,7 +7,7 @@
       <%= l(:field_budget) %>
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.budget, :precision => 0) %>
+      <%= h number_to_currency(budget.budget, :unit => l(:label_currency), :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -18,7 +18,7 @@
       <%= l(:label_labor_budget) %>
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.labor_budget, :precision => 0) %>
+      <%= h number_to_currency(budget.labor_budget, :unit => l(:label_currency), :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -29,7 +29,7 @@
       <%= l(:label_labor_budget_spent) %>
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.spent, :precision => 0) %>
+      <%= h number_to_currency(budget.spent, :unit => l(:label_currency), :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -40,7 +40,7 @@
       <%= l(:label_labor_budget_remaining) %>
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.labor_budget_left, :precision => 0) %>
+      <%= h number_to_currency(budget.labor_budget_left, :unit => l(:label_currency), :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -71,7 +71,7 @@
       <%= l(:label_overruns) %>
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.overruns, :precision => 0) %>
+      <%= h number_to_currency(budget.overruns, :unit => l(:label_currency), :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -82,7 +82,7 @@
       <%= l(:label_missing_on) %> <%= link_to('Deliverables:', :action => 'issues', :id => @project.id, :deliverable_id => :none) %>
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.amount_missing_on_deliverables, :precision => 0) %>
+      <%= h number_to_currency(budget.amount_missing_on_deliverables, :unit => l(:label_currency), :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -99,7 +99,7 @@
 
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.amount_missing_on_issues, :precision => 0) %>
+      <%= h number_to_currency(budget.amount_missing_on_issues, :unit => l(:label_currency), :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -127,7 +127,7 @@
       <%= l(:label_potential_profit) %>
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.profit, :precision => 0) %>
+      <%= h number_to_currency(budget.profit, :unit => l(:label_currency), :precision => 0) %>
     </td>
   </tr>
   <% end %>

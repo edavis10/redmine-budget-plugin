@@ -12,4 +12,5 @@ hu:
   field_deliverable_subject: Teljesítés
   field_due: Esedékesség dátuma
   label_member_rate: Részesedés ($)
+  label_currency: $
   message_updated_issues: Frissítve % feladat

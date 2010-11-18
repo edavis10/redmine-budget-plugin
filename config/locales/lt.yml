@@ -12,4 +12,5 @@ lt:
   field_deliverable_subject: Pateiktis
   field_due: Data iki
   label_member_rate: Užmokestis (LTL)
+  label_currency: $
   message_updated_issues: Atnaujinta(i) %d darbų(ai)
