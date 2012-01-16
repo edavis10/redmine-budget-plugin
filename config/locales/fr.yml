@@ -1,0 +1,50 @@
+en:
+  budget_title: Budget
+  field_cost_per_hour: Coût par heure
+  field_total_hours: Total heures
+  field_overhead: Frais géneraux
+  label_overhead: "Frais géneraux: "
+  field_materials: Cout des matières premières
+  label_materials: "Cout des matières premières: "
+  field_profit: Profit
+  field_budget: Budget total
+  label_budget: "Budget total: "
+  field_fixed_cost: Coût fixe
+  field_project_manager_signoff: Validation par le gestionnaire de projet
+  field_client_signoff: Validation par le client
+  field_deliverable: Livrable
+  field_deliverable_subject: Livrable
+  field_due: "Date d'echeance"
+  label_member_rate: Tarif (€)
+  label_currency: €
+  message_updated_issues: %d demandes mises à jour
+  message_budget_settings: Entrez un montant en euros ou un pourcentage dans chaque champs pour régler le montant par defaut. Utilisez <strong>%%</strong> dans le champ pour des pourcentages.
+  label_non_billable_overhead: Frais géneraux non facturables
+  label_materials: Matières premières
+  label_profit: Profit
+  label_new_deliverable: Nouveau livrable
+  label_fixed_cost: Coût fixe
+  caption_due: Dû
+  caption_progress: Progressions
+  caption_subject: Objet
+  caption_score: Score
+  caption_budget: Budget
+  caption_labor_budget: Budget de travail
+  caption_spent: Dépense
+  label_update_deliverable: Mettre à jour le livrable
+  label_labor_budget: "Budget de travail: "
+  label_labor_budget_spent: "Budget de travail depensé: "
+  label_labor_budget_remaining: "Budget de travail restant: "
+  label_progress: "Progression: "
+  label_budget_score: "Score du budget: "
+  label_overruns: "Dépassement: "
+  label_missing_on: Manquant sur
+  label_next_due_date: "Prochaine date d'échéance: "
+  label_completion: "Completion: "
+  label_potential_profit: "Potential Profit: "
+  label_bulk_assign: Assigner en vrac
+  label_labor: "Travail: "
+  label_fixed_amount: "Montant fixe: "
+  label_hours_estimated: "Heures estimées: "
+  label_hours_used: "Heures utilisées: "
+  label_toggle_all: "Développer tous les livrables"
