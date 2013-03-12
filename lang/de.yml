@@ -1,0 +1,48 @@
+budget_title: Budget
+field_cost_per_hour: Kosten pro Stunde
+field_total_hours: Gesamtstunden
+field_overhead: Zuschlag
+label_overhead: "Zuschlag: "
+field_materials: Materialkosten
+label_materials: "Materialien: "
+field_profit: Gewinn
+field_budget: Gesamtbudget
+label_budget: "Gesamtbudget: "
+field_fixed_cost: Festpreis-Angebot
+field_project_manager_signoff: Projektleiter-Freigabe
+field_client_signoff: Kunden-Freigabe
+field_deliverable: Deliverable
+field_deliverable_subject: Deliverable
+field_due: Fälligkeitsdatum
+label_member_rate: Tarif (€)
+message_updated_issues: "%d Tickets aktualisiert"
+message_budget_settings: Trage in jedes Feld einen Betrag in Euro oder Prozent ein, um den Standardbetrag zu setzen. Für Prozentwerte <strong>%%</strong> im Eingabefeld verwenden.
+label_non_billable_overhead: Nicht abrechenbare Kosten
+label_materials: Materialien
+label_profit: Gewinn
+label_new_deliverable: Neues Deliverable
+label_fixed_cost: Festpreis
+caption_due: Fällig
+caption_progress: Fortschritt
+caption_subject: Subjekt
+caption_score: Punkte
+caption_budget: Budget
+caption_labor_budget: Arbeits-Budget
+caption_spent: Verbraucht
+label_update_deliverable: Deliverable aktualisieren
+label_labor_budget: "Arbeits-Budget: "
+label_labor_budget_spent: "Verbrauchtes Arbeits-Budget: "
+label_labor_budget_remaining: "Verbleibendes Arbeits-Budget: "
+label_progress: "Fortschritt: "
+label_budget_score: "Budget-Punkte: "
+label_overruns: "Überschreitungen: "
+label_missing_on: Fehlend in
+label_next_due_date: "Nächstes Fälligkeitsdatum: "
+label_completion: "Fertigstellung: "
+label_potential_profit: "Potentieller Gewinn: "
+label_bulk_assign: Alle Zuordnen
+label_labor: "Arbeit: "
+label_fixed_amount: "Fester Betrag: "
+label_hours_estimated: "Geschätzte Stunden: "
+label_hours_used: "Gebrauchte Stunden: "
+label_toggle_all: "Alle Deliverable-Zeilen ausklappen"
