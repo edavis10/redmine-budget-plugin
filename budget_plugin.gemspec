@@ -66,6 +66,7 @@ Gem::Specification.new do |s|
      "lang/es.yml",
      "lang/hu.yml",
      "lang/lt.yml",
+     "lang/de.yml",
      "lib/budget_issue_hook.rb",
      "lib/budget_project_hook.rb",
      "lib/issue_patch.rb",
